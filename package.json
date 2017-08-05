@@ -1,0 +1,20 @@
+{
+  "name": "hn",
+  "version": "0.0.1",
+  "description": "Connects with an Drupal website that has the hn module installed.",
+  "main": "lib/index.js",
+  "repository": {
+    "url": "https://github.com/bartlangelaan/hn"
+  },
+  "author": "Bart Langelaan",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "semantic-release": "^6.3.6"
+  },
+  "scripts": {
+    "build": "babel src -d lib",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  }
+}
