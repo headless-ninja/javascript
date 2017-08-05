@@ -3,18 +3,23 @@
   "version": "0.0.1",
   "description": "Connects with an Drupal website that has the hn module installed.",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": {
     "url": "https://github.com/bartlangelaan/hn"
   },
   "author": "Bart Langelaan",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-preset-env": "^1.6.0",
-    "semantic-release": "^6.3.6"
+    "semantic-release": "^6.3.6",
+    "tslint": "^5.5.0",
+    "tslint-config-airbnb": "^5.2.1",
+    "typescript": "^2.4.2"
   },
   "scripts": {
-    "build": "babel src -d lib",
+    "build": "tsc --declaration",
+    "start": "yarn build -- --watch",
+    "lint": "tslint 'src/**/*.ts?(x)'",
+    "lint:fix": "yarn lint -- --fix",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   }
 }
