@@ -1,5 +1,5 @@
 var test = require('tape');
-var hn = require('../../lib');
+var hn = require('../../src');
 
 test('creating a site', function(t){
 

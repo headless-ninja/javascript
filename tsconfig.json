@@ -7,5 +7,10 @@
     "sourceMap": true,
     "inlineSourceMap": false,
     "declaration": true
-  }
+  },
+  "exclude": [
+    "lib",
+    "node_modules",
+    "tests"
+  ]
 }
