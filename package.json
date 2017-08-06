@@ -20,7 +20,7 @@
     "typescript": "^2.4.2"
   },
   "scripts": {
-    "build": "tsc --declaration",
+    "build": "tsc",
     "test": "istanbul cover tape tests/unit/*.js | faucet",
     "start": "yarn build -- --watch",
     "lint": "tslint 'src/**/*.ts?(x)'",
