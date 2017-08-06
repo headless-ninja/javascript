@@ -10,6 +10,9 @@
   "author": "Bart Langelaan",
   "license": "MIT",
   "devDependencies": {
+    "coveralls": "^2.13.1",
+    "faucet": "^0.0.1",
+    "istanbul": "^0.4.5",
     "semantic-release": "^6.3.6",
     "tape": "^4.8.0",
     "tslint": "^5.5.0",
@@ -18,11 +21,12 @@
   },
   "scripts": {
     "build": "tsc --declaration",
-    "test": "node tests/unit/*.js",
+    "test": "istanbul cover tape tests/unit/*.js | faucet",
     "start": "yarn build -- --watch",
     "lint": "tslint 'src/**/*.ts?(x)'",
     "lint:fix": "yarn lint -- --fix",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post && yarn coveralls",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
     "deepmerge": "^1.5.0",
