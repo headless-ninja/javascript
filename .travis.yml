@@ -8,7 +8,6 @@ branches:
   except:
     - /^v\d+\.\d+\.\d+$/
 
-before_script: npm prune
 script:
   - yarn build
   - yarn lint
