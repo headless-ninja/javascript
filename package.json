@@ -25,7 +25,7 @@
     "start": "yarn build -- --watch",
     "lint": "tslint 'src/**/*.ts?(x)'",
     "lint:fix": "yarn lint -- --fix",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release postyarn coveralls",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
