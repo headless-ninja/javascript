@@ -11,6 +11,7 @@
   "license": "MIT",
   "devDependencies": {
     "coveralls": "^2.13.1",
+    "fetch-mock": "^5.12.1",
     "nyc": "^11.1.0",
     "semantic-release": "^6.3.6",
     "tap-nyc": "^1.0.2",
@@ -32,6 +33,9 @@
   },
   "dependencies": {
     "deepmerge": "^1.5.0",
+    "es6-promise": "^4.1.1",
+    "fetch-ponyfill": "^4.1.0",
+    "isomorphic-fetch": "^2.2.1",
     "universal-fetch": "^1.0.0"
   },
   "nyc": {

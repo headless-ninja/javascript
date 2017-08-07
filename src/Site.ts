@@ -1,12 +1,19 @@
-// tslint:disable-next-line:import-name
-import fetch from 'universal-fetch';
-import deepmerge from 'deepmerge';
+import { polyfill } from 'es6-promise';
+import 'isomorphic-fetch';
+import * as deepmerge from 'deepmerge';
+
+polyfill();
 
 class Site {
 
   private url: string;
 
-  private data: object;
+  private data = {
+    data: {},
+    paths: {},
+  };
+
+  private pagesLoading = {};
 
   constructor({ url }: {url: string}) {
 
@@ -14,28 +21,41 @@ class Site {
 
   }
 
-  fetch(options: object): Promise<object> {
-    return fetch({
+  fetch(path, options = {}): Promise<object> {
+    return fetch(this.url + path, {
       method: 'GET',
       mode: 'cors',
       cache: 'default',
       ...options,
-    }).then(result => result.json());
+    })
+      .then(result => result.json())
   }
 
-  getPage({ path }: {path: string}) {
-    return this.fetch({ url: this.url + '/hn?_format=hn&path=' + encodeURIComponent(path) })
-      .then((page) => {
-        this.addData(page);
-      });
+  getPage(path, loadFromServer = false): Promise<void> {
+
+    if (loadFromServer === true || !this.pagesLoading[path]) {
+      this.pagesLoading[path] = this.fetch('/hn?_format=hn&path=' + encodeURIComponent(path))
+        .then((page) => {
+          this.addData(page);
+        })
+        .catch((error) => {
+          console.error(error);
+          this.addData({
+            paths: {
+              [path]: '500',
+            },
+          });
+        });
+    }
+    return this.pagesLoading[path].then(() => this.data.paths[path]);
   }
 
   private addData(data: object) {
     this.data = deepmerge(this.data, data, { arrayMerge: (a, b) => a.concat(b) });
   }
 
-  getData() {
-    return this.data;
+  getData(key) {
+    return this.data.data[key];
   }
 }
 
