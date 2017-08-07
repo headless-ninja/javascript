@@ -28,7 +28,7 @@ class Site {
       cache: 'default',
       ...options,
     })
-      .then(result => result.json())
+      .then(result => result.json());
   }
 
   getPage(path, loadFromServer = false): Promise<void> {
