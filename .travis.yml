@@ -10,8 +10,8 @@ branches:
 
 script:
   - yarn build
-  - yarn lint
-  - yarn test
+  #- yarn lint
+  #- yarn test
 after_success:
-  - yarn coveralls
+  #- yarn coveralls
   - yarn semantic-release

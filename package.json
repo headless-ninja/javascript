@@ -4,7 +4,7 @@
   "description": "The React implementation of Headless Ninja.",
   "main": "lib/index.js",
   "repository": {
-    "url": "https://github.com/bartlangelaan/hn-react"
+    "url": "https://github.com/burst-digital/hn-react"
   },
   "bin": {
     "hn-react-next": "./src/next.js"
@@ -39,10 +39,12 @@
     "hn": "^0.1.1",
     "next": "beta",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "semantic-release": "^6.3.6"
   },
   "scripts": {
     "build": "babel src -d lib",
-    "test:next": "cd tests/functional/next && npm run build && npm start"
+    "test:next": "cd tests/functional/next && npm run build && npm start",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   }
 }
