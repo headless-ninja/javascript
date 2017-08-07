@@ -1,0 +1,48 @@
+{
+  "name": "hn-react",
+  "version": "0.0.0-development",
+  "description": "The React implementation of Headless Ninja.",
+  "main": "lib/index.js",
+  "repository": {
+    "url": "https://github.com/bartlangelaan/hn-react"
+  },
+  "bin": {
+    "hn-react-next": "./src/next.js"
+  },
+  "author": "Bart Langelaan",
+  "license": "MIT",
+  "dependencies": {
+    "babel-runtime": "^6.25.0"
+  },
+  "nyc": {
+    "extension": [
+      ".js",
+      ".jsx"
+    ],
+    "exclude": [
+      "tests/**"
+    ],
+    "require": [
+      "babel-register"
+    ]
+  },
+  "peerDependencies": {
+    "hn": "^0.1.1",
+    "react": "^15.6.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "hn": "^0.1.1",
+    "next": "beta",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "scripts": {
+    "build": "babel src -d lib",
+    "test:next": "cd tests/functional/next && npm run build && npm start"
+  }
+}
