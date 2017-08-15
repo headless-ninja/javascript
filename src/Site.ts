@@ -1,6 +1,7 @@
 import { polyfill } from 'es6-promise';
 import 'isomorphic-fetch';
 import * as deepmerge from 'deepmerge';
+import getNested from 'get-nested';
 
 polyfill();
 
@@ -75,6 +76,22 @@ class Site {
         .catch(console.error);
     }
     return this.pagesLoading[ key ].then(() => this.data.paths[ key ]);
+  }
+
+  /**
+   * * Translate ninja
+   * Get the translations from the settings block.
+   * Gets the language from context, or from parameter if overruled.
+   * Returns input string when no translations are available.
+   * @param string
+   * @param langCode
+   * @return {*}
+   */
+  // tslint:disable-next-line function-name
+  t(string, langCode) {
+    const settings = this.getData('settings');
+    const language = langCode || this.getData(this.data.paths[window.location.pathname]).langcode;
+    return getNested(() => settings.translations[string][language], string);
   }
 }
 
