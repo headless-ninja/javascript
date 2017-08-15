@@ -1,7 +1,7 @@
 import { polyfill } from 'es6-promise';
 import 'isomorphic-fetch';
 import * as deepmerge from 'deepmerge';
-import getNested from 'get-nested';
+import * as getNested from 'get-nested';
 
 polyfill();
 
