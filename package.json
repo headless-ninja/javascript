@@ -29,7 +29,7 @@
     ]
   },
   "peerDependencies": {
-    "hn": "^0.2.0",
+    "hn": "^0.3.1",
     "react": "^15.6.1"
   },
   "devDependencies": {
@@ -38,7 +38,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
-    "hn": "^0.2.0",
+    "hn": "^0.3.1",
     "next": "^2.4.9",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

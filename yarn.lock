@@ -2034,13 +2034,14 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hn@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/hn/-/hn-0.2.0.tgz#d5756bc772dedd6fe841add6fb4a3931c48056f9"
+hn@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/hn/-/hn-0.3.1.tgz#069c5687c9d36578ee4be3fd324106b691cfce1a"
   dependencies:
     deepmerge "^1.5.0"
     es6-promise "^4.1.1"
     fetch-ponyfill "^4.1.0"
+    get-nested "^4.0.0"
     isomorphic-fetch "^2.2.1"
     universal-fetch "^1.0.0"
 
