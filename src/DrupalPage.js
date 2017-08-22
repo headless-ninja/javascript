@@ -37,17 +37,12 @@ export default class extends Component {
 
     const page = site.getData(this.props.page);
 
-    if(typeof getNested(() => page.type.target_id) !== 'string') {
-      return null;
-    }
-
-    const ContentType = (typeof mapper === 'object') ? mapper[page.type.target_id] : mapper(page.type.target_id);
+    const ContentType = (typeof mapper === 'object' && page.type) ? mapper[page.type.target_id] : mapper(page);
 
     if(!ContentType) {
       console.error('Component for content type', page.type.target_id, 'not found.');
       return null;
     }
-
 
     return (
       <Layout
