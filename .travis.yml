@@ -8,10 +8,12 @@ branches:
   except:
     - /^v\d+\.\d+\.\d+$/
 
-script:
-  - yarn build
-  #- yarn lint
-  #- yarn test
-after_success:
-  #- yarn coveralls
-  - yarn semantic-release
+before_install: yarn global add greenkeeper-lockfile@1
+
+before_script: greenkeeper-lockfile-update
+
+script: yarn build
+
+after_script: greenkeeper-lockfile-upload
+
+after_success: yarn semantic-release
