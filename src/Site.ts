@@ -90,8 +90,9 @@ class Site {
   // tslint:disable-next-line function-name
   t(string, langCode) {
     const settings = this.getData('settings');
-    const language = langCode || this.getData(this.data.paths[window.location.pathname]).langcode;
-    return getNested(() => settings.translations[string][language], string);
+    const path = this.data.paths[window.location.pathname];
+    const lang = langCode || getNested(() => this.getData(path).langcode, 'en');
+    return getNested(() => settings.translations[string][lang], string);
   }
 }
 
