@@ -30,7 +30,8 @@
   },
   "peerDependencies": {
     "hn": "^0.3.1",
-    "react": "^15.6.1"
+    "react": "^15.6.1",
+    "next": "^3.0.6"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -39,7 +40,6 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
     "hn": "^0.3.1",
-    "next": "^3.0.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "semantic-release": "^7.0.2"

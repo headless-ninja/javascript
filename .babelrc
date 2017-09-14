@@ -1,5 +1,5 @@
 {
-  "presets": ['next/babel', ["env", {
+  "presets": ["./babel", ["env", {
     "targets": {
       "node": true
     }
