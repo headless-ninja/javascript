@@ -24,23 +24,68 @@ export default class extends Component {
       PropTypes.shape(),
       PropTypes.func,
     ]).isRequired,
+    asyncMapper: PropTypes.bool,
   };
 
   static defaultProps = {
     layout: 'div',
+    asyncMapper: false,
   };
 
-  render() {
-    const mapper = this.props.mapper;
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      loading: false,
+      contentType: null,
+    };
+
+    this.contentTypes = {};
+  }
+
+  componentWillMount() {
+    this.saveComponent(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.saveComponent(nextProps);
+  }
+
+  saveComponent(props) {
+    const { mapper, asyncMapper } = props;
+    const page = site.getData(props.page);
+    const bundle = `${page.__hn.entity.type}__${page.__hn.entity.bundle}`;
+
+    const ContentType = (typeof mapper === 'object' && page.type) ? mapper[bundle] : mapper(page, bundle);
+
+    if(!ContentType) {
+      console.error('Component for content type', bundle, 'not found.');
+      return null;
+    }
+
+    if(asyncMapper) {
+      this.setState({ loading: true });
+      ContentType().then(module => {
+        this.contentTypes[bundle] = module.default || module;
+        this.setState({
+          contentType: bundle,
+          loading: false,
+        });
+      });
+    } else {
+      this.contentTypes[bundle] = ContentType;
+      this.setState({ contentType: bundle });
+    }
+  }
+
+  render() {
     const Layout = this.props.layout;
 
     const page = site.getData(this.props.page);
 
-    const ContentType = (typeof mapper === 'object' && page.type) ? mapper[page.type.target_id] : mapper(page);
+    const ContentType = this.contentTypes[this.state.contentType];
 
     if(!ContentType) {
-      console.error('Component for content type', page.type.target_id, 'not found.');
       return null;
     }
 
