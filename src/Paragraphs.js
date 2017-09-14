@@ -10,6 +10,7 @@ const Paragraphs = ({ mapper, paragraphs, page, Wrapper }) =>
         uuid={uuid.target_uuid}
         page={page}
         index={index}
+        mapper={mapper}
       />
     );
     if(Wrapper) {
@@ -28,11 +29,7 @@ Paragraphs.propTypes = {
     PropTypes.func,
   ]).isRequired,
   paragraphs: PropTypes.arrayOf(PropTypes.shape()),
-  page: PropTypes.shape({
-    uuid: PropTypes.shape({
-      target_uuid: PropTypes.string,
-    }).isRequired,
-  }),
+  page: PropTypes.shape(),
   Wrapper: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.node,
