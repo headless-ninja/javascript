@@ -10,6 +10,11 @@ const Paragraph = ({ mapper, uuid, page, index }) => {
   }
 
   const Component = typeof mapper === 'function' ? mapper(paragraph.type.target_id) : mapper[paragraph.type.target_id];
+
+  if(!Component) {
+    return null;
+  }
+
   return (
     <Component
       type={paragraph.type.target_id}
