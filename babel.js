@@ -9,8 +9,16 @@ const babelModuleResolverIndex = plugins.findIndex((plugin) => {
   return false;
 });
 
-// Remove babel-module-resolver because Next uses his local babel-runtime, but we need it to grab just the one that's available.
-plugins.splice(babelModuleResolverIndex, 1);
+const babelModuleResolver = plugins[babelModuleResolverIndex];
+
+const babelModulesResolverAlias = {...[...babelModuleResolver][1].alias};
+
+// Remove babel-runtime alias because Next uses his local babel-runtime, but we need it to grab just the one that's available.
+delete babelModulesResolverAlias['babel-runtime'];
+
+babelModuleResolver[1].alias = babelModulesResolverAlias;
+
+plugins[babelModuleResolverIndex] = babelModuleResolver;
 
 babelCopy.plugins = plugins;
 
