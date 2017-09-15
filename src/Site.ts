@@ -60,7 +60,7 @@ class Site {
   }
 
   private addData(data: object) {
-    this.data = deepmerge(this.data, data, { arrayMerge: (a, b) => a.concat(b) });
+    this.data = deepmerge(this.data, data, { arrayMerge: (a, b) => b });
   }
 
   getData(key) {
