@@ -67,17 +67,6 @@ class Site {
     return this.data.data[ key ];
   }
 
-  getSettings(loadFromServer = false, key = 'settings') {
-    if (loadFromServer === true || !this.pagesLoading[ key ]) {
-      this.pagesLoading[ key ] = this.fetch('/api/v1/settings?_format=json')
-        .then((settings) => {
-          this.addData({ data: { [key]: settings } });
-        })
-        .catch(console.error);
-    }
-    return this.pagesLoading[ key ].then(() => this.data.paths[ key ]);
-  }
-
   /**
    * * Translate ninja
    * Get the translations from the settings block.
