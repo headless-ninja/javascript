@@ -20,13 +20,13 @@ class Site {
     this.url = url;
   }
 
-  reset(url = this.url, data = { data: {}, paths: {} }, pagesLoading = {}) {
+  public reset(url = this.url, data = { data: {}, paths: {} }, pagesLoading = {}) {
     this.url = url;
     this.data = data;
     this.pagesLoading = pagesLoading;
   }
 
-  fetch(path, options = {}): Promise<object> {
+  private fetch(path, options = {}): Promise<object> {
     return fetch(this.url + path, {
       method: 'GET',
       mode: 'cors',
@@ -41,9 +41,10 @@ class Site {
       });
   }
 
-  getPage(path, loadFromServer = false): Promise<void> {
+  public getPage(path, loadFromServer = false): Promise<void> {
     if (loadFromServer === true || !this.pagesLoading[ path ]) {
-      this.pagesLoading[ path ] = this.fetch('/hn?_format=hn&path=' + encodeURIComponent(path))
+      const encodedPath = encodeURIComponent(path);
+      this.pagesLoading[ path ] = this.fetch(`/hn?_format=hn&path=${encodedPath}`)
         .then((page: Response) => {
           this.addData(page);
         })
@@ -63,7 +64,7 @@ class Site {
     this.data = deepmerge(this.data, data, { arrayMerge: (a, b) => b });
   }
 
-  getData(key) {
+  public getData(key) {
     return this.data.data[ key ];
   }
 
@@ -77,7 +78,7 @@ class Site {
    * @return {*}
    */
   // tslint:disable-next-line function-name
-  t(string, langCode) {
+  public t(string, langCode) {
     const settings = this.getData('settings');
     const path = this.data.paths[window.location.pathname];
     const lang = langCode || getNested(() => this.getData(path).langcode, 'en');
