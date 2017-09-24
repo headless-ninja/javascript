@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import getNested from 'get-nested';
 import site from './site';
 
-export default class extends Component {
+const components = new Map();
 
+export default class extends Component {
   static propTypes = {
+    url: PropTypes.string.isRequired,
     layout: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.string,
@@ -19,6 +21,7 @@ export default class extends Component {
   };
 
   static defaultProps = {
+    page: null,
     layout: 'div',
     asyncMapper: false,
   };
@@ -27,65 +30,81 @@ export default class extends Component {
     super(props);
 
     this.state = {
-      loading: false,
-      contentType: null,
+      ready: false,
+      pageUuid: null,
+      contentTypeComponentSymbol: null,
     };
-
-    this.contentTypes = {};
   }
 
   componentWillMount() {
-    this.saveComponent(this.props);
+    this.loadData(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.saveComponent(nextProps);
+    this.loadData(nextProps);
   }
 
-  saveComponent(props) {
-    const { mapper, asyncMapper } = props;
-    const page = site.getData(props.page);
-    const bundle = `${page.__hn.entity.type}__${page.__hn.entity.bundle}`;
+  async loadData({ page, url, mapper, asyncMapper }) {
 
-    const ContentType = (typeof mapper === 'object' && page.type) ? mapper[bundle] : mapper(page, bundle);
+    // Mark this component as not-ready.
+    this.setState({ ready: false, pageUuid: null, contentTypeComponentSymbol: null });
 
-    if(!ContentType) {
-      console.error('Component for content type', bundle, 'not found.');
-      return null;
+    // Get the page. If the page was already fetched before, this should be instant.
+    const pageUuid = await site.getPage(url || page);
+    if(!pageUuid) {
+      throw Error('An error occurred getting a response from the server.');
     }
 
-    if(asyncMapper) {
-      this.setState({ loading: true });
-      ContentType().then(module => {
-        this.contentTypes[bundle] = module.default || module;
-        this.setState({
-          contentType: bundle,
-          loading: false,
-        });
-      });
-    } else {
-      this.contentTypes[bundle] = ContentType;
-      this.setState({ contentType: bundle });
+    // This gets the data from the site, based on the uuid.
+    const data = site.getData(pageUuid);
+
+    // This should give back a bundle string, that is used in the mapper.
+    const bundle = getNested(() => `${data.__hn.entity.type}__${data.__hn.entity.bundle}`, '_fallback');
+
+    // Get the component that belongs to this content type
+    let contentTypeComponent = typeof mapper === 'function' ? mapper(data, bundle) : mapper[bundle];
+
+    // If asyncMapper is true, execute the function so it returns a promise.
+    if(asyncMapper && typeof contentTypeComponent === 'function') {
+      contentTypeComponent = contentTypeComponent();
     }
+
+    // If a promise was returned, resolve it.
+    if(contentTypeComponent && typeof contentTypeComponent.then !== 'undefined') {
+      contentTypeComponent = await contentTypeComponent;
+    }
+
+    // Make sure there is a contentComponent.
+    if(!contentTypeComponent) {
+      throw Error('No content type found');
+    }
+
+    // If it has a .default (ES6+), use that.
+    if(contentTypeComponent.default) {
+      contentTypeComponent = contentTypeComponent.default;
+    }
+
+    // Store the contentTypeComponent globally, so it can be rendered sync.
+    const contentTypeComponentSymbol = Symbol.for(contentTypeComponent);
+    components.set(contentTypeComponentSymbol, contentTypeComponent);
+
+    // Mark this component as ready.
+    this.setState({ pageUuid, contentTypeComponentSymbol, ready: true });
   }
 
   render() {
+    // Only render if the component is ready.
+    if (!this.state.ready) return null;
+
+    // Get props.
     const Layout = this.props.layout;
 
-    const page = site.getData(this.props.page);
-
-    const ContentType = this.contentTypes[this.state.contentType];
-
-    if(!ContentType) {
-      return null;
-    }
+    // Get the data and content types with the state properties.
+    const data = site.getData(this.state.pageUuid);
+    const ContentType = components.get(this.state.contentTypeComponentSymbol);
 
     return (
-      <Layout
-        page={page}
-        location={this.props.location}
-        history={this.props.history}
-      >
+      <Layout page={data}>
         <ContentType page={page} />
       </Layout>
     );
