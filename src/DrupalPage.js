@@ -5,15 +5,6 @@ import getNested from 'get-nested';
 import site from './site';
 
 export default class extends Component {
-  static async getInitialProps({ asPath }) {
-    const location = parse(asPath, true);
-    const page = await site.getPage(asPath, true);
-
-    return {
-      location,
-      page
-    };
-  }
 
   static propTypes = {
     layout: PropTypes.oneOfType([
