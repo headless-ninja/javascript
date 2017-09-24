@@ -105,7 +105,7 @@ export default class extends Component {
 
     return (
       <Layout page={data}>
-        <ContentType page={page} />
+        <ContentType page={data} />
       </Layout>
     );
   }
