@@ -2,6 +2,7 @@ import { polyfill } from 'es6-promise';
 import 'isomorphic-fetch';
 import * as deepmerge from 'deepmerge';
 import * as getNested from 'get-nested';
+import { stringify } from 'query-string';
 import SiteInitializeParams from './SiteInitializeParams';
 
 polyfill();
@@ -11,6 +12,8 @@ class Site {
   private initialized: boolean = false;
   private url: string;
 
+  private tokensToVerify: string[] = [];
+  private user: string;
   private data = {
     data: {},
     paths: {},
@@ -48,9 +51,31 @@ class Site {
 
   getPage(path, loadFromServer = false): Promise<void> {
     if (loadFromServer === true || !this.pagesLoading[ path ]) {
-      this.pagesLoading[ path ] = this.fetch('/hn?_format=hn&path=' + encodeURIComponent(path))
+
+      // Copy this.tokensToVerify for this single request.
+      const tokensToVerify = [...this.tokensToVerify];
+
+      this.pagesLoading[ path ] = this.fetch('/hn?' + stringify({
+        path,
+        _format: 'hn',
+        _hn_user: this.user ? this.user : undefined,
+        _hn_verify: tokensToVerify,
+      }))
         .then((page: Response) => {
+
+          // Get the user id, to pass to all new requests.
+          this.user = getNested(() => page['__hn'].request.user, this.user);
+
+          // Remove all sent tokens from the tokensToVerify.
+          this.tokensToVerify = this.tokensToVerify.filter(t => tokensToVerify.indexOf(t) === -1);
+
+          // Add new token to tokensToVerify.
+          const newToken = getNested(() => page['__hn'].request.token);
+          if (newToken) this.tokensToVerify.push(newToken);
+
+          // Add all data to the global data storage.
           this.addData(page);
+
         })
         .catch((error) => {
           // console.error(error);
