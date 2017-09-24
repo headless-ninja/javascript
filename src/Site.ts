@@ -2,11 +2,13 @@ import { polyfill } from 'es6-promise';
 import 'isomorphic-fetch';
 import * as deepmerge from 'deepmerge';
 import * as getNested from 'get-nested';
+import SiteInitializeParams from './SiteInitializeParams';
 
 polyfill();
 
 class Site {
 
+  private initialized: boolean = false;
   private url: string;
 
   private data = {
@@ -16,17 +18,20 @@ class Site {
 
   private pagesLoading = {};
 
-  constructor({ url }: { url: string }) {
-    this.url = url;
+  constructor(initParams?: SiteInitializeParams) {
+    if (initParams) this.initialize(initParams);
   }
 
-  reset(url = this.url, data = { data: {}, paths: {} }, pagesLoading = {}) {
+  initialize({ url }: SiteInitializeParams) {
+    this.initialized = true;
     this.url = url;
-    this.data = data;
-    this.pagesLoading = pagesLoading;
   }
 
   fetch(path, options = {}): Promise<object> {
+    if (!this.initialized) {
+      throw Error('Site is not intitialized. Pass an object when creating a site, or use the ' +
+        'initialize method.');
+    }
     return fetch(this.url + path, {
       method: 'GET',
       mode: 'cors',
