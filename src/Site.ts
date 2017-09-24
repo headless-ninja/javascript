@@ -7,11 +7,16 @@ import SiteInitializeParams from './SiteInitializeParams';
 
 polyfill();
 
+const propertiesToHydrate = ['tokensToVerify', 'user', 'data'];
+
 class Site {
 
   private initialized: boolean = false;
+
+  // Created when initializing
   private url: string;
 
+  // Can be hydrated and dehydrated
   private tokensToVerify: string[] = [];
   private user: string;
   private data = {
@@ -19,6 +24,7 @@ class Site {
     paths: {},
   };
 
+  // Not hydrated
   private pagesLoading = {};
 
   constructor(initParams?: SiteInitializeParams) {
@@ -28,6 +34,26 @@ class Site {
   initialize({ url }: SiteInitializeParams) {
     this.initialized = true;
     this.url = url;
+  }
+
+  /**
+   * Creates an object that can be hydrated by the hydrate function.
+   */
+  dehydrate(): object {
+    const dehydrated = {};
+    propertiesToHydrate.forEach((property) => {
+      dehydrated[property] = this[property];
+    });
+    return dehydrated;
+  }
+
+  /**
+   * Updates all properties with the object created by the dehydrate function.
+   */
+  hydrate(options: object): void {
+    propertiesToHydrate.forEach((property) => {
+      this[property] = options[property];
+    });
   }
 
   fetch(path, options = {}): Promise<object> {
@@ -43,7 +69,9 @@ class Site {
     })
       .then((response) => {
         if (!response.ok) {
-          throw Error(`Error at path: ${path}\n\n${response.statusText}`);
+          throw Error(
+            `Error at path: ${this.url + path}: ${response.status} - ${response.statusText}`,
+          );
         }
         return response.json();
       });
@@ -78,7 +106,7 @@ class Site {
 
         })
         .catch((error) => {
-          // console.error(error);
+          console.error(error);
           this.addData({
             paths: {
               [path]: '500',
