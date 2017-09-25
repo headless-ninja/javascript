@@ -1,11 +1,11 @@
 {
   "name": "hn",
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "description": "Connects with an Drupal website that has the hn module installed.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
-    "url": "https://github.com/bartlangelaan/hn"
+    "url": "https://github.com/burst-digital/hn"
   },
   "author": "Bart Langelaan",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "coveralls": "^2.13.1",
     "fetch-mock": "^5.12.1",
     "nyc": "^11.1.0",
-    "semantic-release": "^7.0.2",
+    "semantic-release": "^8.0.3",
     "tap-nyc": "^1.0.2",
     "tape": "^4.8.0",
     "ts-node": "^3.3.0",
@@ -37,6 +37,7 @@
     "fetch-ponyfill": "^4.1.0",
     "get-nested": "^4.0.0",
     "isomorphic-fetch": "^2.2.1",
+    "query-string": "^5.0.0",
     "universal-fetch": "^1.0.0"
   },
   "nyc": {

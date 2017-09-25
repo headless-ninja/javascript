@@ -2,31 +2,65 @@ import { polyfill } from 'es6-promise';
 import 'isomorphic-fetch';
 import * as deepmerge from 'deepmerge';
 import * as getNested from 'get-nested';
+import { stringify } from 'query-string';
+import SiteInitializeParams from './SiteInitializeParams';
 
 polyfill();
 
+const propertiesToHydrate = ['tokensToVerify', 'user', 'data'];
+
 class Site {
 
+  private initialized: boolean = false;
+
+  // Created when initializing
   private url: string;
 
+  // Can be hydrated and dehydrated
+  private tokensToVerify: string[] = [];
+  private user: string;
   private data = {
     data: {},
     paths: {},
   };
 
+  // Not hydrated
   private pagesLoading = {};
 
-  constructor({ url }: { url: string }) {
+  constructor(initParams?: SiteInitializeParams) {
+    if (initParams) this.initialize(initParams);
+  }
+
+  initialize({ url }: SiteInitializeParams) {
+    this.initialized = true;
     this.url = url;
   }
 
-  public reset(url = this.url, data = { data: {}, paths: {} }, pagesLoading = {}) {
-    this.url = url;
-    this.data = data;
-    this.pagesLoading = pagesLoading;
+  /**
+   * Creates an object that can be hydrated by the hydrate function.
+   */
+  dehydrate(): object {
+    const dehydrated = {};
+    propertiesToHydrate.forEach((property) => {
+      dehydrated[property] = this[property];
+    });
+    return dehydrated;
+  }
+
+  /**
+   * Updates all properties with the object created by the dehydrate function.
+   */
+  hydrate(options: object): void {
+    propertiesToHydrate.forEach((property) => {
+      this[property] = options[property];
+    });
   }
 
   private fetch(path, options = {}): Promise<object> {
+    if (!this.initialized) {
+      throw Error('Site is not intitialized. Pass an object when creating a site, or use the ' +
+        'initialize method.');
+    }
     return fetch(this.url + path, {
       method: 'GET',
       mode: 'cors',
@@ -35,7 +69,9 @@ class Site {
     })
       .then((response) => {
         if (!response.ok) {
-          throw Error(`Error at path: ${path}\n\n${response.statusText}`);
+          throw Error(
+            `Error at path: ${this.url + path}: ${response.status} - ${response.statusText}`,
+          );
         }
         return response.json();
       });
@@ -43,13 +79,34 @@ class Site {
 
   public getPage(path, loadFromServer = false): Promise<void> {
     if (loadFromServer === true || !this.pagesLoading[ path ]) {
-      const encodedPath = encodeURIComponent(path);
-      this.pagesLoading[ path ] = this.fetch(`/hn?_format=hn&path=${encodedPath}`)
+
+      // Copy this.tokensToVerify for this single request.
+      const tokensToVerify = [...this.tokensToVerify];
+
+      this.pagesLoading[ path ] = this.fetch('/hn?' + stringify({
+        path,
+        _format: 'hn',
+        _hn_user: this.user ? this.user : undefined,
+        _hn_verify: tokensToVerify,
+      }))
         .then((page: Response) => {
+
+          // Get the user id, to pass to all new requests.
+          this.user = getNested(() => page['__hn'].request.user, this.user);
+
+          // Remove all sent tokens from the tokensToVerify.
+          this.tokensToVerify = this.tokensToVerify.filter(t => tokensToVerify.indexOf(t) === -1);
+
+          // Add new token to tokensToVerify.
+          const newToken = getNested(() => page['__hn'].request.token);
+          if (newToken) this.tokensToVerify.push(newToken);
+
+          // Add all data to the global data storage.
           this.addData(page);
+
         })
         .catch((error) => {
-          // console.error(error);
+          console.error(error);
           this.addData({
             paths: {
               [path]: '500',
