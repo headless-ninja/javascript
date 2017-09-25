@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import site from './site';
 
-const Paragraph = ({ mapper, uuid, page, index }) => {
+const Paragraph = ({ mapper, uuid, page, index, paragraphProps }) => {
   const paragraph = site.getData(uuid);
 
   if(!paragraph) {
@@ -23,6 +23,7 @@ const Paragraph = ({ mapper, uuid, page, index }) => {
       page={page}
       paragraph={paragraph}
       index={index}
+      {...paragraphProps}
     />
   );
 };
@@ -35,6 +36,11 @@ Paragraph.propTypes = {
   uuid: PropTypes.string.isRequired,
   page: PropTypes.shape({}),
   index: PropTypes.number.isRequired,
+  paragraphProps: PropTypes.shape(),
+};
+
+Paragraph.defaultProps = {
+  paragraphProps: {}
 };
 
 export default Paragraph;

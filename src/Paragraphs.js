@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Paragraph from './Paragraph';
 
-const Paragraphs = ({ mapper, paragraphs, page, Wrapper }) =>
+const Paragraphs = ({ mapper, paragraphs, page, Wrapper, paragraphProps }) =>
   paragraphs.map((uuid, index) => {
     const paragraph = (
       <Paragraph
@@ -11,6 +11,7 @@ const Paragraphs = ({ mapper, paragraphs, page, Wrapper }) =>
         page={page}
         index={index}
         mapper={mapper}
+        paragraphProps={paragraphProps}
       />
     );
     if(Wrapper) {
@@ -34,10 +35,12 @@ Paragraphs.propTypes = {
     PropTypes.bool,
     PropTypes.node,
   ]),
+  paragraphProps: PropTypes.shape(),
 };
 
 Paragraphs.defaultProps = {
   Wrapper: false,
+  paragraphProps: {}
 };
 
 export default Paragraphs;
