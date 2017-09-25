@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { parse } from 'url';
 import PropTypes from 'prop-types';
 import getNested from 'get-nested';
-import site from './site';
+import site from '../site';
 
 const components = new Map();
 
