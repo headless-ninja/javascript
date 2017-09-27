@@ -18,12 +18,14 @@ export default class extends Component {
       PropTypes.func,
     ]).isRequired,
     asyncMapper: PropTypes.bool,
+    layoutProps: PropTypes.shape(),
   };
 
   static defaultProps = {
     page: null,
     layout: 'div',
     asyncMapper: false,
+    layoutProps: {},
   };
 
   constructor(props) {
@@ -105,6 +107,7 @@ export default class extends Component {
 
     return (
       <Layout page={data}>
+      <Layout page={data} {...this.props.layoutProps}>
         <ContentType page={data} />
       </Layout>
     );
