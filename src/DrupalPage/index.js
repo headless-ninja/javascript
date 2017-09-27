@@ -6,7 +6,7 @@ import site from '../site';
 
 const components = new Map();
 
-export default class extends Component {
+export default class DrupalPage extends Component {
   static propTypes = {
     url: PropTypes.string.isRequired,
     layout: PropTypes.oneOfType([
@@ -22,7 +22,6 @@ export default class extends Component {
   };
 
   static defaultProps = {
-    page: null,
     layout: 'div',
     asyncMapper: false,
     layoutProps: {},
@@ -38,23 +37,33 @@ export default class extends Component {
     };
   }
 
+  /**
+   * The first time this element is rendered, we always make sure the component and the Drupal page is loaded.
+   */
   componentWillMount() {
     this.loadData(this.props);
   }
 
+  /**
+   * As soon as the url, mapper or asyncMapper props change, we want to load new data.
+   * This always unmounts and mounts all children (Layout and ContentType).
+   */
   componentWillReceiveProps(nextProps) {
     if(this.props.url !== nextProps.url || this.props.mapper !== nextProps.mapper || this.props.asyncMapper !== nextProps.asyncMapper) {
       this.loadData(nextProps);
     }
   }
 
-  async loadData({ page, url, mapper, asyncMapper }) {
-
-    // Mark this component as not-ready.
-    this.setState({ ready: false, pageUuid: null, contentTypeComponentSymbol: null });
-
+  /**
+   * This makes sure the data for this url is ready to be rendered.
+   * @param url
+   * @param mapper
+   * @param asyncMapper
+   * @returns {Promise.<{pageUuid: void, contentTypeComponentSymbol: Symbol}>}
+   */
+  static async assureData({ url, mapper, asyncMapper }) {
     // Get the page. If the page was already fetched before, this should be instant.
-    const pageUuid = await site.getPage(url || page);
+    const pageUuid = await site.getPage(url);
     if(!pageUuid) {
       throw Error('An error occurred getting a response from the server.');
     }
@@ -92,6 +101,17 @@ export default class extends Component {
     const contentTypeComponentSymbol = Symbol.for(contentTypeComponent);
     components.set(contentTypeComponentSymbol, contentTypeComponent);
 
+    return { pageUuid, contentTypeComponentSymbol };
+  }
+
+  async loadData({ url, mapper, asyncMapper }) {
+
+    // Mark this component as not-ready.
+    this.setState({ ready: false, pageUuid: null, contentTypeComponentSymbol: null });
+
+    // Load the data.
+    const { pageUuid, contentTypeComponentSymbol } = await DrupalPage.assureData({ url, mapper, asyncMapper});
+
     // Mark this component as ready.
     this.setState({ pageUuid, contentTypeComponentSymbol, ready: true });
   }
@@ -108,7 +128,6 @@ export default class extends Component {
     const ContentType = components.get(this.state.contentTypeComponentSymbol);
 
     return (
-      <Layout page={data}>
       <Layout page={data} {...this.props.layoutProps}>
         <ContentType page={data} />
       </Layout>
