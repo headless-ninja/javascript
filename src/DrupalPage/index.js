@@ -104,13 +104,26 @@ export default class DrupalPage extends Component {
     return { pageUuid, contentTypeComponentSymbol };
   }
 
+  componentWillUnmount() {
+    this.lastRequest = null;
+  };
+
+  lastRequest = null;
+
   async loadData({ url, mapper, asyncMapper }) {
+
+    const lastRequest = Symbol(url);
+
+    this.lastRequest = lastRequest;
 
     // Mark this component as not-ready.
     this.setState({ ready: false, pageUuid: null, contentTypeComponentSymbol: null });
 
     // Load the data.
     const { pageUuid, contentTypeComponentSymbol } = await DrupalPage.assureData({ url, mapper, asyncMapper});
+
+    // Check if this is still the last request.
+    if(this.lastRequest !== lastRequest) return;
 
     // Mark this component as ready.
     this.setState({ pageUuid, contentTypeComponentSymbol, ready: true });
