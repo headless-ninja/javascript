@@ -43,7 +43,9 @@ export default class extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.loadData(nextProps);
+    if(this.props.url !== nextProps.url || this.props.mapper !== nextProps.mapper || this.props.asyncMapper !== nextProps.asyncMapper) {
+      this.loadData(nextProps);
+    }
   }
 
   async loadData({ page, url, mapper, asyncMapper }) {
