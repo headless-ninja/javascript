@@ -19,12 +19,14 @@ export default class DrupalPage extends Component {
     ]).isRequired,
     asyncMapper: PropTypes.bool,
     layoutProps: PropTypes.shape(),
+    renderWhileLoadingData: PropTypes.bool,
   };
 
   static defaultProps = {
     layout: 'div',
     asyncMapper: false,
     layoutProps: {},
+    renderWhileLoadingData: false,
   };
 
   constructor(props) {
@@ -116,8 +118,10 @@ export default class DrupalPage extends Component {
 
     this.lastRequest = lastRequest;
 
-    // Mark this component as not-ready.
-    this.setState({ ready: false, pageUuid: null, contentTypeComponentSymbol: null });
+    if(!this.props.renderWhileLoadingData) {
+      // Mark this component as not-ready. This unmounts the Layout and old ContentType.
+      this.setState({ready: false, pageUuid: null, contentTypeComponentSymbol: null});
+    }
 
     // Load the data.
     const { pageUuid, contentTypeComponentSymbol } = await DrupalPage.assureData({ url, mapper, asyncMapper});
@@ -125,7 +129,7 @@ export default class DrupalPage extends Component {
     // Check if this is still the last request.
     if(this.lastRequest !== lastRequest) return;
 
-    // Mark this component as ready.
+    // Mark this component as ready. This mounts the Layout and new ContentType.
     this.setState({ pageUuid, contentTypeComponentSymbol, ready: true });
   }
 
