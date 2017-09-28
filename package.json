@@ -10,7 +10,7 @@
   "author": "Bart Langelaan",
   "license": "MIT",
   "devDependencies": {
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.0",
     "fetch-mock": "^5.12.1",
     "nyc": "^11.1.0",
     "semantic-release": "^8.0.3",
