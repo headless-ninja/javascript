@@ -34,6 +34,8 @@ export default class DrupalPage extends Component {
 
     this.state = {
       ready: false,
+      loadingData: true,
+      dataUrl: null,
       pageUuid: null,
       contentTypeComponentSymbol: null,
     };
@@ -118,9 +120,11 @@ export default class DrupalPage extends Component {
 
     this.lastRequest = lastRequest;
 
+    this.setState({ loadingData: true });
+
     if(!this.props.renderWhileLoadingData) {
       // Mark this component as not-ready. This unmounts the Layout and old ContentType.
-      this.setState({ready: false, pageUuid: null, contentTypeComponentSymbol: null});
+      this.setState({ ready: false });
     }
 
     // Load the data.
@@ -130,7 +134,7 @@ export default class DrupalPage extends Component {
     if(this.lastRequest !== lastRequest) return;
 
     // Mark this component as ready. This mounts the Layout and new ContentType.
-    this.setState({ pageUuid, contentTypeComponentSymbol, ready: true });
+    this.setState({ pageUuid, contentTypeComponentSymbol, ready: true, loadingData: false, dataUrl: url });
   }
 
   render() {
@@ -145,7 +149,12 @@ export default class DrupalPage extends Component {
     const ContentType = components.get(this.state.contentTypeComponentSymbol);
 
     return (
-      <Layout page={data} {...this.props.layoutProps}>
+      <Layout
+        loadingData={this.state.loadingData}
+        url={this.state.dataUrl}
+        page={data}
+        {...this.props.layoutProps}
+      >
         <ContentType page={data} />
       </Layout>
     );
