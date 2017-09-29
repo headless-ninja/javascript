@@ -14,7 +14,8 @@
   "dependencies": {
     "babel-runtime": "^6.25.0",
     "get-nested": "^4.0.0",
-    "prop-types": "^15.5.10"
+    "prop-types": "^15.5.10",
+    "rimraf": "^2.6.2"
   },
   "nyc": {
     "extension": [
@@ -47,7 +48,7 @@
   },
   "scripts": {
     "start": "npm run build -- -w",
-    "build": "babel src -d lib",
+    "build": "rimraf lib && babel src -d lib",
     "test:next": "cd tests/functional/next && npm run build && npm start",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   }
