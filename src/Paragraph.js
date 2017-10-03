@@ -11,7 +11,11 @@ const Paragraph = ({ mapper, uuid, page, index, paragraphProps }) => {
 
   const bundle = `${paragraph.__hn.entity.type}__${paragraph.__hn.entity.bundle}`;
 
-  const Component = (typeof mapper === 'object' && page.type) ? mapper[bundle] : mapper(page, bundle);
+  const Component = (typeof mapper === 'object')
+    ? mapper[bundle]
+    : typeof mapper === 'function'
+      ? mapper(page, bundle)
+      : null;
 
   if(!Component) {
     return null;
