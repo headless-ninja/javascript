@@ -23,7 +23,7 @@ const Paragraph = ({ mapper, uuid, page, index, paragraphProps }) => {
 
   return (
     <Component
-      type={paragraph.type.target_id}
+      bundle={bundle}
       page={page}
       paragraph={paragraph}
       index={index}
