@@ -33,7 +33,8 @@ Paragraphs.propTypes = {
   page: PropTypes.shape(),
   Wrapper: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.node,
+    PropTypes.element,
+    PropTypes.func,
   ]),
   paragraphProps: PropTypes.shape(),
 };
