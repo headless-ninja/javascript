@@ -20,6 +20,10 @@ export default class DrupalPage extends Component {
     asyncMapper: PropTypes.bool,
     layoutProps: PropTypes.shape(),
     renderWhileLoadingData: PropTypes.bool,
+    ssrData: PropTypes.shape({
+      pageUuid: PropTypes.string.isRequired,
+      contentTypeComponentSymbol: PropTypes.symbol.isRequired,
+    }),
   };
 
   static defaultProps = {
@@ -27,6 +31,7 @@ export default class DrupalPage extends Component {
     asyncMapper: false,
     layoutProps: {},
     renderWhileLoadingData: false,
+    ssrData: null,
   };
 
   constructor(props) {
@@ -45,7 +50,12 @@ export default class DrupalPage extends Component {
    * The first time this element is rendered, we always make sure the component and the Drupal page is loaded.
    */
   componentWillMount() {
-    this.loadData(this.props);
+    if(this.props.ssrData) {
+      const { pageUuid, contentTypeComponentSymbol } = this.props.ssrData;
+      this.setState({ pageUuid, contentTypeComponentSymbol, ready: true, loadingData: false, dataUrl: this.props.url });
+    } else {
+      this.loadData(this.props);
+    }
   }
 
   /**
