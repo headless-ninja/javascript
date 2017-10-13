@@ -1,4 +1,4 @@
-import { polyfill } from 'es6-promise';
+import { polyfill, Promise } from 'es6-promise';
 import 'isomorphic-fetch';
 import * as deepmerge from 'deepmerge';
 import * as getNested from 'get-nested';
@@ -78,6 +78,13 @@ class Site {
   }
 
   public getPage(path, loadFromServer = false): Promise<void> {
+    if (!this.pagesLoading[ path ]) {
+      const dataMaybeAlreadyLoaded = getNested(() => this.data.data[this.data.paths[path]]);
+      if (getNested(() => dataMaybeAlreadyLoaded.__hn.view_modes.includes('default'))) {
+        this.pagesLoading[ path ] = Promise.resolve(this.data.paths[ path ]);
+      }
+    }
+
     if (loadFromServer === true || !this.pagesLoading[ path ]) {
 
       // Copy this.tokensToVerify for this single request.
