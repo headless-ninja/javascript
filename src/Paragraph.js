@@ -39,12 +39,13 @@ Paragraph.propTypes = {
   ]).isRequired,
   uuid: PropTypes.string.isRequired,
   page: PropTypes.shape({}),
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number,
   paragraphProps: PropTypes.shape(),
 };
 
 Paragraph.defaultProps = {
-  paragraphProps: {}
+  paragraphProps: {},
+  index: 0,
 };
 
 export default Paragraph;
