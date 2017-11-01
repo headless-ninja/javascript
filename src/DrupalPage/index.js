@@ -20,10 +20,6 @@ export default class DrupalPage extends Component {
     asyncMapper: PropTypes.bool,
     layoutProps: PropTypes.shape(),
     renderWhileLoadingData: PropTypes.bool,
-    ssrData: PropTypes.shape({
-      pageUuid: PropTypes.string.isRequired,
-      contentTypeComponentSymbol: PropTypes.symbol.isRequired,
-    }),
   };
 
   static defaultProps = {
@@ -31,7 +27,10 @@ export default class DrupalPage extends Component {
     asyncMapper: false,
     layoutProps: {},
     renderWhileLoadingData: false,
-    ssrData: null,
+  };
+
+  static contextTypes = {
+    hnContext: PropTypes.object,
   };
 
   constructor(props) {
@@ -47,12 +46,23 @@ export default class DrupalPage extends Component {
   }
 
   /**
+   * If this component exists in a tree that is invoked with the waitForHnData function, this function is invoked.
+   * Only after the promise is resolved, the component will be mounted. To keep the data fetched here, we assign the
+   * state to the hnContext provided by the DrupalPageContextProvider. This way, the state will be preserved trough
+   * multiple renders.
+   */
+  async asyncBootstrap() {
+    await this.loadData(this.props);
+    this.context.hnContext.state = this.state;
+  }
+
+  /**
    * The first time this element is rendered, we always make sure the component and the Drupal page is loaded.
    */
   componentWillMount() {
-    if(this.props.ssrData) {
-      const { pageUuid, contentTypeComponentSymbol } = this.props.ssrData;
-      this.setState({ pageUuid, contentTypeComponentSymbol, ready: true, loadingData: false, dataUrl: this.props.url });
+    const state = getNested(() => this.context.hnContext.state);
+    if (state) {
+      this.setState(state);
     } else {
       this.loadData(this.props);
     }
