@@ -16,7 +16,7 @@
     "semantic-release": "^8.0.3",
     "tap-nyc": "^1.0.2",
     "tape": "^4.8.0",
-    "ts-node": "^3.3.0",
+    "ts-node": "^4.0.0",
     "tslint": "^5.5.0",
     "tslint-config-airbnb": "^5.2.1",
     "typescript": "^2.4.2"
