@@ -16,6 +16,7 @@ class Site {
 
   // Created when initializing
   private url: string;
+  private fetchOptions: RequestInit;
 
   // Can be hydrated and dehydrated
   private tokensToVerify: string[];
@@ -30,10 +31,11 @@ class Site {
     if (initParams) this.initialize(initParams);
   }
 
-  initialize({ url }: SiteInitializeParams) {
+  initialize({ url, fetchOptions = {} }: SiteInitializeParams) {
     if (this.initialized) throw Error('The site is already initialized.');
     this.initialized = true;
     this.url = url;
+    this.fetchOptions = fetchOptions;
   }
 
   reset() {
@@ -78,6 +80,7 @@ class Site {
       mode: 'cors',
       cache: 'default',
       ...options,
+      ...this.fetchOptions,
     })
       .then((response) => {
         if (!response.ok) {
