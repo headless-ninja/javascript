@@ -27,6 +27,7 @@ const Paragraph = ({ mapper, uuid, page, index, paragraphProps }) => {
       page={page}
       paragraph={paragraph}
       index={index}
+      {...paragraph}
       {...paragraphProps}
     />
   );
