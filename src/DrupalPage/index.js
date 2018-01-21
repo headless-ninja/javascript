@@ -20,6 +20,7 @@ export default class DrupalPage extends Component {
     asyncMapper: PropTypes.bool,
     layoutProps: PropTypes.shape(),
     renderWhileLoadingData: PropTypes.bool,
+    pageProps: PropTypes.shape(),
   };
 
   static defaultProps = {
@@ -27,6 +28,7 @@ export default class DrupalPage extends Component {
     asyncMapper: false,
     layoutProps: {},
     renderWhileLoadingData: false,
+    pageProps: undefined,
   };
 
   static contextTypes = {
@@ -175,7 +177,11 @@ export default class DrupalPage extends Component {
         page={data}
         {...this.props.layoutProps}
       >
-        <ContentType page={data} />
+        <ContentType
+          page={data}
+          {...data}
+          {...this.props.pageProps}
+        />
       </Layout>
     );
   }
