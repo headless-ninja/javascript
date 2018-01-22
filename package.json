@@ -11,7 +11,7 @@
   "license": "MIT",
   "devDependencies": {
     "coveralls": "^2.13.1",
-    "fetch-mock": "^5.12.1",
+    "fetch-mock": "^6.0.0",
     "nyc": "^11.1.0",
     "semantic-release": "^8.0.3",
     "tap-nyc": "^1.0.2",
