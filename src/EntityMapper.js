@@ -51,12 +51,16 @@ class EntityMapper extends Component {
 
   static getBundle = entity => getNested(() => `${entity.__hn.entity.type}__${entity.__hn.entity.bundle}`, '_fallback');
 
-  state = {
-    entityComponentSymbol: null,
-    ready: false,
-    uuid: null,
-    page: null,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      entityComponentSymbol: null,
+      ready: false,
+      uuid: props.uuid,
+      entityProps: props.entityProps,
+    };
+  }
 
   componentDidMount() {
     this.loadComponent(this.props);
@@ -68,10 +72,10 @@ class EntityMapper extends Component {
     }
   }
 
-  async loadComponent({ uuid, page, mapper, asyncMapper }) {
+  async loadComponent({ uuid, mapper, asyncMapper, entityProps }) {
     this.setState({ ready: false });
     const entityComponentSymbol = await EntityMapper.assureComponent({ uuid, mapper, asyncMapper });
-    this.setState({ uuid, page, entityComponentSymbol, ready: true });
+    this.setState({ uuid, entityComponentSymbol, ready: true, entityProps });
   }
 
   isReady() {
@@ -79,8 +83,8 @@ class EntityMapper extends Component {
   }
 
   render() {
-    const { index, entityProps, paragraphProps } = this.props;
-    const { page, uuid, entityComponentSymbol } = this.state;
+    const { index, paragraphProps } = this.props;
+    const { uuid, entityComponentSymbol, entityProps } = this.state;
 
     const entity = site.getData(uuid);
 
@@ -93,7 +97,6 @@ class EntityMapper extends Component {
     return (
       <Component
         bundle={EntityMapper.getBundle(entity)}
-        page={page}
         paragraph={entity}
         entity={entity}
         index={index}
