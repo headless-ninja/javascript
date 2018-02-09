@@ -92,13 +92,13 @@ class EntityMapper extends Component {
 
     return (
       <Component
-        {...paragraphProps}
-        {...entityProps}
         bundle={EntityMapper.getBundle(entity)}
         page={page}
         paragraph={entity}
         entity={entity}
         index={index}
+        {...paragraphProps}
+        {...entityProps}
       />
     );
   }
