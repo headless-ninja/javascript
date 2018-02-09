@@ -1,51 +1,21 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import { parse } from 'url';
 import PropTypes from 'prop-types';
 import getNested from 'get-nested';
 import site from '../site';
+import EntityMapper from '../EntityMapper';
 
-const components = new Map();
-
-export default class DrupalPage extends Component {
-  static propTypes = {
-    url: PropTypes.string.isRequired,
-    layout: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.string,
-    ]),
-    mapper: PropTypes.oneOfType([
-      PropTypes.shape(),
-      PropTypes.func,
-    ]).isRequired,
-    asyncMapper: PropTypes.bool,
-    layoutProps: PropTypes.shape(),
-    renderWhileLoadingData: PropTypes.bool,
-    pageProps: PropTypes.shape(),
-  };
-
-  static defaultProps = {
-    layout: 'div',
-    asyncMapper: false,
-    layoutProps: {},
-    renderWhileLoadingData: false,
-    pageProps: undefined,
-  };
-
+class DrupalPage extends Component {
   static contextTypes = {
     hnContext: PropTypes.object,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      ready: false,
-      loadingData: true,
-      dataUrl: null,
-      pageUuid: null,
-      contentTypeComponentSymbol: null,
-    };
-  }
+  state = {
+    ready: false,
+    loadingData: true,
+    dataUrl: null,
+    pageUuid: null,
+  };
 
   /**
    * If this component exists in a tree that is invoked with the waitForHnData function, this function is invoked.
@@ -85,7 +55,7 @@ export default class DrupalPage extends Component {
    * @param url
    * @param mapper
    * @param asyncMapper
-   * @returns {Promise.<{pageUuid: void, contentTypeComponentSymbol: Symbol}>}
+   * @returns {Promise.<{pageUuid: string}>}
    */
   static async assureData({ url, mapper, asyncMapper }) {
     // Get the page. If the page was already fetched before, this should be instant.
@@ -94,40 +64,7 @@ export default class DrupalPage extends Component {
       throw Error('An error occurred getting a response from the server.');
     }
 
-    // This gets the data from the site, based on the uuid.
-    const data = site.getData(pageUuid);
-
-    // This should give back a bundle string, that is used in the mapper.
-    const bundle = getNested(() => `${data.__hn.entity.type}__${data.__hn.entity.bundle}`, '_fallback');
-
-    // Get the component that belongs to this content type
-    let contentTypeComponent = typeof mapper === 'function' ? mapper(data, bundle) : mapper[bundle];
-
-    // If asyncMapper is true, execute the function so it returns a promise.
-    if(asyncMapper && typeof contentTypeComponent === 'function') {
-      contentTypeComponent = contentTypeComponent();
-    }
-
-    // If a promise was returned, resolve it.
-    if(contentTypeComponent && typeof contentTypeComponent.then !== 'undefined') {
-      contentTypeComponent = await contentTypeComponent;
-    }
-
-    // Make sure there is a contentComponent.
-    if(!contentTypeComponent) {
-      throw Error('No content type found');
-    }
-
-    // If it has a .default (ES6+), use that.
-    if(contentTypeComponent.default) {
-      contentTypeComponent = contentTypeComponent.default;
-    }
-
-    // Store the contentTypeComponent globally, so it can be rendered sync.
-    const contentTypeComponentSymbol = Symbol.for(contentTypeComponent);
-    components.set(contentTypeComponentSymbol, contentTypeComponent);
-
-    return { pageUuid, contentTypeComponentSymbol };
+    return { pageUuid };
   }
 
   componentWillUnmount() {
@@ -144,31 +81,26 @@ export default class DrupalPage extends Component {
 
     this.setState({ loadingData: true });
 
-    if(!this.props.renderWhileLoadingData) {
-      // Mark this component as not-ready. This unmounts the Layout and old ContentType.
-      this.setState({ ready: false });
-    }
-
     // Load the data.
-    const { pageUuid, contentTypeComponentSymbol } = await DrupalPage.assureData({ url, mapper, asyncMapper});
+    const { pageUuid } = await DrupalPage.assureData({ url, mapper, asyncMapper});
 
     // Check if this is still the last request.
     if(this.lastRequest !== lastRequest) return;
 
     // Mark this component as ready. This mounts the Layout and new ContentType.
-    this.setState({ pageUuid, contentTypeComponentSymbol, ready: true, loadingData: false, dataUrl: url });
+    this.setState({ pageUuid, loadingData: false, dataUrl: url });
   }
 
   render() {
+    // Mark this component as not-ready. This unmounts the Layout and old ContentType.
     // Only render if the component is ready.
-    if (!this.state.ready) return null;
+    if (this.entity && !this.props.renderWhileLoadingData && !this.entity.isReady()) return null;
 
     // Get props.
     const Layout = this.props.layout;
 
     // Get the data and content types with the state properties.
     const data = site.getData(this.state.pageUuid);
-    const ContentType = components.get(this.state.contentTypeComponentSymbol);
 
     return (
       <Layout
@@ -177,12 +109,41 @@ export default class DrupalPage extends Component {
         page={data}
         {...this.props.layoutProps}
       >
-        <ContentType
+        <EntityMapper
+          mapper={this.props.mapper}
+          uuid={this.state.pageUuid}
+          asyncMapper={this.props.asyncMapper}
+          entityProps={this.props.pageProps}
           page={data}
-          {...data}
-          {...this.props.pageProps}
+          ref={(c) => { this.entity = c; }}
         />
       </Layout>
     );
   }
 }
+
+DrupalPage.propTypes = {
+  url: PropTypes.string.isRequired,
+  layout: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string,
+  ]),
+  mapper: PropTypes.oneOfType([
+    PropTypes.shape(),
+    PropTypes.func,
+  ]).isRequired,
+  asyncMapper: PropTypes.bool,
+  layoutProps: PropTypes.shape(),
+  renderWhileLoadingData: PropTypes.bool,
+  pageProps: PropTypes.shape(),
+};
+
+DrupalPage.defaultProps = {
+  layout: Fragment,
+  asyncMapper: undefined,
+  layoutProps: {},
+  renderWhileLoadingData: false,
+  pageProps: undefined,
+};
+
+export default DrupalPage;

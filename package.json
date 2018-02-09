@@ -15,7 +15,8 @@
     "babel-runtime": "^6.25.0",
     "get-nested": "^4.0.0",
     "prop-types": "^15.5.10",
-    "react-async-bootstrapper": "^1.1.2"
+    "react-async-bootstrapper": "^1.1.2",
+    "react-is-deprecated": "^0.1.2"
   },
   "nyc": {
     "extension": [
@@ -30,7 +31,7 @@
     ]
   },
   "peerDependencies": {
-    "hn": "^0.3.3",
+    "hn": "^0.6.1",
     "next": "^3.0.6",
     "react": "^16.0.0"
   },
@@ -40,7 +41,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
-    "hn": "^0.4.0",
+    "hn": "^0.6.1",
     "next": "^3.0.6",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
