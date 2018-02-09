@@ -113,8 +113,7 @@ class DrupalPage extends Component {
           mapper={this.props.mapper}
           uuid={this.state.pageUuid}
           asyncMapper={this.props.asyncMapper}
-          entityProps={this.props.pageProps}
-          page={data}
+          entityProps={{ ...this.props.pageProps, page: data }}
           ref={(c) => { this.entity = c; }}
         />
       </Layout>
