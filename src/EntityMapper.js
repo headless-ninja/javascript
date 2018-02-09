@@ -119,9 +119,9 @@ EntityMapper.propTypes = {
 
 EntityMapper.defaultProps = {
   asyncMapper: false,
-  page: {},
+  page: undefined,
   entityProps: {},
-  paragraphProps: {},
+  paragraphProps: undefined,
   index: 0,
 };
 
