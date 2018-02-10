@@ -11,7 +11,6 @@ class DrupalPage extends Component {
   };
 
   state = {
-    ready: false,
     loadingData: true,
     dataUrl: null,
     pageUuid: null,
@@ -24,15 +23,18 @@ class DrupalPage extends Component {
    * multiple renders.
    */
   async asyncBootstrap() {
-    await this.loadData(this.props);
-    this.context.hnContext.state = this.state;
+    this.context.hnContext.state = {
+      drupalPage: await this.loadData(this.props),
+      entities: {},
+    };
+    return true;
   }
 
   /**
    * The first time this element is rendered, we always make sure the component and the Drupal page is loaded.
    */
   componentWillMount() {
-    const state = getNested(() => this.context.hnContext.state);
+    const state = getNested(() => this.context.hnContext.state.drupalPage);
     if (state) {
       this.setState(state);
     } else {
@@ -87,8 +89,12 @@ class DrupalPage extends Component {
     // Check if this is still the last request.
     if(this.lastRequest !== lastRequest) return;
 
+    const newState = { ...this.state, ...{ pageUuid, loadingData: false, dataUrl: url }};
+
     // Mark this component as ready. This mounts the Layout and new ContentType.
-    this.setState({ pageUuid, loadingData: false, dataUrl: url });
+    this.setState(newState);
+
+    return newState;
   }
 
   render() {

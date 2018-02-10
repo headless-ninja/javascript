@@ -7,6 +7,10 @@ import site from './site';
 class EntityMapper extends Component {
   static entityComponents = new Map();
 
+  static contextTypes = {
+    hnContext: PropTypes.object,
+  };
+
   /**
    * This makes sure the data for this url is ready to be rendered.
    * @param uuid
@@ -62,8 +66,30 @@ class EntityMapper extends Component {
     };
   }
 
-  componentDidMount() {
-    this.loadComponent(this.props);
+  /**
+   * If this component exists in a tree that is invoked with the waitForHnData function, this function is invoked.
+   * Only after the promise is resolved, the component will be mounted. To keep the data fetched here, we assign the
+   * state to the hnContext provided by the DrupalPageContextProvider. This way, the state will be preserved trough
+   * multiple renders.
+   */
+  async asyncBootstrap() {
+    const { mapper, asyncMapper } = this.props;
+    const { uuid, entityProps } = this.state;
+    this.context.hnContext.state.entities[uuid] = await this.loadComponent({ uuid, mapper, asyncMapper, entityProps });
+    return true;
+  }
+
+  /**
+   * The first time this element is rendered, we always make sure the component and the Drupal page is loaded.
+   */
+  componentWillMount() {
+    const { uuid } = this.props;
+    const state = getNested(() => this.context.hnContext.state.entities[uuid]);
+    if (state) {
+      this.setState(state);
+    } else {
+      this.loadComponent(this.props);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -75,7 +101,11 @@ class EntityMapper extends Component {
   async loadComponent({ uuid, mapper, asyncMapper, entityProps }) {
     this.setState({ ready: false });
     const entityComponentSymbol = await EntityMapper.assureComponent({ uuid, mapper, asyncMapper });
-    this.setState({ uuid, entityComponentSymbol, ready: true, entityProps });
+
+    const newState = { ...this.state, ...{ uuid, entityComponentSymbol, ready: true, entityProps } };
+    this.setState(newState);
+
+    return newState;
   }
 
   isReady() {
