@@ -87,6 +87,7 @@ class EntityMapper extends Component {
     const state = getNested(() => this.context.hnContext.state.entities[uuid]);
     if (state) {
       this.setState(state);
+      delete this.context.hnContext.state.entities[uuid];
     } else {
       this.loadComponent(this.props);
     }
