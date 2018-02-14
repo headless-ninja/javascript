@@ -6,9 +6,6 @@
   "repository": {
     "url": "https://github.com/burst-digital/hn-react"
   },
-  "bin": {
-    "hn-react-next": "./src/next.js"
-  },
   "author": "Bart Langelaan",
   "license": "MIT",
   "dependencies": {
@@ -18,31 +15,18 @@
     "react-async-bootstrapper": "^1.1.2",
     "react-is-deprecated": "^0.1.2"
   },
-  "nyc": {
-    "extension": [
-      ".js",
-      ".jsx"
-    ],
-    "exclude": [
-      "tests/**"
-    ],
-    "require": [
-      "babel-register"
-    ]
-  },
   "peerDependencies": {
     "hn": "^0.6.1",
-    "next": "^3.0.6",
     "react": "^16.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
-    "babel-register": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
     "hn": "^0.6.1",
-    "next": "^3.0.6",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "rimraf": "^2.6.2",
@@ -51,7 +35,6 @@
   "scripts": {
     "start": "npm run build -- -w",
     "build": "rimraf lib && babel src -d lib",
-    "test:next": "cd tests/functional/next && npm run build && npm start",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   }
 }

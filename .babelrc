@@ -1,7 +1,4 @@
 {
-  "presets": ["./babel", ["env", {
-    "targets": {
-      "node": true
-    }
-  }]]
+  "plugins": ["transform-class-properties", "transform-runtime"],
+  "presets": ["stage-3", "react", "env"]
 }
