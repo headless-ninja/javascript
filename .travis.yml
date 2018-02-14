@@ -16,4 +16,4 @@ script: yarn build
 
 after_script: greenkeeper-lockfile-upload
 
-after_success: yarn semantic-release
+after_success: yarn travis-deploy-once "yarn semantic-release"
