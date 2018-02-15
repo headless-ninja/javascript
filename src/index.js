@@ -8,7 +8,7 @@ import waitForHnData from './DrupalPage/waitForHnData';
 let warningParagraphDeprecation = false;
 const Paragraph = (p) => {
   if(!warningParagraphDeprecation) {
-    console.error('Warning: The component "Paragraph" is deprecated, use "EntityMapper" instead.');
+    console.warn('Warning: The component "Paragraph" is deprecated, use "EntityMapper" instead.');
     warningParagraphDeprecation = true;
   }
   return <EntityMapper {...p} />;
@@ -17,7 +17,7 @@ const Paragraph = (p) => {
 let warningParagraphsDeprecation = false;
 const Paragraphs = (p) => {
   if(!warningParagraphsDeprecation) {
-    console.error('Warning: The component "Paragraphs" is deprecated, use "EntityListMapper" instead.');
+    console.warn('Warning: The component "Paragraphs" is deprecated, use "EntityListMapper" instead.');
     warningParagraphsDeprecation = true;
   }
   return <EntityListMapper {...p} />;
