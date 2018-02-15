@@ -25,7 +25,7 @@ class DrupalPage extends Component {
   async asyncBootstrap() {
     this.context.hnContext.state = {
       drupalPage: await this.loadData(this.props),
-      entities: {},
+      entities: [],
     };
     return true;
   }

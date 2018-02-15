@@ -75,7 +75,11 @@ class EntityMapper extends Component {
   async asyncBootstrap() {
     const { mapper, asyncMapper } = this.props;
     const { uuid, entityProps } = this.state;
-    this.context.hnContext.state.entities[uuid] = await this.loadComponent({ uuid, mapper, asyncMapper, entityProps });
+    this.context.hnContext.state.entities.push({
+      mapper,
+      uuid,
+      component: await this.loadComponent({ uuid, mapper, asyncMapper, entityProps })
+    });
     return true;
   }
 
@@ -83,11 +87,11 @@ class EntityMapper extends Component {
    * The first time this element is rendered, we always make sure the component and the Drupal page is loaded.
    */
   componentWillMount() {
-    const { uuid } = this.props;
-    const state = getNested(() => this.context.hnContext.state.entities[uuid]);
+    const { uuid, mapper } = this.props;
+    const state = getNested(() => this.context.hnContext.state.entities.find(e => e.mapper === mapper && e.uuid === uuid).component);
+
     if (state) {
       this.setState(state);
-      delete this.context.hnContext.state.entities[uuid];
     } else {
       this.loadComponent(this.props);
     }
