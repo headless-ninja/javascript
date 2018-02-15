@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 
 export default async function (children) {
 
-  const context = {};
+  const context = {
+    state: {
+      drupalPage: null,
+      entities: [],
+    },
+  };
 
   class DrupalPageContextProvider extends Component {
     getChildContext() {
