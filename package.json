@@ -27,16 +27,20 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "hn": "^0.6.1",
+    "jest": "^22.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-test-renderer": "^16.2.0",
     "rimraf": "^2.6.2",
     "semantic-release": "^12.4.1",
     "travis-deploy-once": "^4.3.4"
   },
   "scripts": {
     "start": "npm run build -- -w",
-    "build": "rimraf lib && babel src -d lib",
+    "build": "rimraf lib && babel src -d lib --ignore test.js",
     "travis-deploy-once": "travis-deploy-once",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "test": "yarn test:unit",
+    "test:unit": "jest"
   }
 }
