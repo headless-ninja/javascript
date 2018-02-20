@@ -1,4 +1,4 @@
-import { Paragraphs, Paragraph } from './index';
+import { Paragraphs } from './index';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import site from './site';
@@ -8,7 +8,6 @@ import { mapper, uuid } from './utils/tests';
 jest.mock('./site', () => {
   return require('./utils/tests').mockSite();
 });
-
 console.warn = jest.fn();
 
 beforeEach(() => {
@@ -17,44 +16,6 @@ beforeEach(() => {
 });
 
 describe('Deprecated components', async () => {
-
-  describe('Paragraph', async () => {
-
-    test('with required props', async () => {
-      const component = await waitForHnData(
-        <Paragraph
-          mapper={mapper}
-          uuid={uuid}
-        />
-      );
-
-      expect(renderer.create(component).toJSON()).toMatchSnapshot();
-
-      expect(console.warn).toHaveBeenCalledTimes(1);
-      expect(console.warn).toBeCalledWith('Warning: The component "Paragraph" is deprecated, use "EntityMapper" instead.');
-    });
-
-    test('with all props', async () => {
-      const component = await waitForHnData(
-        <Paragraph
-          mapper={mapper}
-          paragraphProps={{
-            testProp: 'testPropValue'
-          }}
-          uuid={uuid}
-          page={{'pageTest': true}}
-          index={15}
-        />
-      );
-
-      expect(renderer.create(component).toJSON()).toMatchSnapshot();
-
-      expect(console.warn).toHaveBeenCalledTimes(3);
-      expect(console.warn).toBeCalledWith('Warning: The component "Paragraph" is deprecated, use "EntityMapper" instead.');
-      expect(console.warn).toBeCalledWith('Warning: The prop "paragraphProps" is replaced by "entityProps".');
-      expect(console.warn).toBeCalledWith('Warning: The prop "page" is deprecated. Please use "entityProps={{ page }}" instead.');
-    });
-  });
 
   describe('Paragraphs', async () => {
 

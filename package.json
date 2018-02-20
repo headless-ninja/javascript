@@ -13,7 +13,8 @@
     "get-nested": "^4.0.0",
     "prop-types": "^15.5.10",
     "react-async-bootstrapper": "^1.1.2",
-    "react-is-deprecated": "^0.1.2"
+    "react-is-deprecated": "^0.1.2",
+    "util-deprecate": "^1.0.2"
   },
   "peerDependencies": {
     "hn": "^0.6.1",

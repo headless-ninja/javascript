@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Paragraph with all props 1`] = `
+<div
+  bundle="unique_type__unique_bundle"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle",
+          "type": "unique_type",
+        },
+      },
+    }
+  }
+  index={15}
+  page={
+    Object {
+      "pageTest": true,
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle",
+          "type": "unique_type",
+        },
+      },
+    }
+  }
+  testProp="testPropValue"
+/>
+`;
+
+exports[`Paragraph with required props 1`] = `
+<div
+  bundle="unique_type__unique_bundle"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle",
+          "type": "unique_type",
+        },
+      },
+    }
+  }
+  index={0}
+  page={undefined}
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle",
+          "type": "unique_type",
+        },
+      },
+    }
+  }
+/>
+`;

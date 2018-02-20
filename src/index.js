@@ -3,16 +3,8 @@ import DrupalPage from './DrupalPage';
 import site from './site';
 import EntityMapper from './EntityMapper';
 import EntityListMapper from './EntityListMapper';
+import Paragraph from './components/deprecated/Paragraph';
 import waitForHnData from './DrupalPage/waitForHnData';
-
-let warningParagraphDeprecation = false;
-const Paragraph = (p) => {
-  if(!warningParagraphDeprecation) {
-    console.warn('Warning: The component "Paragraph" is deprecated, use "EntityMapper" instead.');
-    warningParagraphDeprecation = true;
-  }
-  return <EntityMapper {...p} />;
-};
 
 let warningParagraphsDeprecation = false;
 const Paragraphs = (p) => {
