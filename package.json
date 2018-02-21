@@ -43,5 +43,9 @@
     "semantic-release": "semantic-release",
     "test": "yarn test:unit",
     "test:unit": "jest --coverage"
+  },
+  "jest": {
+    "collectCoverageFrom" : ["src/**/*.js"],
+    "coverageReporters": ["lcov", "text"]
   }
 }
