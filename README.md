@@ -1,6 +1,8 @@
 # hn-react (a.k.a. Headless Ninja React)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/burst-digital/hn-react.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/burst-digital/hn-react.svg?branch=master)](https://travis-ci.org/burst-digital/hn-react)
+[![Coverage Status](https://coveralls.io/repos/github/burst-digital/hn-react/badge.svg?branch=master)](https://coveralls.io/github/burst-digital/hn-react?branch=master)
+[![Dependencies Status](https://david-dm.org/burst-digital/hn-react/status.svg)](https://david-dm.org/burst-digital/hn-react)
 
 > ⚠ This module is still under development. Documentation is incomplete, and the API can change at any time.
 
