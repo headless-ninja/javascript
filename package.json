@@ -26,6 +26,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
+    "coveralls": "^3.0.0",
     "hn": "^0.6.1",
     "jest": "^22.3.0",
     "react": "^16.2.0",
@@ -41,6 +42,6 @@
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
     "test": "yarn test:unit",
-    "test:unit": "jest"
+    "test:unit": "jest --coverage"
   }
 }

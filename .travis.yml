@@ -15,6 +15,7 @@ before_script: greenkeeper-lockfile-update
 script:
   - yarn build
   - yarn test
+  - cat ./coverage/lcov.info | yarn coveralls
 
 after_script: greenkeeper-lockfile-upload
 
