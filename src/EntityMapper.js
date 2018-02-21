@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import getNested from 'get-nested';
-import { deprecate } from 'react-is-deprecated';
 import site from './site';
 
 class EntityMapper extends Component {
@@ -118,7 +117,7 @@ class EntityMapper extends Component {
   }
 
   render() {
-    const { index, paragraphProps } = this.props;
+    const { index } = this.props;
     const { uuid, entityComponentSymbol, entityProps } = this.state;
 
     const entity = site.getData(uuid);
@@ -135,7 +134,6 @@ class EntityMapper extends Component {
         paragraph={entity}
         entity={entity}
         index={index}
-        {...paragraphProps}
         {...entityProps}
       />
     );
@@ -149,17 +147,13 @@ EntityMapper.propTypes = {
   ]).isRequired,
   asyncMapper: PropTypes.bool,
   uuid: PropTypes.string.isRequired,
-  page: deprecate(PropTypes.shape(), 'Warning: The prop "page" is deprecated. Please use "entityProps={{ page }}" instead.'),
   index: PropTypes.number,
   entityProps: PropTypes.shape(),
-  paragraphProps: deprecate(PropTypes.shape(), 'Warning: The prop "paragraphProps" is replaced by "entityProps".'),
 };
 
 EntityMapper.defaultProps = {
   asyncMapper: false,
-  page: undefined,
   entityProps: {},
-  paragraphProps: undefined,
   index: 0,
 };
 
