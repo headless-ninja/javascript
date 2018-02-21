@@ -2,8 +2,8 @@ import React, { Fragment, Component } from 'react';
 import { parse } from 'url';
 import PropTypes from 'prop-types';
 import getNested from 'get-nested';
-import site from '../site';
-import EntityMapper from '../EntityMapper';
+import site from '../utils/site';
+import EntityMapper from './EntityMapper';
 
 class DrupalPage extends Component {
   static contextTypes = {

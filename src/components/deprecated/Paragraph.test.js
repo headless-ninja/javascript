@@ -1,8 +1,8 @@
 import Paragraph from './Paragraph';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import site from '../../site';
-import waitForHnData from '../../DrupalPage/waitForHnData';
+import site from '../../utils/site';
+import waitForHnData from '../../utils/waitForHnData';
 import { mapper, uuid } from '../../utils/tests';
 
 jest.mock('../../site', () => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import getNested from 'get-nested';
-import site from './site';
+import site from '../utils/site';
 
 class EntityMapper extends Component {
   static entityComponents = new Map();

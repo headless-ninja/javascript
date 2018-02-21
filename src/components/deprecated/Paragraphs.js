@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EntityListMapper from '../../EntityListMapper';
+import EntityListMapper from '../EntityListMapper';
 import deprecate from "util-deprecate";
 
 function Paragraphs({ mapper, paragraphs, page, Wrapper, paragraphProps }) {

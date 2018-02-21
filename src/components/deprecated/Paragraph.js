@@ -1,5 +1,5 @@
 import React from 'react';
-import EntityMapper from "../../EntityMapper";
+import EntityMapper from '../EntityMapper';
 import PropTypes from 'prop-types';
 import deprecate from 'util-deprecate';
 
