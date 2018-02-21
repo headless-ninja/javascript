@@ -5,7 +5,7 @@ import site from '../../utils/site';
 import waitForHnData from '../../utils/waitForHnData';
 import { mapper, uuid } from '../../utils/tests';
 
-jest.mock('../../site', () => {
+jest.mock('../../utils/site', () => {
   return require('../../utils/tests').mockSite();
 });
 
