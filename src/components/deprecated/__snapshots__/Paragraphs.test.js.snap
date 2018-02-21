@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Deprecated components Paragraphs with all props 1`] = `
+exports[`Paragraphs with all props 1`] = `
 <section>
   <div
     bundle="unique_type__unique_bundle"
@@ -36,7 +36,7 @@ exports[`Deprecated components Paragraphs with all props 1`] = `
 </section>
 `;
 
-exports[`Deprecated components Paragraphs with required props 1`] = `
+exports[`Paragraphs with required props 1`] = `
 <div
   bundle="unique_type__unique_bundle"
   className="MyCustomMapperComponent"
