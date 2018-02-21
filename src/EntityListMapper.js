@@ -30,7 +30,10 @@ EntityListMapper.propTypes = {
     }),
     PropTypes.string,
   ])).isRequired,
-  entityWrapper: PropTypes.element,
+  entityWrapper: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]),
   entityProps: PropTypes.shape(),
   asyncMapper: PropTypes.bool,
 };
