@@ -105,16 +105,24 @@ class DrupalPage extends Component {
     // Get props.
     const Layout = this.props.layout;
 
-    // Get the data and content types with the state properties.
-    const data = site.getData(this.state.pageUuid);
+    let data = null;
+    let entityMapper = null;
 
-    const entityMapper = <EntityMapper
-      mapper={this.props.mapper}
-      uuid={this.state.pageUuid}
-      asyncMapper={this.props.asyncMapper}
-      entityProps={{ ...this.props.pageProps, page: data }}
-      ref={(c) => { this.entity = c; }}
-    />;
+    // When this is the very first render, there isn't a pageUuid in state. Then only render the Layout.
+    if (this.state.pageUuid) {
+      // Get the data and content types with the state properties.
+      data = site.getData(this.state.pageUuid);
+
+      entityMapper = <EntityMapper
+        mapper={this.props.mapper}
+        uuid={this.state.pageUuid}
+        asyncMapper={this.props.asyncMapper}
+        entityProps={{...this.props.pageProps, page: data}}
+        ref={(c) => {
+          this.entity = c;
+        }}
+      />;
+    }
 
     if (!Layout) return entityMapper;
 
