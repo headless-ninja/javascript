@@ -24,6 +24,9 @@ export function mockSite() {
     getData = jest.fn(() => {
       return entity;
     });
+    getPage = jest.fn(async () => {
+      return uuid;
+    })
   }
   return new SiteMock();
 }
