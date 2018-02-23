@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import { parse } from 'url';
 import PropTypes from 'prop-types';
 import getNested from 'get-nested';
@@ -108,6 +108,16 @@ class DrupalPage extends Component {
     // Get the data and content types with the state properties.
     const data = site.getData(this.state.pageUuid);
 
+    const entityMapper = <EntityMapper
+      mapper={this.props.mapper}
+      uuid={this.state.pageUuid}
+      asyncMapper={this.props.asyncMapper}
+      entityProps={{ ...this.props.pageProps, page: data }}
+      ref={(c) => { this.entity = c; }}
+    />;
+
+    if (!Layout) return entityMapper;
+
     return (
       <Layout
         loadingData={this.state.loadingData}
@@ -115,13 +125,7 @@ class DrupalPage extends Component {
         page={data}
         {...this.props.layoutProps}
       >
-        <EntityMapper
-          mapper={this.props.mapper}
-          uuid={this.state.pageUuid}
-          asyncMapper={this.props.asyncMapper}
-          entityProps={{ ...this.props.pageProps, page: data }}
-          ref={(c) => { this.entity = c; }}
-        />
+        {entityMapper}
       </Layout>
     );
   }
@@ -144,7 +148,7 @@ DrupalPage.propTypes = {
 };
 
 DrupalPage.defaultProps = {
-  layout: Fragment,
+  layout: undefined,
   asyncMapper: undefined,
   layoutProps: {},
   renderWhileLoadingData: false,
