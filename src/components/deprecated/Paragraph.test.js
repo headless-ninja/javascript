@@ -9,21 +9,19 @@ jest.mock('../../utils/site', () => {
   return require('../../utils/tests').mockSite();
 });
 
-jest.mock('util-deprecate', () => jest.fn((func) => func));
-console.log = console.warn = console.error = jest.fn((message) => { throw new Error(message); });
+jest.mock('util-deprecate', () => jest.fn(func => func));
+console.log = console.warn = console.error = jest.fn(message => {
+  throw new Error(message);
+});
 
 beforeEach(() => {
   site.getData.mockRestore();
 });
 
 describe('Paragraph', async () => {
-
   test('with required props', async () => {
     const component = await waitForHnData(
-      <Paragraph
-        mapper={mapper}
-        uuid={uuid}
-      />
+      <Paragraph mapper={mapper} uuid={uuid} />,
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
@@ -34,12 +32,12 @@ describe('Paragraph', async () => {
       <Paragraph
         mapper={mapper}
         paragraphProps={{
-          testProp: 'testPropValue'
+          testProp: 'testPropValue',
         }}
         uuid={uuid}
-        page={{'pageTest': true}}
+        page={{ pageTest: true }}
         index={15}
-      />
+      />,
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();

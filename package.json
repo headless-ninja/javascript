@@ -29,23 +29,41 @@
     "coveralls": "^3.0.0",
     "hn": "^0.6.1",
     "jest": "^22.3.0",
+    "prettier": "^1.10.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
     "rimraf": "^2.6.2",
     "semantic-release": "^12.4.1",
-    "travis-deploy-once": "^4.3.4"
+    "travis-deploy-once": "^4.3.4",
+    "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.7.0",
+    "tslint-config-prettier": "^1.8.0",
+    "tslint-react": "^3.5.1",
+    "typescript": "^2.7.2"
   },
   "scripts": {
     "start": "npm run build -- -w",
     "build": "rimraf lib && babel src -d lib --ignore test.js",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
-    "test": "yarn test:unit",
-    "test:unit": "jest --coverage"
+    "test": "yarn test:unit && yarn test:lint",
+    "test:unit": "jest --coverage",
+    "test:lint": "prettier 'src/**/*.js' -l && tslint 'src/**/*.js'",
+    "format": "prettier 'src/**/*.js' --write -l && tslint 'src/**/*.js' --fix"
   },
   "jest": {
-    "collectCoverageFrom" : ["src/**/*.js"],
-    "coverageReporters": ["lcov", "text"]
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ]
+  },
+  "prettier": {
+    "printWidth": 80,
+    "singleQuote": true,
+    "trailingComma": "all"
   }
 }

@@ -9,37 +9,35 @@ jest.mock('../../utils/site', () => {
   return require('../../utils/tests').mockSite();
 });
 
-jest.mock('util-deprecate', () => jest.fn((func) => func));
-console.log = console.warn = console.error = (message) => { throw new Error(message); };
+jest.mock('util-deprecate', () => jest.fn(func => func));
+console.log = console.warn = console.error = message => {
+  throw new Error(message);
+};
 
 beforeEach(() => {
   site.getData.mockRestore();
 });
 
 describe('Paragraphs', async () => {
-
-  test('with required props', async() => {
+  test('with required props', async () => {
     const component = await waitForHnData(
-      <Paragraphs
-        mapper={mapper}
-        paragraphs={[{target_uuid: uuid}]}
-      />
+      <Paragraphs mapper={mapper} paragraphs={[{ target_uuid: uuid }]} />,
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
   });
 
-  test('with all props', async() => {
+  test('with all props', async () => {
     const component = await waitForHnData(
       <Paragraphs
         mapper={mapper}
         paragraphProps={{
-          testProp: 'testPropValue'
+          testProp: 'testPropValue',
         }}
-        paragraphs={[{target_uuid: uuid}]}
+        paragraphs={[{ target_uuid: uuid }]}
         Wrapper={'section'}
-        page={{'pageTest': true}}
-      />
+        page={{ pageTest: true }}
+      />,
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();

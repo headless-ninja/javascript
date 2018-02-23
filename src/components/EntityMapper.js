@@ -25,23 +25,26 @@ class EntityMapper extends Component {
     const bundle = EntityMapper.getBundle(entity);
 
     // Get the component that belongs to this entity type
-    let entityComponent = typeof mapper === 'function' ? mapper(entity, bundle) : mapper[bundle];
+    let entityComponent =
+      typeof mapper === 'function' ? mapper(entity, bundle) : mapper[bundle];
 
     // If asyncMapper is true, execute the function so it returns a promise.
-    if(asyncMapper && typeof entityComponent === 'function') {
+    if (asyncMapper && typeof entityComponent === 'function') {
       entityComponent = entityComponent();
     }
 
     // If a promise was returned, resolve it.
-    if(entityComponent && typeof entityComponent.then !== 'undefined') {
+    if (entityComponent && typeof entityComponent.then !== 'undefined') {
       entityComponent = await entityComponent;
     }
 
     // Make sure there is an entityComponent.
-    if(!entityComponent) return null;
+    if (!entityComponent) {
+      return null;
+    }
 
     // If it has a .default (ES6+), use that.
-    if(entityComponent.default) {
+    if (entityComponent.default) {
       entityComponent = entityComponent.default;
     }
 
@@ -52,16 +55,20 @@ class EntityMapper extends Component {
     return entityComponentSymbol;
   }
 
-  static getBundle = entity => getNested(() => `${entity.__hn.entity.type}__${entity.__hn.entity.bundle}`, '_fallback');
+  static getBundle = entity =>
+    getNested(
+      () => `${entity.__hn.entity.type}__${entity.__hn.entity.bundle}`,
+      '_fallback',
+    );
 
   constructor(props) {
     super(props);
 
     this.state = {
       entityComponentSymbol: null,
+      entityProps: props.entityProps,
       ready: false,
       uuid: props.uuid,
-      entityProps: props.entityProps,
     };
   }
 
@@ -75,9 +82,14 @@ class EntityMapper extends Component {
     const { mapper, asyncMapper } = this.props;
     const { uuid, entityProps } = this.state;
     this.context.hnContext.state.entities.push({
+      component: await this.loadComponent({
+        asyncMapper,
+        entityProps,
+        mapper,
+        uuid,
+      }),
       mapper,
       uuid,
-      component: await this.loadComponent({ uuid, mapper, asyncMapper, entityProps })
     });
     return true;
   }
@@ -87,7 +99,12 @@ class EntityMapper extends Component {
    */
   componentWillMount() {
     const { uuid, mapper } = this.props;
-    const state = getNested(() => this.context.hnContext.state.entities.find(e => e.mapper === mapper && e.uuid === uuid).component);
+    const state = getNested(
+      () =>
+        this.context.hnContext.state.entities.find(
+          e => e.mapper === mapper && e.uuid === uuid,
+        ).component,
+    );
 
     if (state) {
       this.setState(state);
@@ -97,16 +114,27 @@ class EntityMapper extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.uuid !== nextProps.uuid || this.props.mapper !== nextProps.mapper || this.props.asyncMapper !== nextProps.asyncMapper) {
+    if (
+      this.props.uuid !== nextProps.uuid ||
+      this.props.mapper !== nextProps.mapper ||
+      this.props.asyncMapper !== nextProps.asyncMapper
+    ) {
       this.loadComponent(nextProps);
     }
   }
 
   async loadComponent({ uuid, mapper, asyncMapper, entityProps }) {
     this.setState({ ready: false });
-    const entityComponentSymbol = await EntityMapper.assureComponent({ uuid, mapper, asyncMapper });
+    const entityComponentSymbol = await EntityMapper.assureComponent({
+      asyncMapper,
+      mapper,
+      uuid,
+    });
 
-    const newState = { ...this.state, ...{ uuid, entityComponentSymbol, ready: true, entityProps } };
+    const newState = {
+      ...this.state,
+      ...{ uuid, entityComponentSymbol, ready: true, entityProps },
+    };
     this.setState(newState);
 
     return newState;
@@ -122,14 +150,20 @@ class EntityMapper extends Component {
 
     const entity = site.getData(uuid);
 
-    if(!entity) return null;
+    if (!entity) {
+      return null;
+    }
 
-    const Component = EntityMapper.entityComponents.get(entityComponentSymbol);
+    const EntityComponent = EntityMapper.entityComponents.get(
+      entityComponentSymbol,
+    );
 
-    if(!Component) return null;
+    if (!EntityComponent) {
+      return null;
+    }
 
     return (
-      <Component
+      <EntityComponent
         bundle={EntityMapper.getBundle(entity)}
         paragraph={entity}
         entity={entity}
@@ -141,14 +175,11 @@ class EntityMapper extends Component {
 }
 
 EntityMapper.propTypes = {
-  mapper: PropTypes.oneOfType([
-    PropTypes.shape(),
-    PropTypes.func,
-  ]).isRequired,
   asyncMapper: PropTypes.bool,
-  uuid: PropTypes.string.isRequired,
-  index: PropTypes.number,
   entityProps: PropTypes.shape(),
+  index: PropTypes.number,
+  mapper: PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]).isRequired,
+  uuid: PropTypes.string.isRequired,
 };
 
 EntityMapper.defaultProps = {

@@ -11,8 +11,8 @@ class DrupalPage extends Component {
   };
 
   state = {
-    loadingData: true,
     dataUrl: null,
+    loadingData: true,
     pageUuid: null,
   };
 
@@ -47,7 +47,11 @@ class DrupalPage extends Component {
    * This always unmounts and mounts all children (Layout and ContentType).
    */
   componentWillReceiveProps(nextProps) {
-    if(this.props.url !== nextProps.url || this.props.mapper !== nextProps.mapper || this.props.asyncMapper !== nextProps.asyncMapper) {
+    if (
+      this.props.url !== nextProps.url ||
+      this.props.mapper !== nextProps.mapper ||
+      this.props.asyncMapper !== nextProps.asyncMapper
+    ) {
       this.loadData(nextProps);
     }
   }
@@ -62,7 +66,7 @@ class DrupalPage extends Component {
   static async assureData({ url, mapper, asyncMapper }) {
     // Get the page. If the page was already fetched before, this should be instant.
     const pageUuid = await site.getPage(url);
-    if(!pageUuid) {
+    if (!pageUuid) {
       throw Error('An error occurred getting a response from the server.');
     }
 
@@ -71,12 +75,11 @@ class DrupalPage extends Component {
 
   componentWillUnmount() {
     this.lastRequest = null;
-  };
+  }
 
   lastRequest = null;
 
   async loadData({ url, mapper, asyncMapper }) {
-
     const lastRequest = Symbol(url);
 
     this.lastRequest = lastRequest;
@@ -84,12 +87,21 @@ class DrupalPage extends Component {
     this.setState({ loadingData: true });
 
     // Load the data.
-    const { pageUuid } = await DrupalPage.assureData({ url, mapper, asyncMapper});
+    const { pageUuid } = await DrupalPage.assureData({
+      asyncMapper,
+      mapper,
+      url,
+    });
 
     // Check if this is still the last request.
-    if(this.lastRequest !== lastRequest) return;
+    if (this.lastRequest !== lastRequest) {
+      return;
+    }
 
-    const newState = { ...this.state, ...{ pageUuid, loadingData: false, dataUrl: url }};
+    const newState = {
+      ...this.state,
+      ...{ pageUuid, loadingData: false, dataUrl: url },
+    };
 
     // Mark this component as ready. This mounts the Layout and new ContentType.
     this.setState(newState);
@@ -100,7 +112,13 @@ class DrupalPage extends Component {
   render() {
     // Mark this component as not-ready. This unmounts the Layout and old ContentType.
     // Only render if the component is ready.
-    if (this.entity && !this.props.renderWhileLoadingData && !this.entity.isReady()) return null;
+    if (
+      this.entity &&
+      !this.props.renderWhileLoadingData &&
+      !this.entity.isReady()
+    ) {
+      return null;
+    }
 
     // Get props.
     const Layout = this.props.layout;
@@ -113,18 +131,22 @@ class DrupalPage extends Component {
       // Get the data and content types with the state properties.
       data = site.getData(this.state.pageUuid);
 
-      entityMapper = <EntityMapper
-        mapper={this.props.mapper}
-        uuid={this.state.pageUuid}
-        asyncMapper={this.props.asyncMapper}
-        entityProps={{...this.props.pageProps, page: data}}
-        ref={(c) => {
-          this.entity = c;
-        }}
-      />;
+      entityMapper = (
+        <EntityMapper
+          mapper={this.props.mapper}
+          uuid={this.state.pageUuid}
+          asyncMapper={this.props.asyncMapper}
+          entityProps={{ ...this.props.pageProps, page: data }}
+          ref={c => {
+            this.entity = c;
+          }}
+        />
+      );
     }
 
-    if (!Layout) return entityMapper;
+    if (!Layout) {
+      return entityMapper;
+    }
 
     return (
       <Layout
@@ -140,27 +162,21 @@ class DrupalPage extends Component {
 }
 
 DrupalPage.propTypes = {
-  url: PropTypes.string.isRequired,
-  layout: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string,
-  ]),
-  mapper: PropTypes.oneOfType([
-    PropTypes.shape(),
-    PropTypes.func,
-  ]).isRequired,
   asyncMapper: PropTypes.bool,
+  layout: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   layoutProps: PropTypes.shape(),
-  renderWhileLoadingData: PropTypes.bool,
+  mapper: PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]).isRequired,
   pageProps: PropTypes.shape(),
+  renderWhileLoadingData: PropTypes.bool,
+  url: PropTypes.string.isRequired,
 };
 
 DrupalPage.defaultProps = {
-  layout: undefined,
   asyncMapper: undefined,
+  layout: undefined,
   layoutProps: {},
-  renderWhileLoadingData: false,
   pageProps: undefined,
+  renderWhileLoadingData: false,
 };
 
 export default DrupalPage;

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import asyncBootstrapper from 'react-async-bootstrapper'
+import asyncBootstrapper from 'react-async-bootstrapper';
 import PropTypes from 'prop-types';
 
-export default async function (children) {
-
+export default async function(children) {
   const context = {
     state: {
       drupalPage: null,
@@ -13,7 +12,7 @@ export default async function (children) {
 
   class DrupalPageContextProvider extends Component {
     getChildContext() {
-      return {hnContext: context};
+      return { hnContext: context };
     }
 
     render() {
@@ -26,13 +25,10 @@ export default async function (children) {
   };
 
   const drupalContextProvider = (
-    <DrupalPageContextProvider>
-      {children}
-    </DrupalPageContextProvider>
+    <DrupalPageContextProvider>{children}</DrupalPageContextProvider>
   );
 
   await asyncBootstrapper(drupalContextProvider);
 
   return drupalContextProvider;
-
-};
+}
