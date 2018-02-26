@@ -28,7 +28,9 @@ export default async function(children) {
     <DrupalPageContextProvider>{children}</DrupalPageContextProvider>
   );
 
-  await asyncBootstrapper(drupalContextProvider);
+  await asyncBootstrapper(drupalContextProvider, {
+    componentWillUnmount: true,
+  });
 
   return drupalContextProvider;
 }
