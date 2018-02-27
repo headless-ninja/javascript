@@ -1,4 +1,12 @@
 {
-  "plugins": ["transform-class-properties", "transform-runtime"],
-  "presets": ["stage-3", "react", "env"]
+  "plugins": [
+    "transform-class-properties",
+    "transform-runtime",
+    "dynamic-import-node"
+  ],
+  "presets": [
+    "stage-3",
+    "react",
+    "env"
+  ]
 }
