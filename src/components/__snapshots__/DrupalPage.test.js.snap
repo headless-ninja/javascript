@@ -38,7 +38,6 @@ exports[`DrupalPage with all props 2`] = `
         },
       }
     }
-    index={0}
     page={
       Object {
         "__hn": Object {
@@ -80,7 +79,6 @@ exports[`DrupalPage with required props 2`] = `
       },
     }
   }
-  index={0}
   page={
     Object {
       "__hn": Object {

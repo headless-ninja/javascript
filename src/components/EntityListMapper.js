@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Entity from './EntityMapper';
+import EntityMapper from './EntityMapper';
 
 const EntityListMapper = ({
   mapper,
@@ -12,14 +12,14 @@ const EntityListMapper = ({
   entities.map((ref, index) => {
     const EntityWrapper = entityWrapper || Fragment;
     const uuid = ref.target_uuid || ref;
+
     return (
       <EntityWrapper key={uuid}>
-        <Entity
+        <EntityMapper
           uuid={uuid}
-          index={index}
           mapper={mapper}
           asyncMapper={asyncMapper}
-          entityProps={entityProps}
+          entityProps={{ ...entityProps, index }}
         />
       </EntityWrapper>
     );

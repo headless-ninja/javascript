@@ -162,7 +162,7 @@ class EntityMapper extends Component {
   }
 
   render() {
-    const { index, mapper } = this.props;
+    const { mapper } = this.props;
     const { uuid, entityProps } = this.state;
 
     const entity = site.getData(uuid);
@@ -179,7 +179,6 @@ class EntityMapper extends Component {
         bundle={EntityMapper.getBundle(entity)}
         paragraph={entity}
         entity={entity}
-        index={index}
         {...entityProps}
       />
     );
@@ -189,7 +188,6 @@ class EntityMapper extends Component {
 EntityMapper.propTypes = {
   asyncMapper: PropTypes.bool,
   entityProps: PropTypes.shape(),
-  index: PropTypes.number,
   mapper: PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]).isRequired,
   uuid: PropTypes.string.isRequired,
 };
@@ -197,7 +195,6 @@ EntityMapper.propTypes = {
 EntityMapper.defaultProps = {
   asyncMapper: false,
   entityProps: {},
-  index: 0,
 };
 
 export default EntityMapper;
