@@ -79,6 +79,17 @@ class EntityMapper extends Component {
   async asyncBootstrap() {
     const { mapper, asyncMapper } = this.props;
     const { uuid, entityProps } = this.state;
+
+    // If this mapper + uuid combination is already in state, use that state
+    const state = getNested(
+      () =>
+        this.context.hnContext.state.entities.find(
+          e => e.mapper === mapper && e.uuid === uuid,
+        ).componentState,
+    );
+
+    if (state) return true;
+
     this.context.hnContext.state.entities.push({
       componentState: await this.loadComponent({
         asyncMapper,
