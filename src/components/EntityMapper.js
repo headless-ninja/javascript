@@ -4,7 +4,7 @@ import getNested from 'get-nested';
 import site from '../utils/site';
 
 class EntityMapper extends Component {
-  static entityComponents = new Map();
+  static entityComponents = [];
 
   static contextTypes = {
     hnContext: PropTypes.object,
@@ -15,7 +15,7 @@ class EntityMapper extends Component {
    * @param uuid
    * @param mapper
    * @param asyncMapper
-   * @returns Symbol
+   * @returns void
    */
   static async assureComponent({ uuid, mapper, asyncMapper }) {
     // This gets the entity from the site, based on the uuid.
@@ -39,9 +39,7 @@ class EntityMapper extends Component {
     }
 
     // Make sure there is an entityComponent.
-    if (!entityComponent) {
-      return null;
-    }
+    if (!entityComponent) return;
 
     // If it has a .default (ES6+), use that.
     if (entityComponent.default) {
@@ -49,10 +47,11 @@ class EntityMapper extends Component {
     }
 
     // Store the entityComponent globally, so it can be rendered sync.
-    const entityComponentSymbol = Symbol.for(entityComponent);
-    EntityMapper.entityComponents.set(entityComponentSymbol, entityComponent);
-
-    return entityComponentSymbol;
+    EntityMapper.entityComponents.push({
+      uuid,
+      mapper,
+      component: entityComponent,
+    });
   }
 
   static getBundle = entity =>
@@ -65,7 +64,6 @@ class EntityMapper extends Component {
     super(props);
 
     this.state = {
-      entityComponentSymbol: null,
       entityProps: props.entityProps,
       ready: false,
       uuid: props.uuid,
@@ -82,7 +80,7 @@ class EntityMapper extends Component {
     const { mapper, asyncMapper } = this.props;
     const { uuid, entityProps } = this.state;
     this.context.hnContext.state.entities.push({
-      component: await this.loadComponent({
+      componentState: await this.loadComponent({
         asyncMapper,
         entityProps,
         mapper,
@@ -103,7 +101,7 @@ class EntityMapper extends Component {
       () =>
         this.context.hnContext.state.entities.find(
           e => e.mapper === mapper && e.uuid === uuid,
-        ).component,
+        ).componentState,
     );
 
     if (state) {
@@ -124,17 +122,25 @@ class EntityMapper extends Component {
   }
 
   async loadComponent({ uuid, mapper, asyncMapper, entityProps }) {
-    this.setState({ ready: false });
-    const entityComponentSymbol = await EntityMapper.assureComponent({
-      asyncMapper,
-      mapper,
-      uuid,
-    });
+    // Check if component for combination of mapper + uuid already was loaded
+    const entityComponent = EntityMapper.entityComponents.find(c => c.mapper === mapper && c.uuid === uuid);
+
+    // If component isn't loaded yet, go load it
+    if(!entityComponent) {
+      this.setState({ ready: false });
+
+      await EntityMapper.assureComponent({
+        asyncMapper,
+        mapper,
+        uuid,
+      });
+    }
 
     const newState = {
       ...this.state,
-      ...{ uuid, entityComponentSymbol, ready: true, entityProps },
+      ...{ uuid, ready: true, entityProps },
     };
+
     this.setState(newState);
 
     return newState;
@@ -145,22 +151,17 @@ class EntityMapper extends Component {
   }
 
   render() {
-    const { index } = this.props;
-    const { uuid, entityComponentSymbol, entityProps } = this.state;
+    const { index, mapper } = this.props;
+    const { uuid, entityProps } = this.state;
 
     const entity = site.getData(uuid);
 
-    if (!entity) {
-      return null;
-    }
+    if (!entity) return null;
 
-    const EntityComponent = EntityMapper.entityComponents.get(
-      entityComponentSymbol,
-    );
+    const EntityComponent = getNested(() =>
+      EntityMapper.entityComponents.find(c => c.uuid === uuid && c.mapper === mapper).component);
 
-    if (!EntityComponent) {
-      return null;
-    }
+    if (!EntityComponent) return null;
 
     return (
       <EntityComponent
