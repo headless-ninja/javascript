@@ -3,7 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import site from '../utils/site';
 import waitForHnData from '../utils/waitForHnData';
-import { mapper, asyncMapper } from '../utils/tests';
+import { uuid, mapper, asyncMapper } from '../utils/tests';
 
 jest.mock('../utils/site', () => {
   return require('../utils/tests').mockSite();
@@ -21,10 +21,7 @@ beforeEach(() => {
 describe('EntityListMapper', async () => {
   test('with required props, same bundle', async () => {
     const component = (
-      <EntityListMapper
-        entities={['unique-uuid', 'unique-uuid-2']}
-        mapper={mapper}
-      />
+      <EntityListMapper entities={[uuid, 'unique-uuid-2']} mapper={mapper} />
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
@@ -36,10 +33,7 @@ describe('EntityListMapper', async () => {
 
   test('with required props, different bundle', async () => {
     const component = (
-      <EntityListMapper
-        entities={['unique-uuid', 'unique-uuid-3']}
-        mapper={mapper}
-      />
+      <EntityListMapper entities={[uuid, 'unique-uuid-3']} mapper={mapper} />
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
@@ -52,7 +46,7 @@ describe('EntityListMapper', async () => {
   test('non-existing entity', async () => {
     const component = (
       <EntityListMapper
-        entities={['unique-uuid', 'non-existing-entity']}
+        entities={[uuid, 'non-existing-entity']}
         mapper={mapper}
       />
     );
@@ -67,7 +61,7 @@ describe('EntityListMapper', async () => {
   test('with all props', async () => {
     const component = (
       <EntityListMapper
-        entities={['unique-uuid', 'unique-uuid-3']}
+        entities={[uuid, 'unique-uuid-3']}
         entityProps={{ testEntityProp: true }}
         entityWrapper={'main'}
         mapper={mapper}
@@ -84,7 +78,7 @@ describe('EntityListMapper', async () => {
   test('asyncMapper', async () => {
     const component = (
       <EntityListMapper
-        entities={['unique-uuid', 'unique-uuid-3']}
+        entities={[uuid, 'unique-uuid-3']}
         entityProps={{ testEntityProp: true }}
         entityWrapper={'main'}
         mapper={asyncMapper}

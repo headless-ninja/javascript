@@ -16,8 +16,8 @@ exports[`DrupalPage with all props 2`] = `
     Object {
       "__hn": Object {
         "entity": Object {
-          "bundle": "unique_bundle",
-          "type": "unique_type",
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
         },
       },
     }
@@ -26,14 +26,14 @@ exports[`DrupalPage with all props 2`] = `
   url="/"
 >
   <div
-    bundle="unique_type__unique_bundle"
+    bundle="unique_type_1__unique_bundle_1"
     className="MyCustomMapperComponent"
     entity={
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -42,8 +42,8 @@ exports[`DrupalPage with all props 2`] = `
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -52,8 +52,8 @@ exports[`DrupalPage with all props 2`] = `
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -67,14 +67,14 @@ exports[`DrupalPage with required props 1`] = `null`;
 
 exports[`DrupalPage with required props 2`] = `
 <div
-  bundle="unique_type__unique_bundle"
+  bundle="unique_type_1__unique_bundle_1"
   className="MyCustomMapperComponent"
   entity={
     Object {
       "__hn": Object {
         "entity": Object {
-          "bundle": "unique_bundle",
-          "type": "unique_type",
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
         },
       },
     }
@@ -83,8 +83,8 @@ exports[`DrupalPage with required props 2`] = `
     Object {
       "__hn": Object {
         "entity": Object {
-          "bundle": "unique_bundle",
-          "type": "unique_type",
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
         },
       },
     }
@@ -93,8 +93,8 @@ exports[`DrupalPage with required props 2`] = `
     Object {
       "__hn": Object {
         "entity": Object {
-          "bundle": "unique_bundle",
-          "type": "unique_type",
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
         },
       },
     }

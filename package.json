@@ -50,7 +50,7 @@
     "semantic-release": "semantic-release",
     "test": "yarn test:unit && yarn test:lint",
     "test:unit": "jest --coverage",
-    "test:update": "yarn test:unit -- -u",
+    "test:unit:update": "yarn test:unit -- -u",
     "test:lint": "prettier 'src/**/*.js' -l && tslint 'src/**/*.js'",
     "format": "prettier 'src/**/*.js' --write -l && tslint 'src/**/*.js' --fix"
   },

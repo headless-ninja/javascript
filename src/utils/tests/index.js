@@ -8,24 +8,32 @@ const mapperComponentWithHOC = jest.fn(MapperComponentWithHOC);
 const mapperComponentWithHOC2 = jest.fn(MapperComponentWithHOC2);
 
 export const mapper = {
-  unique_type__unique_bundle: mapperComponent,
+  unique_type_1__unique_bundle_1: mapperComponent,
   unique_type_2__unique_bundle_2: mapperComponentWithHOC,
   unique_type_3__unique_bundle_3: mapperComponentWithHOC2,
 };
 
+/* tslint:disable */
 export const asyncMapper = {
-  unique_type__unique_bundle: jest.fn(() => import('./components/MapperComponent')),
-  unique_type_2__unique_bundle_2: jest.fn(() => import('./components/MapperComponentWithHOC')),
-  unique_type_3__unique_bundle_3: jest.fn(() => import('./components/MapperComponentWithHOC2')),
+  unique_type_1__unique_bundle_1: jest.fn(() =>
+    import('./components/MapperComponent'),
+  ),
+  unique_type_2__unique_bundle_2: jest.fn(() =>
+    import('./components/MapperComponentWithHOC'),
+  ),
+  unique_type_3__unique_bundle_3: jest.fn(() =>
+    import('./components/MapperComponentWithHOC2'),
+  ),
 };
+/* tslint:enable */
 
-export const uuid = 'unique-uuid';
+export const uuid = 'unique-uuid-1';
 
 export const entity = {
   __hn: {
     entity: {
-      bundle: 'unique_bundle',
-      type: 'unique_type',
+      bundle: 'unique_bundle_1',
+      type: 'unique_type_1',
     },
   },
 };
@@ -57,8 +65,8 @@ export const hnData = {
 
 export function mockSite() {
   class SiteMock {
-    getData = jest.fn((_uuid) => {
-      return hnData[_uuid];
+    getData = jest.fn(u => {
+      return hnData[u];
     });
     getPage = jest.fn(async () => {
       return uuid;

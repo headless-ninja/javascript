@@ -3,7 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import site from '../utils/site';
 import waitForHnData from '../utils/waitForHnData';
-import { mapper, asyncMapper } from '../utils/tests';
+import { uuid, mapper, asyncMapper } from '../utils/tests';
 
 jest.mock('../utils/site', () => {
   return require('../utils/tests').mockSite();
@@ -20,12 +20,7 @@ beforeEach(() => {
 
 describe('EntityMapper', async () => {
   test('with required props', async () => {
-    const component = (
-      <EntityMapper
-        uuid={'unique-uuid'}
-        mapper={mapper}
-      />
-    );
+    const component = <EntityMapper uuid={uuid} mapper={mapper} />;
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
 
@@ -36,10 +31,7 @@ describe('EntityMapper', async () => {
 
   test('non-existing entity', async () => {
     const component = (
-      <EntityMapper
-        uuid={'non-existing-entity'}
-        mapper={mapper}
-      />
+      <EntityMapper uuid={'non-existing-entity'} mapper={mapper} />
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
@@ -51,11 +43,7 @@ describe('EntityMapper', async () => {
 
   test('with required props & asyncMapper', async () => {
     const component = (
-      <EntityMapper
-        uuid={'unique-uuid'}
-        mapper={asyncMapper}
-        asyncMapper
-      />
+      <EntityMapper uuid={uuid} mapper={asyncMapper} asyncMapper />
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
@@ -69,7 +57,7 @@ describe('EntityMapper', async () => {
     const component = (
       <EntityMapper
         entityProps={{ testEntityProp: true }}
-        uuid={'unique-uuid'}
+        uuid={uuid}
         mapper={mapper}
       />
     );
@@ -85,7 +73,7 @@ describe('EntityMapper', async () => {
     const component = (
       <EntityMapper
         entityProps={{ testEntityProp: true }}
-        uuid={'unique-uuid'}
+        uuid={uuid}
         mapper={asyncMapper}
         asyncMapper
       />

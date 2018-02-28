@@ -39,7 +39,9 @@ class EntityMapper extends Component {
     }
 
     // Make sure there is an entityComponent.
-    if (!entityComponent) return;
+    if (!entityComponent) {
+      return;
+    }
 
     // If it has a .default (ES6+), use that.
     if (entityComponent.default) {
@@ -48,9 +50,9 @@ class EntityMapper extends Component {
 
     // Store the entityComponent globally, so it can be rendered sync.
     EntityMapper.entityComponents.push({
-      uuid,
-      mapper,
       component: entityComponent,
+      mapper,
+      uuid,
     });
   }
 
@@ -88,7 +90,9 @@ class EntityMapper extends Component {
         ).componentState,
     );
 
-    if (state) return true;
+    if (state) {
+      return true;
+    }
 
     this.context.hnContext.state.entities.push({
       componentState: await this.loadComponent({
@@ -134,10 +138,12 @@ class EntityMapper extends Component {
 
   async loadComponent({ uuid, mapper, asyncMapper, entityProps }) {
     // Check if component for combination of mapper + uuid already was loaded
-    const entityComponent = EntityMapper.entityComponents.find(c => c.mapper === mapper && c.uuid === uuid);
+    const entityComponent = EntityMapper.entityComponents.find(
+      c => c.mapper === mapper && c.uuid === uuid,
+    );
 
     // If component isn't loaded yet, go load it
-    if(!entityComponent) {
+    if (!entityComponent) {
       this.setState({ ready: false });
 
       await EntityMapper.assureComponent({
@@ -167,12 +173,20 @@ class EntityMapper extends Component {
 
     const entity = site.getData(uuid);
 
-    if (!entity) return null;
+    if (!entity) {
+      return null;
+    }
 
-    const EntityComponent = getNested(() =>
-      EntityMapper.entityComponents.find(c => c.uuid === uuid && c.mapper === mapper).component);
+    const EntityComponent = getNested(
+      () =>
+        EntityMapper.entityComponents.find(
+          c => c.uuid === uuid && c.mapper === mapper,
+        ).component,
+    );
 
-    if (!EntityComponent) return null;
+    if (!EntityComponent) {
+      return null;
+    }
 
     return (
       <EntityComponent

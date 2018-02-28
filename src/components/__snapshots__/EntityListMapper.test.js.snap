@@ -253,14 +253,14 @@ exports[`EntityListMapper asyncMapper 2`] = `
 Array [
   <main>
     <div
-      bundle="unique_type__unique_bundle"
+      bundle="unique_type_1__unique_bundle_1"
       className="MyCustomMapperComponent"
       entity={
         Object {
           "__hn": Object {
             "entity": Object {
-              "bundle": "unique_bundle",
-              "type": "unique_type",
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
             },
           },
         }
@@ -270,8 +270,8 @@ Array [
         Object {
           "__hn": Object {
             "entity": Object {
-              "bundle": "unique_bundle",
-              "type": "unique_type",
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
             },
           },
         }
@@ -439,14 +439,14 @@ Array [
 
 exports[`EntityListMapper non-existing entity 1`] = `
 <div
-  bundle="unique_type__unique_bundle"
+  bundle="unique_type_1__unique_bundle_1"
   className="MyCustomMapperComponent"
   entity={
     Object {
       "__hn": Object {
         "entity": Object {
-          "bundle": "unique_bundle",
-          "type": "unique_type",
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
         },
       },
     }
@@ -456,8 +456,8 @@ exports[`EntityListMapper non-existing entity 1`] = `
     Object {
       "__hn": Object {
         "entity": Object {
-          "bundle": "unique_bundle",
-          "type": "unique_type",
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
         },
       },
     }
@@ -467,14 +467,14 @@ exports[`EntityListMapper non-existing entity 1`] = `
 
 exports[`EntityListMapper non-existing entity 2`] = `
 <div
-  bundle="unique_type__unique_bundle"
+  bundle="unique_type_1__unique_bundle_1"
   className="MyCustomMapperComponent"
   entity={
     Object {
       "__hn": Object {
         "entity": Object {
-          "bundle": "unique_bundle",
-          "type": "unique_type",
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
         },
       },
     }
@@ -484,8 +484,8 @@ exports[`EntityListMapper non-existing entity 2`] = `
     Object {
       "__hn": Object {
         "entity": Object {
-          "bundle": "unique_bundle",
-          "type": "unique_type",
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
         },
       },
     }
@@ -497,14 +497,14 @@ exports[`EntityListMapper with all props 1`] = `
 Array [
   <main>
     <div
-      bundle="unique_type__unique_bundle"
+      bundle="unique_type_1__unique_bundle_1"
       className="MyCustomMapperComponent"
       entity={
         Object {
           "__hn": Object {
             "entity": Object {
-              "bundle": "unique_bundle",
-              "type": "unique_type",
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
             },
           },
         }
@@ -514,8 +514,8 @@ Array [
         Object {
           "__hn": Object {
             "entity": Object {
-              "bundle": "unique_bundle",
-              "type": "unique_type",
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
             },
           },
         }
@@ -559,14 +559,14 @@ exports[`EntityListMapper with all props 2`] = `
 Array [
   <main>
     <div
-      bundle="unique_type__unique_bundle"
+      bundle="unique_type_1__unique_bundle_1"
       className="MyCustomMapperComponent"
       entity={
         Object {
           "__hn": Object {
             "entity": Object {
-              "bundle": "unique_bundle",
-              "type": "unique_type",
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
             },
           },
         }
@@ -576,8 +576,8 @@ Array [
         Object {
           "__hn": Object {
             "entity": Object {
-              "bundle": "unique_bundle",
-              "type": "unique_type",
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
             },
           },
         }
@@ -620,14 +620,14 @@ Array [
 exports[`EntityListMapper with required props, different bundle 1`] = `
 Array [
   <div
-    bundle="unique_type__unique_bundle"
+    bundle="unique_type_1__unique_bundle_1"
     className="MyCustomMapperComponent"
     entity={
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -637,8 +637,8 @@ Array [
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -676,14 +676,14 @@ Array [
 exports[`EntityListMapper with required props, different bundle 2`] = `
 Array [
   <div
-    bundle="unique_type__unique_bundle"
+    bundle="unique_type_1__unique_bundle_1"
     className="MyCustomMapperComponent"
     entity={
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -693,8 +693,8 @@ Array [
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -732,14 +732,14 @@ Array [
 exports[`EntityListMapper with required props, same bundle 1`] = `
 Array [
   <div
-    bundle="unique_type__unique_bundle"
+    bundle="unique_type_1__unique_bundle_1"
     className="MyCustomMapperComponent"
     entity={
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -749,22 +749,22 @@ Array [
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
     }
   />,
   <div
-    bundle="unique_type__unique_bundle"
+    bundle="unique_type_1__unique_bundle_1"
     className="MyCustomMapperComponent"
     entity={
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -774,8 +774,8 @@ Array [
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -787,14 +787,14 @@ Array [
 exports[`EntityListMapper with required props, same bundle 2`] = `
 Array [
   <div
-    bundle="unique_type__unique_bundle"
+    bundle="unique_type_1__unique_bundle_1"
     className="MyCustomMapperComponent"
     entity={
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -804,22 +804,22 @@ Array [
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
     }
   />,
   <div
-    bundle="unique_type__unique_bundle"
+    bundle="unique_type_1__unique_bundle_1"
     className="MyCustomMapperComponent"
     entity={
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
@@ -829,8 +829,8 @@ Array [
       Object {
         "__hn": Object {
           "entity": Object {
-            "bundle": "unique_bundle",
-            "type": "unique_type",
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
           },
         },
       }
