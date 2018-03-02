@@ -10,13 +10,13 @@
   "author": "Bart Langelaan",
   "license": "MIT",
   "devDependencies": {
-    "coveralls": "^2.13.1",
-    "fetch-mock": "^5.12.1",
+    "coveralls": "^3.0.0",
+    "fetch-mock": "^6.0.1",
     "nyc": "^11.1.0",
-    "semantic-release": "^8.0.3",
+    "semantic-release": "^12.4.1",
     "tap-nyc": "^1.0.2",
     "tape": "^4.8.0",
-    "ts-node": "^3.3.0",
+    "ts-node": "^5.0.1",
     "tslint": "^5.5.0",
     "tslint-config-airbnb": "^5.2.1",
     "typescript": "^2.4.2"
@@ -32,9 +32,9 @@
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
-    "deepmerge": "^1.5.0",
+    "deepmerge": "^2.0.1",
     "es6-promise": "^4.1.1",
-    "fetch-ponyfill": "^4.1.0",
+    "fetch-ponyfill": "^5.0.1",
     "get-nested": "^4.0.0",
     "isomorphic-fetch": "^2.2.1",
     "query-string": "^5.0.0",
