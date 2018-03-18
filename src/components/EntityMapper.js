@@ -62,11 +62,15 @@ class EntityMapper extends Component {
       '_fallback',
     );
 
+  static getMapperFromProps = ({ asyncMapper, mapper }) =>
+    typeof asyncMapper === 'boolean' ? mapper : asyncMapper;
+
   constructor(props) {
     super(props);
 
     this.state = {
       entityProps: props.entityProps,
+      mapper: EntityMapper.getMapperFromProps(props),
       ready: false,
       uuid: props.uuid,
     };
@@ -79,8 +83,8 @@ class EntityMapper extends Component {
    * multiple renders.
    */
   async asyncBootstrap() {
-    const { mapper, asyncMapper } = this.props;
-    const { uuid, entityProps } = this.state;
+    const { asyncMapper } = this.props;
+    const { mapper, uuid, entityProps } = this.state;
 
     // If this mapper + uuid combination is already in state, use that state
     const state = getNested(
@@ -111,7 +115,8 @@ class EntityMapper extends Component {
    * The first time this element is rendered, we always make sure the component and the Drupal page is loaded.
    */
   componentWillMount() {
-    const { uuid, mapper } = this.props;
+    const { uuid } = this.props;
+    const { mapper } = this.state;
     const state = getNested(
       () =>
         this.context.hnContext.state.entities.find(
@@ -132,7 +137,10 @@ class EntityMapper extends Component {
       this.props.mapper !== nextProps.mapper ||
       this.props.asyncMapper !== nextProps.asyncMapper
     ) {
-      this.loadComponent(nextProps);
+      this.loadComponent({
+        ...nextProps,
+        mapper: EntityMapper.getMapperFromProps(nextProps),
+      });
     }
   }
 
@@ -168,8 +176,7 @@ class EntityMapper extends Component {
   }
 
   render() {
-    const { mapper } = this.props;
-    const { uuid, entityProps } = this.state;
+    const { uuid, entityProps, mapper } = this.state;
 
     const entity = site.getData(uuid);
 
@@ -200,15 +207,23 @@ class EntityMapper extends Component {
 }
 
 EntityMapper.propTypes = {
-  asyncMapper: PropTypes.bool,
+  asyncMapper: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]),
+  ]),
   entityProps: PropTypes.shape(),
-  mapper: PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]).isRequired,
+  mapper: PropTypes.oneOfType([
+    PropTypes.shape(),
+    PropTypes.func,
+    PropTypes.bool,
+  ]),
   uuid: PropTypes.string.isRequired,
 };
 
 EntityMapper.defaultProps = {
   asyncMapper: false,
   entityProps: {},
+  mapper: false,
 };
 
 export default EntityMapper;

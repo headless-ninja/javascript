@@ -42,9 +42,7 @@ describe('EntityMapper', async () => {
   });
 
   test('with required props & asyncMapper', async () => {
-    const component = (
-      <EntityMapper uuid={uuid} mapper={asyncMapper} asyncMapper />
-    );
+    const component = <EntityMapper uuid={uuid} asyncMapper={asyncMapper} />;
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
 
@@ -74,9 +72,20 @@ describe('EntityMapper', async () => {
       <EntityMapper
         entityProps={{ testEntityProp: true }}
         uuid={uuid}
-        mapper={asyncMapper}
-        asyncMapper
+        asyncMapper={asyncMapper}
       />
+    );
+
+    expect(renderer.create(component).toJSON()).toMatchSnapshot();
+
+    expect(
+      renderer.create(await waitForHnData(component)).toJSON(),
+    ).toMatchSnapshot();
+  });
+
+  test('asyncMapper as boolean (deprecated)', async () => {
+    const component = (
+      <EntityMapper uuid={uuid} mapper={asyncMapper} asyncMapper />
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();

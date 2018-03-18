@@ -81,6 +81,23 @@ describe('EntityListMapper', async () => {
         entities={[uuid, 'unique-uuid-3']}
         entityProps={{ testEntityProp: true }}
         entityWrapper={'main'}
+        asyncMapper={asyncMapper}
+      />
+    );
+
+    expect(renderer.create(component).toJSON()).toMatchSnapshot();
+
+    expect(
+      renderer.create(await waitForHnData(component)).toJSON(),
+    ).toMatchSnapshot();
+  });
+
+  test('asyncMapper as boolean (deprecated)', async () => {
+    const component = (
+      <EntityListMapper
+        entities={[uuid, 'unique-uuid-3']}
+        entityProps={{ testEntityProp: true }}
+        entityWrapper={'main'}
         mapper={asyncMapper}
         asyncMapper
       />

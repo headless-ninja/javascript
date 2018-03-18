@@ -26,7 +26,10 @@ const EntityListMapper = ({
   });
 
 EntityListMapper.propTypes = {
-  asyncMapper: PropTypes.bool,
+  asyncMapper: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]),
+  ]),
   entities: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.shape({
@@ -37,13 +40,14 @@ EntityListMapper.propTypes = {
   ).isRequired,
   entityProps: PropTypes.shape(),
   entityWrapper: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  mapper: PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]).isRequired,
+  mapper: PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]),
 };
 
 EntityListMapper.defaultProps = {
   asyncMapper: undefined,
   entityProps: undefined,
   entityWrapper: undefined,
+  mapper: undefined,
 };
 
 export default EntityListMapper;
