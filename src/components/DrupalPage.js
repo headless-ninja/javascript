@@ -162,10 +162,13 @@ class DrupalPage extends Component {
 }
 
 DrupalPage.propTypes = {
-  asyncMapper: PropTypes.bool,
+  asyncMapper: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]),
+  ]),
   layout: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   layoutProps: PropTypes.shape(),
-  mapper: PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]).isRequired,
+  mapper: PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]),
   pageProps: PropTypes.shape(),
   renderWhileLoadingData: PropTypes.bool,
   url: PropTypes.string.isRequired,
