@@ -113,9 +113,9 @@ class DrupalPage extends Component {
     // Mark this component as not-ready. This unmounts the Layout and old ContentType.
     // Only render if the component is ready.
     if (
-      this.entity &&
       !this.props.renderWhileLoadingData &&
-      !this.entity.isReady()
+      this.entity &&
+      !(this.entity.isReady() && !this.state.loadingData)
     ) {
       return null;
     }

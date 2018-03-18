@@ -77,8 +77,8 @@ class EntityMapper extends Component {
 
     this.state = {
       entityProps: props.entityProps,
-      ready: false,
       mapper: EntityMapper.getMapperFromProps(props),
+      ready: false,
       uuid: props.uuid,
     };
   }
@@ -173,10 +173,10 @@ class EntityMapper extends Component {
 
     const newState = {
       ...this.state,
-      uuid,
-      ready: true,
       entityProps,
       mapper,
+      ready: true,
+      uuid,
     };
 
     this.setState(newState);
