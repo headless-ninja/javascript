@@ -62,6 +62,13 @@ class EntityMapper extends Component {
       '_fallback',
     );
 
+  /**
+   * Use this method to get a final mapper, based on both the asyncMapper & mapper prop.
+   * This ensures backwards compatibility.
+   * @param asyncMapper
+   * @param mapper
+   * @returns {*} mapper
+   */
   static getMapperFromProps = ({ asyncMapper, mapper }) =>
     typeof asyncMapper === 'boolean' ? mapper : asyncMapper;
 
@@ -70,8 +77,8 @@ class EntityMapper extends Component {
 
     this.state = {
       entityProps: props.entityProps,
-      mapper: EntityMapper.getMapperFromProps(props),
       ready: false,
+      mapper: EntityMapper.getMapperFromProps(props),
       uuid: props.uuid,
     };
   }
@@ -84,7 +91,7 @@ class EntityMapper extends Component {
    */
   async asyncBootstrap() {
     const { asyncMapper } = this.props;
-    const { mapper, uuid, entityProps } = this.state;
+    const { uuid, entityProps, mapper } = this.state;
 
     // If this mapper + uuid combination is already in state, use that state
     const state = getNested(
@@ -127,7 +134,10 @@ class EntityMapper extends Component {
     if (state) {
       this.setState(state);
     } else {
-      this.loadComponent(this.props);
+      this.loadComponent({
+        ...this.props,
+        mapper: EntityMapper.getMapperFromProps(this.props),
+      });
     }
   }
 
@@ -163,7 +173,10 @@ class EntityMapper extends Component {
 
     const newState = {
       ...this.state,
-      ...{ uuid, ready: true, entityProps },
+      uuid,
+      ready: true,
+      entityProps,
+      mapper,
     };
 
     this.setState(newState);
