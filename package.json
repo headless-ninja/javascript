@@ -4,7 +4,7 @@
   "description": "The React implementation of Headless Ninja.",
   "main": "lib/index.js",
   "repository": {
-    "url": "https://github.com/burst-digital/hn-react"
+    "url": "https://github.com/headless-ninja/hn-react"
   },
   "author": "Bart Langelaan",
   "license": "MIT",
