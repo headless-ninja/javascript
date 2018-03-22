@@ -1,0 +1,18 @@
+{
+  "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "**/*.test.{t,j}s"
+    ],
+  "compilerOptions": {
+    "target": "ES2015",
+    "allowJs": true,
+    "jsx": "react",
+    //"declaration": true,
+    "outDir": "./lib/es2015",
+    "rootDir": "./src",
+    "strict": true,
+    "allowSyntheticDefaultImports": true
+  }
+}

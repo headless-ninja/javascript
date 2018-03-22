@@ -2,7 +2,8 @@
   "name": "hn-react",
   "version": "0.0.0-development",
   "description": "The React implementation of Headless Ninja.",
-  "main": "lib/index.js",
+  "main": "lib/es5/index.js",
+  "esnext": "lib/es2015/index.js",
   "repository": {
     "url": "https://github.com/headless-ninja/hn-react"
   },
@@ -47,19 +48,20 @@
     "typescript": "^2.7.2"
   },
   "scripts": {
-    "start": "npm run build -- -w",
-    "build": "rimraf lib && babel src -d lib --ignore **/*.test.js",
+    "start": "rimraf lib && tsc -w & babel src -d lib/es5 -w",
+    "build": "rimraf lib && tsc && babel lib/es2015 -d lib/es5",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
-    "test": "yarn test:unit && yarn test:lint",
+    "test": "yarn test:types && yarn test:unit && yarn test:lint",
+    "test:types": "tsc --noEmit",
     "test:unit": "jest --coverage",
     "test:unit:update": "yarn test:unit -- -u",
-    "test:lint": "prettier 'src/**/*.js' -l && tslint 'src/**/*.js'",
-    "format": "prettier 'src/**/*.js' --write -l && tslint 'src/**/*.js' --fix"
+    "test:lint": "prettier 'src/**/*.{js,ts,tsx}' -l && tslint 'src/**/*.{js,ts,tsx}'",
+    "format": "prettier 'src/**/*.{js,ts,tsx}' --write -l && tslint 'src/**/*.{js,ts,tsx}' --fix"
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.js"
+      "src/**/*.{js,ts,tsx}"
     ],
     "coverageReporters": [
       "lcov",
