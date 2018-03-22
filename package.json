@@ -41,6 +41,7 @@
     "rimraf": "^2.6.2",
     "semantic-release": "^12.4.1",
     "travis-deploy-once": "^4.3.4",
+    "ts-jest": "^22.4.2",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.7.0",
     "tslint-config-prettier": "^1.8.0",
@@ -66,6 +67,18 @@
     "coverageReporters": [
       "lcov",
       "text"
+    ],
+    "mapCoverage": true,
+    "transform": {
+      "^.+\\.(j|t)sx?$": "ts-jest"
+    },
+    "testRegex": "src/.*(/__tests__/.*|(\\.|/)(test|spec))\\.(j|t)sx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "node"
     ]
   },
   "prettier": {

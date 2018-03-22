@@ -16,13 +16,13 @@ export const mapper = {
 /* tslint:disable */
 export const asyncMapper = {
   unique_type_1__unique_bundle_1: jest.fn(() =>
-    import('./components/MapperComponent'),
+    Promise.resolve(MapperComponent),
   ),
   unique_type_2__unique_bundle_2: jest.fn(() =>
-    import('./components/MapperComponentWithHOC'),
+    Promise.resolve(MapperComponentWithHOC),
   ),
   unique_type_3__unique_bundle_3: jest.fn(() =>
-    import('./components/MapperComponentWithHOC2'),
+    Promise.resolve(MapperComponentWithHOC2),
   ),
 };
 /* tslint:enable */
