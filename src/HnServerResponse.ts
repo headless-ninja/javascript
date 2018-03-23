@@ -1,11 +1,11 @@
 export interface Entity {
   __hn?: {
     view_modes: {
-      [viewMode: string]: boolean,
+      [viewMode: string]: boolean;
     };
     entity: {
-      type: string,
-      bundle: string,
+      type: string;
+      bundle: string;
     };
     url: string;
     status?: number;
@@ -14,15 +14,15 @@ export interface Entity {
 
 export default interface HnServerResponse {
   data?: {
-    [uuid: string]: Entity | any,
+    [uuid: string]: Entity | any;
   };
   paths?: {
-    [path: string]: string,
+    [path: string]: string;
   };
   __hn?: {
     request?: {
-      user?: string,
-      token?: string,
+      user?: string;
+      token?: string;
     };
   };
-}
+};

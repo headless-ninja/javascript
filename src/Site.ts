@@ -1,17 +1,16 @@
-import { polyfill, Promise } from 'es6-promise';
-import 'isomorphic-fetch';
 import * as deepmerge from 'deepmerge';
+import { polyfill, Promise } from 'es6-promise';
 import * as getNested from 'get-nested';
+import 'isomorphic-fetch';
 import { stringify } from 'query-string';
-import SiteInitializeParams from './SiteInitializeParams';
 import HnServerResponse from './HnServerResponse';
+import SiteInitializeParams from './SiteInitializeParams';
 
 polyfill();
 
 const propertiesToHydrate = ['tokensToVerify', 'user', 'data'];
 
 class Site {
-
   private initialized: boolean;
 
   // Created when initializing
@@ -24,7 +23,7 @@ class Site {
   private data: HnServerResponse;
 
   // Not hydrated
-  private pagesLoading: {[s: string]: Promise<string>};
+  private pagesLoading: { [s: string]: Promise<string> };
 
   constructor(initParams?: SiteInitializeParams) {
     this.reset();
@@ -55,7 +54,7 @@ class Site {
    */
   dehydrate(): object {
     const dehydrated = {};
-    propertiesToHydrate.forEach((property) => {
+    propertiesToHydrate.forEach(property => {
       dehydrated[property] = this[property];
     });
     return dehydrated;
@@ -65,15 +64,17 @@ class Site {
    * Updates all properties with the object created by the dehydrate function.
    */
   hydrate(options: object): void {
-    propertiesToHydrate.forEach((property) => {
+    propertiesToHydrate.forEach(property => {
       this[property] = options[property];
     });
   }
 
   private fetch(path, options = {}): Promise<HnServerResponse> {
     if (!this.initialized) {
-      throw Error('Site is not intitialized. Pass an object when creating a site, or use the ' +
-        'initialize method.');
+      throw Error(
+        'Site is not intitialized. Pass an object when creating a site, or use the ' +
+          'initialize method.',
+      );
     }
     return fetch(this.url + path, {
       method: 'GET',
@@ -81,43 +82,53 @@ class Site {
       cache: 'default',
       ...options,
       ...this.fetchOptions,
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(
-            `Error at path: ${this.url + path}: ${response.status} - ${response.statusText}`,
-          );
-        }
-        return response.json();
-      });
+    }).then(response => {
+      if (!response.ok) {
+        throw Error(
+          `Error at path: ${this.url + path}: ${response.status} - ${
+            response.statusText
+          }`,
+        );
+      }
+      return response.json();
+    });
   }
 
   public getPage(path, loadFromServer = false): Promise<string> {
-    if (!this.pagesLoading[ path ]) {
-      const dataMaybeAlreadyLoaded = getNested(() => this.data.data[this.data.paths[path]]);
-      if (getNested(() => dataMaybeAlreadyLoaded.__hn.view_modes.includes('default'))) {
-        this.pagesLoading[ path ] = Promise.resolve(this.data.paths[ path ]);
+    if (!this.pagesLoading[path]) {
+      const dataMaybeAlreadyLoaded = getNested(
+        () => this.data.data[this.data.paths[path]],
+      );
+      if (
+        getNested(() =>
+          dataMaybeAlreadyLoaded.__hn.view_modes.includes('default'),
+        )
+      ) {
+        this.pagesLoading[path] = Promise.resolve(this.data.paths[path]);
       }
     }
 
-    if (loadFromServer === true || !this.pagesLoading[ path ]) {
-
+    if (loadFromServer === true || !this.pagesLoading[path]) {
       // Copy this.tokensToVerify for this single request.
       const tokensToVerify = [...this.tokensToVerify];
 
-      this.pagesLoading[ path ] = this.fetch('/hn?' + stringify({
-        path,
-        _format: 'hn',
-        _hn_user: this.user ? this.user : undefined,
-        _hn_verify: tokensToVerify,
-      }))
+      this.pagesLoading[path] = this.fetch(
+        '/hn?' +
+          stringify({
+            path,
+            _format: 'hn',
+            _hn_user: this.user ? this.user : undefined,
+            _hn_verify: tokensToVerify,
+          }),
+      )
         .then((page: HnServerResponse) => {
-
           // Get the user id, to pass to all new requests.
           this.user = getNested(() => page.__hn.request.user, this.user);
 
           // Remove all sent tokens from the tokensToVerify.
-          this.tokensToVerify = this.tokensToVerify.filter(t => tokensToVerify.indexOf(t) === -1);
+          this.tokensToVerify = this.tokensToVerify.filter(
+            t => tokensToVerify.indexOf(t) === -1,
+          );
 
           // Add new token to tokensToVerify.
           const newToken = getNested(() => page.__hn.request.token);
@@ -125,19 +136,18 @@ class Site {
 
           // Add all data to the global data storage.
           this.addData(page);
-
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(error => {
+          console.error(error); // tslint:disable-line:no-console
           this.addData({
             paths: {
               [path]: '500',
             },
           });
         })
-        .then(() => this.data.paths[ path ]);
+        .then(() => this.data.paths[path]);
     }
-    return this.pagesLoading[ path ];
+    return this.pagesLoading[path];
   }
 
   private addData(data: HnServerResponse) {
@@ -145,7 +155,7 @@ class Site {
   }
 
   public getData(key) {
-    return this.data.data[ key ];
+    return this.data.data[key];
   }
 
   /**
