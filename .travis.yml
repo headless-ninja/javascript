@@ -16,9 +16,9 @@ script:
   - yarn build
   - yarn lint
   - yarn test
+  - cat ./coverage/lcov.info | yarn coveralls
 
 after_script: greenkeeper-lockfile-upload
 
 after_success:
-  - yarn coveralls
   - yarn semantic-release

@@ -1,7 +1,8 @@
 {
   "name": "hn",
   "version": "0.0.0-development",
-  "description": "Connects with an Drupal website that has the hn module installed.",
+  "description":
+    "Connects with an Drupal website that has the hn module installed.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
@@ -10,13 +11,15 @@
   "author": "Bart Langelaan",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^22.2.2",
+    "@types/node": "^9.6.0",
+    "babel-jest": "^22.4.3",
     "coveralls": "^2.13.1",
     "fetch-mock": "^5.12.1",
-    "nyc": "^11.1.0",
+    "jest": "^22.4.3",
     "prettier": "^1.11.1",
     "semantic-release": "^8.0.3",
-    "tap-nyc": "^1.0.2",
-    "tape": "^4.8.0",
+    "ts-jest": "^22.4.2",
     "ts-node": "^3.3.0",
     "tslint": "^5.5.0",
     "tslint-config-airbnb": "^5.2.1",
@@ -26,13 +29,14 @@
   },
   "scripts": {
     "build": "rimraf lib && tsc",
-    "test": "nyc tape tests/unit/*.js | tap-nyc",
-    "coverage": "nyc report",
+    "test": "jest --coverage",
     "start": "yarn build -- --watch",
-    "lint": "prettier 'src/**/*.{js,ts,tsx}' -l && tslint 'src/**/*.{js,ts,tsx}'",
-    "lint:fix": "prettier 'src/**/*.{js,ts,tsx}' --write -l && tslint 'src/**/*.{js,ts,tsx}' --fix",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "lint":
+      "prettier 'src/**/*.{js,ts,tsx}' -l && tslint 'src/**/*.{js,ts,tsx}'",
+    "lint:fix":
+      "prettier 'src/**/*.{js,ts,tsx}' --write -l && tslint 'src/**/*.{js,ts,tsx}' --fix",
+    "semantic-release":
+      "semantic-release pre && npm publish && semantic-release post"
   },
   "dependencies": {
     "deepmerge": "^1.5.0",
@@ -44,17 +48,14 @@
     "rimraf": "^2.6.2",
     "universal-fetch": "^1.0.0"
   },
-  "nyc": {
-    "extension": [
-      ".ts"
-    ],
-    "exclude": [
-      "**/*.d.ts",
-      "tests/**"
-    ],
-    "require": [
-      "ts-node/register"
-    ]
+  "jest": {
+    "collectCoverageFrom": ["src/**/*.{js,ts,tsx}"],
+    "coverageReporters": ["lcov", "text"],
+    "transform": {
+      "^.+\\.(j|t)sx?$": "ts-jest"
+    },
+    "testRegex": "src/.*(__tests__/.*|(\\.|/)(test|spec))\\.(j|t)sx?$",
+    "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"]
   },
   "prettier": {
     "printWidth": 80,
