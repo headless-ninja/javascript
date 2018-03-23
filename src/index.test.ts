@@ -1,12 +1,12 @@
 import {
   DrupalPage,
-  site,
+  EntityListMapper,
   EntityMapper,
   Paragraph,
-  EntityListMapper,
   Paragraphs,
+  site,
   waitForHnData,
-} from './';
+} from './index';
 
 test('exports', () => {
   expect(typeof DrupalPage).toBe('function');
