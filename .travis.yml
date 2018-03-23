@@ -8,17 +8,20 @@ branches:
   except:
     - /^v\d+\.\d+\.\d+$/
 
-before_install: yarn global add greenkeeper-lockfile@1
-
-before_script: greenkeeper-lockfile-update
+install:
+  - cd packages/hn
+  - yarn
+  - cd ../..
 
 script:
+  - cd packages/hn
   - yarn build
   - yarn lint
   - yarn test
   - cat ./coverage/lcov.info | yarn coveralls
-
-after_script: greenkeeper-lockfile-upload
+  - cd ../..
 
 after_success:
+  - cd packages/hn
   - yarn semantic-release
+  - cd ../..
