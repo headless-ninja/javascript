@@ -1,12 +1,12 @@
 {
   "plugins": [
-    "transform-class-properties",
-    "transform-runtime",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-runtime",
     "dynamic-import-node"
   ],
   "presets": [
-    "stage-3",
-    "react",
-    "env"
+    "@babel/preset-stage-3",
+    "@babel/preset-react",
+    "@babel/preset-env"
   ]
 }

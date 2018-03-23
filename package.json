@@ -2,14 +2,15 @@
   "name": "hn-react",
   "version": "0.0.0-development",
   "description": "The React implementation of Headless Ninja.",
-  "main": "lib/index.js",
+  "main": "lib/es5/index.js",
+  "esnext": "lib/es2015/index.js",
   "repository": {
     "url": "https://github.com/headless-ninja/hn-react"
   },
   "author": "Bart Langelaan",
   "license": "MIT",
   "dependencies": {
-    "babel-runtime": "^6.25.0",
+    "@babel/runtime": "7.0.0-beta.40",
     "get-nested": "^4.0.0",
     "prop-types": "^15.5.10",
     "react-async-bootstrapper": "^1.1.2",
@@ -20,13 +21,17 @@
     "react": "^16.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
+    "@babel/cli": "7.0.0-beta.40",
+    "@babel/core": "7.0.0-beta.40",
+    "@babel/plugin-proposal-class-properties": "7.0.0-beta.40",
+    "@babel/plugin-transform-runtime": "7.0.0-beta.40",
+    "@babel/preset-env": "7.0.0-beta.40",
+    "@babel/preset-react": "7.0.0-beta.40",
+    "@babel/preset-stage-3": "7.0.0-beta.40",
+    "@types/jest": "^22.2.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^22.4.3",
     "babel-plugin-dynamic-import-node": "^1.2.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1",
     "coveralls": "^3.0.0",
     "hn": "^0.6.1",
     "jest": "^22.3.0",
@@ -37,6 +42,7 @@
     "rimraf": "^2.6.2",
     "semantic-release": "^12.4.1",
     "travis-deploy-once": "^4.3.4",
+    "ts-jest": "^22.4.2",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.7.0",
     "tslint-config-prettier": "^1.8.0",
@@ -44,23 +50,36 @@
     "typescript": "^2.7.2"
   },
   "scripts": {
-    "start": "npm run build -- -w",
-    "build": "rimraf lib && babel src -d lib --ignore test.js",
+    "start": "rimraf lib && tsc -w & babel src -d lib/es5 -w",
+    "build": "rimraf lib && tsc && babel lib/es2015 -d lib/es5",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
-    "test": "yarn test:unit && yarn test:lint",
+    "test": "yarn test:types && yarn test:unit && yarn test:lint",
+    "test:types": "tsc --noEmit",
     "test:unit": "jest --coverage",
     "test:unit:update": "yarn test:unit -- -u",
-    "test:lint": "prettier 'src/**/*.js' -l && tslint 'src/**/*.js'",
-    "format": "prettier 'src/**/*.js' --write -l && tslint 'src/**/*.js' --fix"
+    "test:lint": "prettier 'src/**/*.{js,ts,tsx}' -l && tslint 'src/**/*.{js,ts,tsx}'",
+    "format": "prettier 'src/**/*.{js,ts,tsx}' --write -l && tslint 'src/**/*.{js,ts,tsx}' --fix"
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.js"
+      "src/**/*.{js,ts,tsx}"
     ],
     "coverageReporters": [
       "lcov",
       "text"
+    ],
+    "mapCoverage": true,
+    "transform": {
+      "^.+\\.(j|t)sx?$": "ts-jest"
+    },
+    "testRegex": "src/.*(/__tests__/.*|(\\.|/)(test|spec))\\.(j|t)sx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "node"
     ]
   },
   "prettier": {
