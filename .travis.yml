@@ -8,18 +8,11 @@ branches:
   except:
     - /^v\d+\.\d+\.\d+$/
 
-install:
-  - cd packages/hn
-  - yarn
-  - cd ../..
-
 script:
-  - cd packages/hn
   - yarn build
   - yarn lint
   - yarn test
   - cat ./coverage/lcov.info | yarn coveralls
-  - cd ../..
 
 after_success:
   - cd packages/hn

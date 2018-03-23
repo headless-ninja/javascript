@@ -1,0 +1,48 @@
+{
+  "private": true,
+  "devDependencies": {
+    "@types/jest": "^22.2.2",
+    "@types/node": "^9.6.0",
+    "babel-jest": "^22.4.3",
+    "coveralls": "^2.13.1",
+    "fetch-mock": "^5.12.1",
+    "jest": "^22.4.3",
+    "lerna": "^2.9.0",
+    "prettier": "^1.11.1",
+    "rimraf": "^2.6.2",
+    "semantic-release": "^8.0.3",
+    "ts-jest": "^22.4.2",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.5.0",
+    "tslint-config-airbnb": "^5.2.1",
+    "tslint-config-prettier": "^1.10.0",
+    "tslint-react": "^3.5.1",
+    "typescript": "^2.4.2"
+  },
+  "scripts": {
+    "build": "rimraf packages/hn/lib && tsc",
+    "test": "jest --coverage",
+    "start": "yarn build -- --watch",
+    "lint":
+      "prettier 'packages/**/src/**/*.{js,ts,tsx}' -l && tslint 'packages/**/src/**/*.{js,ts,tsx}'",
+    "lint:fix":
+      "prettier 'packages/**/src/**/*.{js,ts,tsx}' --write -l && tslint 'packages/**/src/**/*.{js,ts,tsx}' --fix",
+    "postinstall": "lerna bootstrap"
+  },
+  "dependencies": {},
+  "jest": {
+    "collectCoverageFrom": ["packages/*/src/**/*.{js,ts,tsx}"],
+    "coverageReporters": ["lcov", "text"],
+    "transform": {
+      "^.+\\.(j|t)sx?$": "ts-jest"
+    },
+    "testRegex": "src/.*(__tests__/.*|(\\.|/)(test|spec))\\.(j|t)sx?$",
+    "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"],
+    "projects": ["<rootDir>/packages/hn"]
+  },
+  "prettier": {
+    "printWidth": 80,
+    "singleQuote": true,
+    "trailingComma": "all"
+  }
+}
