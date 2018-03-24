@@ -15,6 +15,4 @@ script:
   - cat ./coverage/lcov.info | yarn coveralls
 
 after_success:
-  - cd packages/hn
-  - yarn semantic-release
-  - cd ../..
+  - yarn release

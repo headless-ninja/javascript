@@ -10,7 +10,8 @@
     "lerna": "^2.9.0",
     "prettier": "^1.11.1",
     "rimraf": "^2.6.2",
-    "semantic-release": "^8.0.3",
+    "semantic-release": "^15.1.4",
+    "semantic-release-monorepo": "^6.0.0",
     "ts-jest": "^22.4.2",
     "ts-node": "^3.3.0",
     "tslint": "^5.5.0",
@@ -27,7 +28,9 @@
       "prettier 'packages/**/src/**/*.{js,ts,tsx}' -l && tslint 'packages/**/src/**/*.{js,ts,tsx}'",
     "lint:fix":
       "prettier 'packages/**/src/**/*.{js,ts,tsx}' --write -l && tslint 'packages/**/src/**/*.{js,ts,tsx}' --fix",
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap",
+    "release":
+      "lerna exec -- ../../node_modules/.bin/semantic-release -e semantic-release-monorepo"
   },
   "dependencies": {},
   "jest": {
