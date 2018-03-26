@@ -1,6 +1,6 @@
-import * as deepmerge from 'deepmerge';
+import deepmerge from 'deepmerge';
 import { polyfill, Promise } from 'es6-promise';
-import * as getNested from 'get-nested';
+import getNested from 'get-nested';
 import 'isomorphic-fetch';
 import { stringify } from 'query-string';
 import HnServerResponse from './HnServerResponse';

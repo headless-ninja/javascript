@@ -6,7 +6,8 @@
     "sourceMap": true,
     "inlineSourceMap": false,
     "allowJs": true,
-    "jsx": "react"
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
   },
   "include": ["packages/*/src"],
   "exclude": [
