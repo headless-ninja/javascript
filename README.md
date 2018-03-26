@@ -12,10 +12,10 @@ Uniting the best of Drupal and React in a legendary easy way.
 
 This repository is a monorepo, and contains multiple npm packages.
 
-| Package          | Version                               | API Reference             |
-| ---------------- | ------------------------------------- | ------------------------- |
-| hn               | [![npm-hn-badge]][npm-hn]             | [Reference][hn-api-js]    |
-| hn-react         | [![npm-hn-react-badge]][npm-hn-react] | [Reference][hn-api-react] |
+| Package  | Version                               | API Reference             |
+| -------- | ------------------------------------- | ------------------------- |
+| hn       | [![npm-hn-badge]][npm-hn]             | [Reference][hn-api-js]    |
+| hn-react | [![npm-hn-react-badge]][npm-hn-react] | [Reference][hn-api-react] |
 
 If you want to know how to use these modules, please check out the [Headless Ninja React - Getting started][hn-react-getting-started] guide.
 
