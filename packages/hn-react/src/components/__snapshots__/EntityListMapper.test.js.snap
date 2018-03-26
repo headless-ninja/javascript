@@ -1,0 +1,964 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EntityListMapper 2 mappers with double HOC components 1`] = `
+<div>
+  <main>
+    <div
+      bundle="unique_type_2__unique_bundle_2"
+      className="MyCustomMapperComponentWithHOC"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={0}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>
+  <main>
+    <div
+      bundle="unique_type_3__unique_bundle_3"
+      className="MyCustomMapperComponentWithHOC2"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={1}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>
+  <main>
+    <div
+      bundle="unique_type_2__unique_bundle_2"
+      className="MyCustomMapperComponentWithHOC"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={0}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>
+  <main>
+    <div
+      bundle="unique_type_3__unique_bundle_3"
+      className="MyCustomMapperComponentWithHOC2"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={1}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>
+</div>
+`;
+
+exports[`EntityListMapper 2 mappers with double HOC components 2`] = `
+<div>
+  <main>
+    <div
+      bundle="unique_type_2__unique_bundle_2"
+      className="MyCustomMapperComponentWithHOC"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={0}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>
+  <main>
+    <div
+      bundle="unique_type_3__unique_bundle_3"
+      className="MyCustomMapperComponentWithHOC2"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={1}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>
+  <main>
+    <div
+      bundle="unique_type_2__unique_bundle_2"
+      className="MyCustomMapperComponentWithHOC"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={0}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>
+  <main>
+    <div
+      bundle="unique_type_3__unique_bundle_3"
+      className="MyCustomMapperComponentWithHOC2"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={1}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>
+</div>
+`;
+
+exports[`EntityListMapper asyncMapper 1`] = `
+Array [
+  <main />,
+  <main />,
+]
+`;
+
+exports[`EntityListMapper asyncMapper 2`] = `
+Array [
+  <main>
+    <div
+      bundle="unique_type_1__unique_bundle_1"
+      className="MyCustomMapperComponent"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
+            },
+          },
+        }
+      }
+      index={0}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+  <main>
+    <div
+      bundle="unique_type_2__unique_bundle_2"
+      className="MyCustomMapperComponentWithHOC"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={1}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+]
+`;
+
+exports[`EntityListMapper asyncMapper as boolean (deprecated) 1`] = `
+Array [
+  <main>
+    <div
+      bundle="unique_type_1__unique_bundle_1"
+      className="MyCustomMapperComponent"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
+            },
+          },
+        }
+      }
+      index={0}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+  <main>
+    <div
+      bundle="unique_type_2__unique_bundle_2"
+      className="MyCustomMapperComponentWithHOC"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={1}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+]
+`;
+
+exports[`EntityListMapper asyncMapper as boolean (deprecated) 2`] = `
+Array [
+  <main>
+    <div
+      bundle="unique_type_1__unique_bundle_1"
+      className="MyCustomMapperComponent"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
+            },
+          },
+        }
+      }
+      index={0}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+  <main>
+    <div
+      bundle="unique_type_2__unique_bundle_2"
+      className="MyCustomMapperComponentWithHOC"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={1}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+]
+`;
+
+exports[`EntityListMapper double HOC components 1`] = `
+Array [
+  <main>
+    <div
+      bundle="unique_type_2__unique_bundle_2"
+      className="MyCustomMapperComponentWithHOC"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={0}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+  <main>
+    <div
+      bundle="unique_type_3__unique_bundle_3"
+      className="MyCustomMapperComponentWithHOC2"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={1}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+]
+`;
+
+exports[`EntityListMapper double HOC components 2`] = `
+Array [
+  <main>
+    <div
+      bundle="unique_type_2__unique_bundle_2"
+      className="MyCustomMapperComponentWithHOC"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={0}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+  <main>
+    <div
+      bundle="unique_type_3__unique_bundle_3"
+      className="MyCustomMapperComponentWithHOC2"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={1}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_3",
+              "type": "unique_type_3",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+]
+`;
+
+exports[`EntityListMapper non-existing entity 1`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  index={0}
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+/>
+`;
+
+exports[`EntityListMapper non-existing entity 2`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  index={0}
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+/>
+`;
+
+exports[`EntityListMapper with all props 1`] = `
+Array [
+  <main>
+    <div
+      bundle="unique_type_1__unique_bundle_1"
+      className="MyCustomMapperComponent"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
+            },
+          },
+        }
+      }
+      index={0}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+  <main>
+    <div
+      bundle="unique_type_2__unique_bundle_2"
+      className="MyCustomMapperComponentWithHOC"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={1}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+]
+`;
+
+exports[`EntityListMapper with all props 2`] = `
+Array [
+  <main>
+    <div
+      bundle="unique_type_1__unique_bundle_1"
+      className="MyCustomMapperComponent"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
+            },
+          },
+        }
+      }
+      index={0}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_1",
+              "type": "unique_type_1",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+  <main>
+    <div
+      bundle="unique_type_2__unique_bundle_2"
+      className="MyCustomMapperComponentWithHOC"
+      entity={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      hocProps={true}
+      index={1}
+      paragraph={
+        Object {
+          "__hn": Object {
+            "entity": Object {
+              "bundle": "unique_bundle_2",
+              "type": "unique_type_2",
+            },
+          },
+        }
+      }
+      testEntityProp={true}
+    />
+  </main>,
+]
+`;
+
+exports[`EntityListMapper with required props, different bundle 1`] = `
+Array [
+  <div
+    bundle="unique_type_1__unique_bundle_1"
+    className="MyCustomMapperComponent"
+    entity={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+    index={0}
+    paragraph={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+  />,
+  <div
+    bundle="unique_type_2__unique_bundle_2"
+    className="MyCustomMapperComponentWithHOC"
+    entity={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_2",
+            "type": "unique_type_2",
+          },
+        },
+      }
+    }
+    hocProps={true}
+    index={1}
+    paragraph={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_2",
+            "type": "unique_type_2",
+          },
+        },
+      }
+    }
+  />,
+]
+`;
+
+exports[`EntityListMapper with required props, different bundle 2`] = `
+Array [
+  <div
+    bundle="unique_type_1__unique_bundle_1"
+    className="MyCustomMapperComponent"
+    entity={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+    index={0}
+    paragraph={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+  />,
+  <div
+    bundle="unique_type_2__unique_bundle_2"
+    className="MyCustomMapperComponentWithHOC"
+    entity={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_2",
+            "type": "unique_type_2",
+          },
+        },
+      }
+    }
+    hocProps={true}
+    index={1}
+    paragraph={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_2",
+            "type": "unique_type_2",
+          },
+        },
+      }
+    }
+  />,
+]
+`;
+
+exports[`EntityListMapper with required props, same bundle 1`] = `
+Array [
+  <div
+    bundle="unique_type_1__unique_bundle_1"
+    className="MyCustomMapperComponent"
+    entity={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+    index={0}
+    paragraph={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+  />,
+  <div
+    bundle="unique_type_1__unique_bundle_1"
+    className="MyCustomMapperComponent"
+    entity={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+    index={1}
+    paragraph={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+  />,
+]
+`;
+
+exports[`EntityListMapper with required props, same bundle 2`] = `
+Array [
+  <div
+    bundle="unique_type_1__unique_bundle_1"
+    className="MyCustomMapperComponent"
+    entity={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+    index={0}
+    paragraph={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+  />,
+  <div
+    bundle="unique_type_1__unique_bundle_1"
+    className="MyCustomMapperComponent"
+    entity={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+    index={1}
+    paragraph={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+  />,
+]
+`;

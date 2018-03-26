@@ -1,0 +1,17 @@
+{
+  "name": "hn-react",
+  "version": "0.0.0-development",
+  "description": "The React implementation of Headless Ninja.",
+  "main": "lib/index.js",
+  "repository": {
+    "url": "https://github.com/headless-ninja/hn-react"
+  },
+  "author": "Bart Langelaan",
+  "license": "MIT",
+  "dependencies": {
+    "get-nested": "^4.0.0",
+    "prop-types": "^15.5.10",
+    "react-async-bootstrapper": "^1.1.2",
+    "util-deprecate": "^1.0.2"
+  }
+}

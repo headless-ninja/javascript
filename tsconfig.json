@@ -5,7 +5,14 @@
     "rootDir": "./packages",
     "sourceMap": true,
     "inlineSourceMap": false,
-    "declaration": true
+    "allowJs": true,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
   },
-  "exclude": ["packages/*/lib", "node_modules", "packages/*/src/__tests__"]
+  "include": ["packages/*/src"],
+  "exclude": [
+    "packages/*/src/__tests__",
+    "packages/*/src/**/__tests__",
+    "packages/**/*.test.*"
+  ]
 }

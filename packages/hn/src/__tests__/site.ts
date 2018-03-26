@@ -1,4 +1,4 @@
-import * as fetchMock from 'fetch-mock';
+import fetchMock from 'fetch-mock';
 import { Site } from '..';
 
 fetchMock.get(

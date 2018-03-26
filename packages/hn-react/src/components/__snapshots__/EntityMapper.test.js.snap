@@ -1,0 +1,254 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EntityMapper asyncMapper as boolean (deprecated) 1`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+/>
+`;
+
+exports[`EntityMapper asyncMapper as boolean (deprecated) 2`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+/>
+`;
+
+exports[`EntityMapper non-existing entity 1`] = `null`;
+
+exports[`EntityMapper non-existing entity 2`] = `null`;
+
+exports[`EntityMapper with all props & asyncMapper 1`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  testEntityProp={true}
+/>
+`;
+
+exports[`EntityMapper with all props & asyncMapper 2`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  testEntityProp={true}
+/>
+`;
+
+exports[`EntityMapper with all props 1`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  testEntityProp={true}
+/>
+`;
+
+exports[`EntityMapper with all props 2`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  testEntityProp={true}
+/>
+`;
+
+exports[`EntityMapper with required props & asyncMapper 1`] = `null`;
+
+exports[`EntityMapper with required props & asyncMapper 2`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+/>
+`;
+
+exports[`EntityMapper with required props 1`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+/>
+`;
+
+exports[`EntityMapper with required props 2`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+/>
+`;

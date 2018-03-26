@@ -19,6 +19,8 @@
     "lerna": "^2.9.0",
     "merge2": "^1.2.1",
     "prettier": "^1.11.1",
+    "react": "^16.2.0",
+    "react-test-renderer": "^16.2.0",
     "rimraf": "^2.6.2",
     "semantic-release": "^15.1.4",
     "semantic-release-monorepo": "^6.0.0",
@@ -35,9 +37,9 @@
     "test": "tsc --noEmit && jest --coverage",
     "start": "gulp",
     "lint":
-      "prettier 'packages/**/src/**/*.{js,ts,tsx}' -l && tslint 'packages/**/src/**/*.{js,ts,tsx}'",
+      "prettier 'packages/*/src/**/*.{js,ts,tsx}' -l && tslint 'packages/*/src/**/*.{js,ts,tsx}'",
     "lint:fix":
-      "prettier 'packages/**/src/**/*.{js,ts,tsx}' --write -l && tslint 'packages/**/src/**/*.{js,ts,tsx}' --fix",
+      "prettier 'packages/*/src/**/*.{js,ts,tsx}' --write -l && tslint 'packages/*/src/**/*.{js,ts,tsx}' --fix",
     "postinstall": "lerna bootstrap",
     "release":
       "lerna exec -- ../../node_modules/.bin/semantic-release -e semantic-release-monorepo"
