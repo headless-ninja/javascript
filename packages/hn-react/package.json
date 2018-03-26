@@ -10,81 +10,9 @@
   "author": "Bart Langelaan",
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "7.0.0-beta.40",
     "get-nested": "^4.0.0",
     "prop-types": "^15.5.10",
     "react-async-bootstrapper": "^1.1.2",
     "util-deprecate": "^1.0.2"
-  },
-  "peerDependencies": {
-    "hn": "^0.6.1",
-    "react": "^16.0.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "7.0.0-beta.40",
-    "@babel/core": "7.0.0-beta.40",
-    "@babel/plugin-proposal-class-properties": "7.0.0-beta.40",
-    "@babel/plugin-transform-runtime": "7.0.0-beta.40",
-    "@babel/preset-env": "7.0.0-beta.40",
-    "@babel/preset-react": "7.0.0-beta.40",
-    "@babel/preset-stage-3": "7.0.0-beta.40",
-    "@types/jest": "^22.2.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^22.4.3",
-    "babel-plugin-dynamic-import-node": "^1.2.0",
-    "coveralls": "^3.0.0",
-    "hn": "^0.6.1",
-    "jest": "^22.3.0",
-    "prettier": "^1.10.2",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-test-renderer": "^16.2.0",
-    "rimraf": "^2.6.2",
-    "semantic-release": "^12.4.1",
-    "travis-deploy-once": "^4.3.4",
-    "ts-jest": "^22.4.2",
-    "tslint": "^5.9.1",
-    "tslint-config-airbnb": "^5.7.0",
-    "tslint-config-prettier": "^1.8.0",
-    "tslint-react": "^3.5.1",
-    "typescript": "^2.7.2"
-  },
-  "scripts": {
-    "start": "rimraf lib && tsc -w & babel src -d lib/es5 -w",
-    "build": "rimraf lib && tsc && babel lib/es2015 -d lib/es5",
-    "travis-deploy-once": "travis-deploy-once",
-    "semantic-release": "semantic-release",
-    "test": "yarn test:types && yarn test:unit && yarn test:lint",
-    "test:types": "tsc --noEmit",
-    "test:unit": "jest --coverage",
-    "test:unit:update": "yarn test:unit -- -u",
-    "test:lint": "prettier 'src/**/*.{js,ts,tsx}' -l && tslint 'src/**/*.{js,ts,tsx}'",
-    "format": "prettier 'src/**/*.{js,ts,tsx}' --write -l && tslint 'src/**/*.{js,ts,tsx}' --fix"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,ts,tsx}"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "mapCoverage": true,
-    "transform": {
-      "^.+\\.(j|t)sx?$": "ts-jest"
-    },
-    "testRegex": "src/.*(/__tests__/.*|(\\.|/)(test|spec))\\.(j|t)sx?$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json",
-      "node"
-    ]
-  },
-  "prettier": {
-    "printWidth": 80,
-    "singleQuote": true,
-    "trailingComma": "all"
   }
 }
