@@ -1,7 +1,6 @@
 
-/lib
+/packages/*/lib
 
-.next
 
 # Created by https://www.gitignore.io/api/node,linux,macos,windows,phpstorm+all
 
