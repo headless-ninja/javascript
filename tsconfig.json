@@ -8,5 +8,10 @@
     "allowJs": true,
     "jsx": "react"
   },
-  "include": ["packages/*/src"]
+  "include": ["packages/*/src"],
+  "exclude": [
+    "packages/*/src/__tests__",
+    "packages/*/src/**/__tests__",
+    "packages/**/*.test.*"
+  ]
 }
