@@ -1,24 +1,27 @@
 {
-  "name": "hn",
-  "version": "0.0.0-development",
-  "description":
-    "Connects with an Drupal website that has the hn module installed.",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "repository": {
-    "url": "https://github.com/burst-digital/hn"
-  },
-  "author": "Bart Langelaan",
-  "license": "MIT",
+  "private": true,
   "devDependencies": {
     "@types/jest": "^22.2.2",
     "@types/node": "^9.6.0",
+    "babel-core": "^6.26.0",
     "babel-jest": "^22.4.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
     "coveralls": "^2.13.1",
+    "del": "^3.0.0",
     "fetch-mock": "^5.12.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-typescript": "^4.0.1",
     "jest": "^22.4.3",
+    "lerna": "^2.9.0",
+    "merge2": "^1.2.1",
     "prettier": "^1.11.1",
-    "semantic-release": "^8.0.3",
+    "rimraf": "^2.6.2",
+    "semantic-release": "^15.1.4",
+    "semantic-release-monorepo": "^6.0.0",
     "ts-jest": "^22.4.2",
     "ts-node": "^3.3.0",
     "tslint": "^5.5.0",
@@ -28,34 +31,27 @@
     "typescript": "^2.4.2"
   },
   "scripts": {
-    "build": "rimraf lib && tsc",
-    "test": "jest --coverage",
-    "start": "yarn build -- --watch",
+    "build": "gulp build",
+    "test": "tsc --noEmit && jest --coverage",
+    "start": "gulp",
     "lint":
-      "prettier 'src/**/*.{js,ts,tsx}' -l && tslint 'src/**/*.{js,ts,tsx}'",
+      "prettier 'packages/**/src/**/*.{js,ts,tsx}' -l && tslint 'packages/**/src/**/*.{js,ts,tsx}'",
     "lint:fix":
-      "prettier 'src/**/*.{js,ts,tsx}' --write -l && tslint 'src/**/*.{js,ts,tsx}' --fix",
-    "semantic-release":
-      "semantic-release pre && npm publish && semantic-release post"
+      "prettier 'packages/**/src/**/*.{js,ts,tsx}' --write -l && tslint 'packages/**/src/**/*.{js,ts,tsx}' --fix",
+    "postinstall": "lerna bootstrap",
+    "release":
+      "lerna exec -- ../../node_modules/.bin/semantic-release -e semantic-release-monorepo"
   },
-  "dependencies": {
-    "deepmerge": "^1.5.0",
-    "es6-promise": "^4.1.1",
-    "fetch-ponyfill": "^4.1.0",
-    "get-nested": "^4.0.0",
-    "isomorphic-fetch": "^2.2.1",
-    "query-string": "^5.0.0",
-    "rimraf": "^2.6.2",
-    "universal-fetch": "^1.0.0"
-  },
+  "dependencies": {},
   "jest": {
-    "collectCoverageFrom": ["src/**/*.{js,ts,tsx}"],
+    "collectCoverageFrom": ["packages/*/src/**/*.{js,ts,tsx}"],
     "coverageReporters": ["lcov", "text"],
     "transform": {
       "^.+\\.(j|t)sx?$": "ts-jest"
     },
     "testRegex": "src/.*(__tests__/.*|(\\.|/)(test|spec))\\.(j|t)sx?$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"]
+    "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"],
+    "projects": ["<rootDir>/packages/hn"]
   },
   "prettier": {
     "printWidth": 80,
