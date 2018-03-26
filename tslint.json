@@ -12,7 +12,8 @@
     "member-access": false,
     "curly": false,
     "object-literal-sort-keys": false,
-    "member-ordering": false
+    "member-ordering": false,
+    "no-implicit-dependencies": false
   },
   "linterOptions": {
     "exclude": [
