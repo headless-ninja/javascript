@@ -2,11 +2,10 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "ES5",
-    "outDir": "packages/hn/lib",
-    "rootDir": "packages/hn/src",
+    "rootDir": "./packages",
     "sourceMap": true,
     "inlineSourceMap": false,
     "declaration": true
   },
-  "exclude": ["packages/hn/lib", "node_modules", "packages/hn/src/__tests__"]
+  "exclude": ["packages/*/lib", "node_modules", "packages/*/src/__tests__"]
 }
