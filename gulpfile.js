@@ -33,8 +33,8 @@ gulp.task('build', ['clear'], () => {
       // Babel-ify the javascript files
       tsResult.js.pipe(
         babel({
-          presets: ['env'],
           plugins: ['transform-runtime'],
+          presets: ['env'],
         }),
       ),
     )

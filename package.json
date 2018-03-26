@@ -1,6 +1,7 @@
 {
   "private": true,
   "devDependencies": {
+    "@types/fetch-mock": "^6.0.1",
     "@types/jest": "^22.2.2",
     "@types/node": "^9.6.0",
     "babel-core": "^6.26.0",
@@ -37,9 +38,9 @@
     "test": "tsc --noEmit && jest --coverage",
     "start": "gulp",
     "lint":
-      "prettier 'packages/*/src/**/*.{js,ts,tsx}' -l && tslint 'packages/*/src/**/*.{js,ts,tsx}'",
+      "prettier '**/*.{js,ts,tsx,json,md}' -l && tslint '**/*.{js,ts,tsx}' -c tslint.json",
     "lint:fix":
-      "prettier 'packages/*/src/**/*.{js,ts,tsx}' --write -l && tslint 'packages/*/src/**/*.{js,ts,tsx}' --fix",
+      "prettier '**/*.{js,ts,tsx,json,md}' --write -l && tslint '**/*.{js,ts,tsx}' -c tslint.json --fix",
     "postinstall": "lerna bootstrap",
     "release":
       "lerna exec -- ../../node_modules/.bin/semantic-release -e semantic-release-monorepo"
@@ -53,7 +54,7 @@
     },
     "testRegex": "src/.*(__tests__/.*|(\\.|/)(test|spec))\\.(j|t)sx?$",
     "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"],
-    "projects": ["<rootDir>/packages/hn"]
+    "projects": ["<rootDir>/projects/*"]
   },
   "prettier": {
     "printWidth": 80,

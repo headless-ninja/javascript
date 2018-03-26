@@ -13,5 +13,13 @@
     "curly": false,
     "object-literal-sort-keys": false,
     "member-ordering": false
+  },
+  "linterOptions": {
+    "exclude": [
+      "coverage/**",
+      "packages/*/lib/**",
+      "node_modules/**",
+      "packages/*/node_modules/**"
+    ]
   }
 }
