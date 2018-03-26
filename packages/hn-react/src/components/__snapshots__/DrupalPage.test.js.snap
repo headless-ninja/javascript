@@ -1,0 +1,183 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DrupalPage with all props 1`] = `
+<div
+  loadingData={true}
+  page={null}
+  testLayoutProp={true}
+  url={null}
+/>
+`;
+
+exports[`DrupalPage with all props 2`] = `
+<div
+  loadingData={false}
+  page={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  testLayoutProp={true}
+  url="/"
+>
+  <div
+    bundle="unique_type_1__unique_bundle_1"
+    className="MyCustomMapperComponent"
+    entity={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+    page={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+    paragraph={
+      Object {
+        "__hn": Object {
+          "entity": Object {
+            "bundle": "unique_bundle_1",
+            "type": "unique_type_1",
+          },
+        },
+      }
+    }
+    testPageProp={true}
+  />
+</div>
+`;
+
+exports[`DrupalPage with asyncMapper 1`] = `null`;
+
+exports[`DrupalPage with asyncMapper 2`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  page={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  testPageProp={true}
+/>
+`;
+
+exports[`DrupalPage with asyncMapper as boolean (deprecated) 1`] = `null`;
+
+exports[`DrupalPage with asyncMapper as boolean (deprecated) 2`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  page={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  testPageProp={true}
+/>
+`;
+
+exports[`DrupalPage with required props 1`] = `null`;
+
+exports[`DrupalPage with required props 2`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  page={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+/>
+`;
