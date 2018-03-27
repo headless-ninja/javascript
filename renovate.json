@@ -5,8 +5,8 @@
     ":semanticCommitTypeAll(build)",
     ":semanticCommitScopeDisabled"
   ],
-  "autoMergeType": "branch-push",
+  "automergeType": "branch-push",
   "devDependencies": {
-    "autoMerge": true
+    "automerge": true
   }
 }
