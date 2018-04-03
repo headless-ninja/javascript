@@ -2552,11 +2552,18 @@ git-up@^2.0.0:
     is-ssh "^1.3.0"
     parse-url "^1.3.0"
 
-git-url-parse@^8.0.0, git-url-parse@^8.1.0:
+git-url-parse@^8.0.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/git-url-parse/-/git-url-parse-8.2.0.tgz#74969b0105f805df58873ee5b96bc1a4dc0573b1"
   dependencies:
     git-up "^2.0.0"
+
+git-url-parse@^8.3.1:
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/git-url-parse/-/git-url-parse-8.3.1.tgz#9d7d762993dc498aab16937c844e11afe3748817"
+  dependencies:
+    git-up "^2.0.0"
+    parse-domain "^2.0.0"
 
 gitconfiglocal@^1.0.0:
   version "1.0.0"
@@ -4800,6 +4807,10 @@ package-json@^4.0.1:
     registry-url "^3.0.3"
     semver "^5.1.0"
 
+parse-domain@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/parse-domain/-/parse-domain-2.0.0.tgz#e9f42f697c30f7c2051dc5c55ff4d8a80da7943c"
+
 parse-filepath@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/parse-filepath/-/parse-filepath-1.0.2.tgz#a632127f53aaf3d15876f5872f3ffac763d6c891"
@@ -5589,9 +5600,9 @@ semantic-release-plugin-decorators@^1.2.1:
     import-from "^2.1.0"
     lodash "^4.17.4"
 
-semantic-release@15.1.4:
-  version "15.1.4"
-  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.1.4.tgz#000ddbd8a8977dc1a68cacfbeef2fb551e4b9791"
+semantic-release@15.1.5:
+  version "15.1.5"
+  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.1.5.tgz#e97c2fa1defe6f65cd22d10f3ec2c242dc0e5632"
   dependencies:
     "@semantic-release/commit-analyzer" "^5.0.0"
     "@semantic-release/error" "^2.2.0"
@@ -5606,7 +5617,7 @@ semantic-release@15.1.4:
     execa "^0.10.0"
     get-stream "^3.0.0"
     git-log-parser "^1.2.0"
-    git-url-parse "^8.1.0"
+    git-url-parse "^8.3.1"
     hook-std "^0.4.0"
     hosted-git-info "^2.6.0"
     lodash "^4.17.4"
