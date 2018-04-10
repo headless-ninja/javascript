@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
-    "url": "https://github.com/burst-digital/hn"
+    "url": "https://github.com/headless-ninja/javascript/tree/master/packages/hn"
   },
   "author": "Bart Langelaan",
   "license": "MIT",
