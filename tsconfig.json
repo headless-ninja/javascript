@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES5",
+    "target": "ES6",
     "rootDir": "./packages",
     "sourceMap": true,
     "inlineSourceMap": false,
     "allowJs": true,
     "jsx": "react",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node"
   },
   "include": ["packages/*/src"],
   "exclude": [
