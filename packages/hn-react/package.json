@@ -7,7 +7,7 @@
     "url":
       "https://github.com/headless-ninja/javascript/tree/master/packages/hn-react"
   },
-  "author": "Bart Langelaan",
+  "author": "Headless Ninja",
   "license": "MIT",
   "dependencies": {
     "babel-runtime": "^6.26.0",
