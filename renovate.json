@@ -3,7 +3,8 @@
     "config:js-lib",
     ":semanticCommits",
     ":semanticCommitTypeAll(build)",
-    ":semanticCommitScopeDisabled"
+    ":semanticCommitScopeDisabled",
+    ":rebaseStalePrs"
   ],
   "automergeType": "branch-push",
   "devDependencies": {
