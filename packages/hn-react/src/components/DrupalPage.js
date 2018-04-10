@@ -23,8 +23,12 @@ class DrupalPage extends Component {
    * multiple renders.
    */
   async asyncBootstrap() {
+    const drupalPage = await this.loadData(this.props);
     this.context.hnContext.state = {
-      drupalPage: await this.loadData(this.props),
+      drupalPage: {
+        componentState: drupalPage,
+        dataUrl: drupalPage.dataUrl,
+      },
       entities: [],
     };
     return true;
@@ -34,7 +38,10 @@ class DrupalPage extends Component {
    * The first time this element is rendered, we always make sure the component and the Drupal page is loaded.
    */
   componentWillMount() {
-    const state = getNested(() => this.context.hnContext.state.drupalPage);
+    const state = getNested(() => {
+      const drupalPage = this.context.hnContext.state.drupalPage;
+      return drupalPage.dataUrl === this.props.url && drupalPage.componentState;
+    });
     if (state) {
       this.setState(state);
     } else {
