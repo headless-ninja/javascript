@@ -1,12 +1,9 @@
 import deepmerge from 'deepmerge';
-import { polyfill, Promise } from 'es6-promise';
 import getNested from 'get-nested';
 import 'isomorphic-fetch';
 import { stringify } from 'query-string';
 import HnServerResponse from './HnServerResponse';
 import SiteInitializeParams from './SiteInitializeParams';
-
-polyfill();
 
 const propertiesToHydrate = ['tokensToVerify', 'user', 'data'];
 
@@ -69,7 +66,7 @@ class Site {
     });
   }
 
-  private fetch(path, options = {}): Promise<HnServerResponse> {
+  private fetch(path, options = {}): Promise<any> {
     if (!this.initialized) {
       throw Error(
         'Site is not intitialized. Pass an object when creating a site, or use the ' +

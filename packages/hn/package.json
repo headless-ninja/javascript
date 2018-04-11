@@ -14,7 +14,6 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "deepmerge": "^1.5.0",
-    "es6-promise": "^4.1.1",
     "fetch-ponyfill": "^4.1.0",
     "get-nested": "^4.0.0",
     "isomorphic-fetch": "^2.2.1",
