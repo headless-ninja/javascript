@@ -1,5 +1,6 @@
 {
   "private": true,
+  "workspaces": ["packages/*"],
   "devDependencies": {
     "@types/fetch-mock": "6.0.1",
     "@types/jest": "22.2.2",
@@ -41,7 +42,6 @@
       "prettier '**/*.{js,ts,tsx,json,md}' -l && tslint '**/*.{js,ts,tsx}' -c tslint.json",
     "lint:fix":
       "prettier '**/*.{js,ts,tsx,json,md}' --write -l && tslint '**/*.{js,ts,tsx}' -c tslint.json --fix",
-    "postinstall": "lerna bootstrap",
     "release":
       "lerna exec -- ../../node_modules/.bin/semantic-release -e semantic-release-monorepo"
   },
