@@ -27,7 +27,7 @@
     "semantic-release": "15.1.7",
     "semantic-release-monorepo": "6.0.1",
     "ts-jest": "22.4.3",
-    "ts-node": "5.0.1",
+    "ts-node": "6.0.0",
     "tslint": "5.9.1",
     "tslint-config-airbnb": "5.8.0",
     "tslint-config-prettier": "1.10.0",
