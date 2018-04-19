@@ -6299,9 +6299,9 @@ tslint-config-airbnb@5.8.0:
     tslint-eslint-rules "^4.1.1"
     tslint-microsoft-contrib "~5.0.1"
 
-tslint-config-prettier@1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/tslint-config-prettier/-/tslint-config-prettier-1.10.0.tgz#5063c413d43de4f6988c73727f65ecfc239054ec"
+tslint-config-prettier@1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/tslint-config-prettier/-/tslint-config-prettier-1.11.0.tgz#964d813baf88e1b35f92b0d54d2d0e162ea4bb09"
 
 tslint-consistent-codestyle@^1.10.0:
   version "1.12.2"
