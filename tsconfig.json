@@ -7,7 +7,12 @@
     "allowJs": true,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "baseUrl": "./packages",
+    "paths": {
+      "hn": ["hn/src"],
+      "hn-*": ["hn-*/src"]
+    }
   },
   "include": ["packages/*/src"],
   "exclude": [
