@@ -13,7 +13,8 @@
     "curly": false,
     "object-literal-sort-keys": false,
     "member-ordering": false,
-    "no-implicit-dependencies": false
+    "no-implicit-dependencies": false,
+    "variable-name": [true, "check-format", "allow-pascal-case"]
   },
   "linterOptions": {
     "exclude": [
