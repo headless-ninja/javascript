@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import asyncBootstrapper from 'react-async-bootstrapper';
-import PropTypes from 'prop-types';
 
 export default async function(children) {
   const context = {
@@ -11,6 +11,10 @@ export default async function(children) {
   };
 
   class DrupalPageContextProvider extends Component {
+    static childContextTypes = {
+      hnContext: PropTypes.object,
+    };
+
     getChildContext() {
       return { hnContext: context };
     }
@@ -19,10 +23,6 @@ export default async function(children) {
       return React.Children.only(this.props.children);
     }
   }
-
-  DrupalPageContextProvider.childContextTypes = {
-    hnContext: PropTypes.object,
-  };
 
   const drupalContextProvider = (
     <DrupalPageContextProvider>{children}</DrupalPageContextProvider>
