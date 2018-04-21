@@ -1,5 +1,4 @@
 declare module 'react-async-bootstrapper' {
-
   interface AsyncBootstrapperOptions {
     componentWillUnmount?: boolean;
   }
@@ -8,5 +7,4 @@ declare module 'react-async-bootstrapper' {
     reactElement: JSX.Element,
     options: AsyncBootstrapperOptions,
   ): Promise<JSX.Element>;
-
 }
