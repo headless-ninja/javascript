@@ -192,19 +192,19 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
 }
 
 interface DrupalPageProps {
-  asyncMapper: any,
-  layout: any,
-  layoutProps: any,
-  mapper: any,
-  pageProps: any,
-  renderWhileLoadingData: any,
-  url: any,
+  asyncMapper: any;
+  layout: any;
+  layoutProps: any;
+  mapper: any;
+  pageProps: any;
+  renderWhileLoadingData: any;
+  url: any;
 }
 
 interface DrupalPageState {
-  dataUrl: any,
-  loadingData: any,
-  pageUuid: any,
+  dataUrl: any;
+  loadingData: any;
+  pageUuid: any;
 }
 
 export default DrupalPage;
