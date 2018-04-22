@@ -1,9 +1,12 @@
 import getNested from 'get-nested';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, ReactType } from 'react';
 import site from '../utils/site';
 
-class EntityMapper extends Component<EntityMapperProps, EntityMapperState> {
+class EntityMapper extends React.Component<
+  EntityMapperProps,
+  EntityMapperState
+> {
   static entityComponents = [];
 
   static contextTypes = {
@@ -131,22 +134,16 @@ class EntityMapper extends Component<EntityMapperProps, EntityMapperState> {
         uuid,
         asyncMapper,
         entityProps,
-        mapper: EntityMapper.getMapperFromProps(this.props),
+        mapper: EntityMapper.getMapperFromProps({ asyncMapper, mapper }),
       });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      this.props.uuid !== nextProps.uuid ||
-      this.props.mapper !== nextProps.mapper ||
-      this.props.asyncMapper !== nextProps.asyncMapper
-    ) {
-      this.loadComponent({
-        ...nextProps,
-        mapper: EntityMapper.getMapperFromProps(nextProps),
-      });
-    }
+    this.loadComponent({
+      ...nextProps,
+      mapper: EntityMapper.getMapperFromProps(nextProps),
+    });
   }
 
   async loadComponent({ uuid, mapper, asyncMapper, entityProps }) {
@@ -234,15 +231,42 @@ class EntityMapper extends Component<EntityMapperProps, EntityMapperState> {
   };
 }
 
-export interface EntityMapperProps {
-  asyncMapper: any;
-  entityProps: any;
-  mapper: any;
-  uuid: any;
+interface ObjectMapper {
+  [uuid: string]: ReactType;
+}
+interface ObjectMapperAsync {
+  [uuid: string]: () => Promise<ReactType>;
 }
 
+type functionMapper = (entity: object) => ReactType;
+type functionMapperAsync = (entity: object) => Promise<ReactType>;
+
+interface EntityMapperPropsBase {
+  entityProps?: object;
+  uuid: string;
+}
+
+export interface EntityMapperPropsAsync extends EntityMapperPropsBase {
+  asyncMapper: ObjectMapperAsync | functionMapperAsync;
+}
+
+export interface EntityMapperPropsAsyncClassic extends EntityMapperPropsBase {
+  mapper: ObjectMapperAsync | functionMapperAsync;
+  asyncMapper: true;
+}
+
+export interface EntityMapperPropsSync extends EntityMapperPropsBase {
+  mapper: ObjectMapper | functionMapper;
+  asyncMapper?: false;
+}
+
+export type EntityMapperProps =
+  | EntityMapperPropsAsync
+  | EntityMapperPropsAsyncClassic
+  | EntityMapperPropsSync;
+
 interface EntityMapperState {
-  entityProps: any;
+  entityProps: object;
   mapper: any;
   ready: boolean;
   uuid: string;
