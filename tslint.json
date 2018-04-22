@@ -15,7 +15,8 @@
     "member-ordering": false,
     "no-implicit-dependencies": false,
     "variable-name": [true, "check-format", "allow-pascal-case"],
-    "array-type": [true, "array"]
+    "array-type": [true, "array"],
+    "jsx-boolean-value": [true, "never"]
   },
   "linterOptions": {
     "exclude": [
