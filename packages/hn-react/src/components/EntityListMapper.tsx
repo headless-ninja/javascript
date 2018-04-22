@@ -25,9 +25,8 @@ const EntityListMapper: React.StatelessComponent<EntityListMapperProps> = ({
     );
   });
 
-
 interface EntityReferenceField {
-  target_uuid: string,
+  target_uuid: string;
 }
 
 function isEntityReferenceField(field: any): field is EntityReferenceField {
@@ -35,15 +34,15 @@ function isEntityReferenceField(field: any): field is EntityReferenceField {
 }
 
 interface EntityMapperObject {
-  [typeBundle: string]: React.ComponentType,
+  [typeBundle: string]: React.ComponentType;
 }
 
 interface EntityListMapperProps {
-  entities: (string | EntityReferenceField)[],
-  mapper: EntityMapperObject | ((typeBundle: string) => React.ComponentType),
-  asyncMapper?: any,
-  entityWrapper?: React.ComponentType,
-  entityProps?: object,
+  entities: (string | EntityReferenceField)[];
+  mapper: EntityMapperObject | ((typeBundle: string) => React.ComponentType);
+  asyncMapper?: any;
+  entityWrapper?: React.ComponentType;
+  entityProps?: object;
 }
 
 EntityListMapper.propTypes = {
