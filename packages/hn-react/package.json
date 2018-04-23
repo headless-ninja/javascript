@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "description": "The React implementation of Headless Ninja.",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": {
     "url":
       "https://github.com/headless-ninja/javascript/tree/master/packages/hn-react"
