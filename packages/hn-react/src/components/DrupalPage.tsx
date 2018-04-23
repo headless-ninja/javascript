@@ -19,7 +19,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
     };
   }
 
-  private entity: EntityMapper | null;
+  private entity: EntityMapper | null = null;
 
   /**
    * If this component exists in a tree that is invoked with the waitForHnData function, this function is invoked.
@@ -91,7 +91,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
     this.lastRequest = null;
   }
 
-  lastRequest: symbol | null;
+  lastRequest: symbol | null = null;
 
   async loadData({ url, mapper, asyncMapper }: DrupalPageProps) {
     const lastRequest = Symbol(url);

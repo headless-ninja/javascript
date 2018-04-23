@@ -14,12 +14,12 @@
       "hn-*": ["hn-*/src"]
     },
     "typeRoots": ["./packages/hn-react/types", "./node_modules/@types"],
-    //"strict": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "strictNullChecks": true
-    //"strictFunctionTypes": true,
-    //"strictPropertyInitialization": true,
+    "strict": true,
+    "noImplicitAny": false,
+    //"noUnusedParameters": true,
+    //"noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "pretty": true
   },
   "include": ["packages/*/src"],
   "exclude": [

@@ -8,15 +8,15 @@ import SiteInitializeParams from './SiteInitializeParams';
 const propertiesToHydrate = ['tokensToVerify', 'user', 'data'];
 
 class Site {
-  private initialized: boolean;
+  private initialized: boolean = false;
 
   // Created when initializing
-  private url: string;
-  private fetchOptions: RequestInit;
+  private url: string | null = null;
+  private fetchOptions: RequestInit = {};
 
   // Can be hydrated and dehydrated
-  private tokensToVerify: string[];
-  private user: string;
+  private tokensToVerify: string[] = [];
+  private user: string | null = null;
   private data: HnData = {
     data: {},
     paths: {},
@@ -24,7 +24,7 @@ class Site {
   };
 
   // Not hydrated
-  private pagesLoading: { [s: string]: Promise<string> };
+  private pagesLoading: { [s: string]: Promise<string> } = {};
 
   constructor(initParams?: SiteInitializeParams) {
     this.reset();
@@ -40,9 +40,9 @@ class Site {
 
   reset() {
     this.initialized = false;
-    delete this.url;
+    this.url = null;
     this.tokensToVerify = [];
-    delete this.user;
+    this.user = null;
     this.data = {
       data: {},
       paths: {},
