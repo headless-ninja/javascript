@@ -7,7 +7,7 @@ class EntityMapper extends React.Component<
   EntityMapperProps,
   EntityMapperState
 > {
-  static entityComponents = [];
+  static entityComponents: EntityComponentsStorageItem[] = [];
 
   static contextTypes = {
     hnContext: PropTypes.object,
@@ -189,16 +189,15 @@ class EntityMapper extends React.Component<
       return null;
     }
 
-    const EntityComponent = getNested(
-      () =>
-        EntityMapper.entityComponents.find(
-          c => c.uuid === uuid && c.mapper === mapper,
-        ).component,
+    const componentStorageItem = EntityMapper.entityComponents.find(
+      c => c.uuid === uuid && c.mapper === mapper,
     );
 
-    if (!EntityComponent) {
+    if (!componentStorageItem) {
       return null;
     }
+
+    const EntityComponent = componentStorageItem.component;
 
     return (
       <EntityComponent
@@ -241,6 +240,12 @@ export interface ObjectMapperAsync {
 export type functionMapper = (entity: object) => ReactType;
 export type functionMapperAsync = (entity: object) => Promise<ReactType>;
 
+export type mapperType =
+  | ObjectMapper
+  | ObjectMapperAsync
+  | functionMapper
+  | functionMapperAsync;
+
 export interface EntityMapperPropsBase {
   entityProps?: object;
   uuid: string;
@@ -272,6 +277,12 @@ export interface EntityMapperState {
   mapper: any;
   ready: boolean;
   uuid: string;
+}
+
+export interface EntityComponentsStorageItem {
+  uuid: string;
+  mapper: mapperType;
+  component: React.ReactType;
 }
 
 export default EntityMapper;

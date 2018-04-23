@@ -15,7 +15,7 @@ console.log = console.warn = console.error = jest.fn(message => {
 });
 
 beforeEach(() => {
-  site.getData.mockRestore();
+  jest.restoreAllMocks();
 });
 
 describe('EntityMapper', async () => {

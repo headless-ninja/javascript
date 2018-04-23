@@ -13,7 +13,13 @@
       "hn": ["hn/src"],
       "hn-*": ["hn-*/src"]
     },
-    "typeRoots": ["./packages/hn-react/types", "./node_modules/@types"]
+    "typeRoots": ["./packages/hn-react/types", "./node_modules/@types"],
+    //"strict": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true
+    //"strictFunctionTypes": true,
+    //"strictPropertyInitialization": true,
   },
   "include": ["packages/*/src"],
   "exclude": [

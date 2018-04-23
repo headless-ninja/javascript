@@ -12,17 +12,21 @@ export interface Entity {
   };
 }
 
-export default interface HnServerResponse {
-  data?: {
+export interface HnData {
+  data: {
     [uuid: string]: Entity | any;
   };
-  paths?: {
+  paths: {
     [path: string]: string;
   };
-  __hn?: {
+  __hn: {
     request?: {
       user?: string;
       token?: string;
     };
   };
-};
+}
+
+type HnServerResponse = Partial<HnData>;
+
+export default HnServerResponse;

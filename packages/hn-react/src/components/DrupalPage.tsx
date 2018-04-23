@@ -10,13 +10,16 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
     hnContext: PropTypes.object,
   };
 
-  state = {
-    dataUrl: null,
-    loadingData: true,
-    pageUuid: null,
-  };
+  constructor(p) {
+    super(p);
+    this.state = {
+      dataUrl: null,
+      loadingData: true,
+      pageUuid: null,
+    };
+  }
 
-  private entity: EntityMapper;
+  private entity: EntityMapper | null;
 
   /**
    * If this component exists in a tree that is invoked with the waitForHnData function, this function is invoked.
@@ -26,13 +29,15 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
    */
   async asyncBootstrap() {
     const drupalPage = await this.loadData(this.props);
-    this.context.hnContext.state = {
-      drupalPage: {
-        componentState: drupalPage,
-        dataUrl: drupalPage.dataUrl,
-      },
-      entities: [],
-    };
+    if (drupalPage) {
+      this.context.hnContext.state = {
+        drupalPage: {
+          componentState: drupalPage,
+          dataUrl: drupalPage.dataUrl,
+        },
+        entities: [],
+      };
+    }
     return true;
   }
 
@@ -86,7 +91,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
     this.lastRequest = null;
   }
 
-  lastRequest = null;
+  lastRequest: symbol | null;
 
   async loadData({ url, mapper, asyncMapper }: DrupalPageProps) {
     const lastRequest = Symbol(url);
@@ -133,10 +138,10 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
     const Layout = this.props.layout;
 
     let data = null;
-    let entityMapper = null;
+    let entityMapper: JSX.Element | null = null;
 
     // When this is the very first render, there isn't a pageUuid in state. Then only render the Layout.
-    if (this.state.pageUuid) {
+    if (this.state.pageUuid !== null) {
       // Get the data and content types with the state properties.
       data = site.getData(this.state.pageUuid);
 
@@ -202,9 +207,9 @@ export interface DrupalPageProps {
 }
 
 export interface DrupalPageState {
-  dataUrl: any;
+  dataUrl: string | null;
   loadingData: any;
-  pageUuid: any;
+  pageUuid: string | null;
 }
 
 export default DrupalPage;

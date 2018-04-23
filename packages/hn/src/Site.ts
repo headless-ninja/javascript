@@ -2,7 +2,7 @@ import deepmerge from 'deepmerge';
 import getNested from 'get-nested';
 import 'isomorphic-fetch';
 import { stringify } from 'query-string';
-import HnServerResponse from './HnServerResponse';
+import HnServerResponse, { HnData } from './HnServerResponse';
 import SiteInitializeParams from './SiteInitializeParams';
 
 const propertiesToHydrate = ['tokensToVerify', 'user', 'data'];
@@ -17,7 +17,11 @@ class Site {
   // Can be hydrated and dehydrated
   private tokensToVerify: string[];
   private user: string;
-  private data: HnServerResponse;
+  private data: HnData = {
+    data: {},
+    paths: {},
+    __hn: {},
+  };
 
   // Not hydrated
   private pagesLoading: { [s: string]: Promise<string> };
@@ -36,12 +40,13 @@ class Site {
 
   reset() {
     this.initialized = false;
-    this.url = null;
+    delete this.url;
     this.tokensToVerify = [];
-    this.user = null;
+    delete this.user;
     this.data = {
       data: {},
       paths: {},
+      __hn: {},
     };
     this.pagesLoading = {};
   }
@@ -119,8 +124,11 @@ class Site {
           }),
       )
         .then((page: HnServerResponse) => {
+          const hnRequestData =
+            (page.__hn && page.__hn.request && page.__hn.request) || {};
+
           // Get the user id, to pass to all new requests.
-          this.user = getNested(() => page.__hn.request.user, this.user);
+          this.user = hnRequestData.user || this.user;
 
           // Remove all sent tokens from the tokensToVerify.
           this.tokensToVerify = this.tokensToVerify.filter(
@@ -128,7 +136,7 @@ class Site {
           );
 
           // Add new token to tokensToVerify.
-          const newToken = getNested(() => page.__hn.request.token);
+          const newToken = hnRequestData.token;
           if (newToken) this.tokensToVerify.push(newToken);
 
           // Add all data to the global data storage.
