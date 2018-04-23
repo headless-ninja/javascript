@@ -246,24 +246,23 @@ interface EntityMapperPropsBase {
   uuid: string;
 }
 
-export interface EntityMapperPropsAsync extends EntityMapperPropsBase {
+interface EntityMapperPropsMapperAsync {
   asyncMapper: ObjectMapperAsync | functionMapperAsync;
 }
 
-export interface EntityMapperPropsAsyncClassic extends EntityMapperPropsBase {
+interface EntityMapperPropsMapperAsyncClassic{
   mapper: ObjectMapperAsync | functionMapperAsync;
   asyncMapper: true;
 }
 
-export interface EntityMapperPropsSync extends EntityMapperPropsBase {
+interface EntityMapperPropsMapperSync {
   mapper: ObjectMapper | functionMapper;
   asyncMapper?: false;
 }
 
-export type EntityMapperProps =
-  | EntityMapperPropsAsync
-  | EntityMapperPropsAsyncClassic
-  | EntityMapperPropsSync;
+export type EntityMapperPropsMapper = EntityMapperPropsMapperAsync | EntityMapperPropsMapperAsyncClassic | EntityMapperPropsMapperSync;
+
+export type EntityMapperProps = EntityMapperPropsBase & EntityMapperPropsMapper;
 
 interface EntityMapperState {
   entityProps: object;
