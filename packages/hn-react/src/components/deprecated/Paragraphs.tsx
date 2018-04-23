@@ -18,7 +18,7 @@ const Paragraphs: React.StatelessComponent<ParagraphsProps> = ({
   />
 );
 
-interface ParagraphsProps {
+export interface ParagraphsProps {
   Wrapper?: any;
   mapper: any;
   page?: any;

@@ -191,7 +191,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
   };
 }
 
-interface DrupalPageProps {
+export interface DrupalPageProps {
   asyncMapper?: any;
   layout?: React.ReactType;
   layoutProps?: object;
@@ -201,7 +201,7 @@ interface DrupalPageProps {
   url: string;
 }
 
-interface DrupalPageState {
+export interface DrupalPageState {
   dataUrl: any;
   loadingData: any;
   pageUuid: any;

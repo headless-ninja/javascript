@@ -231,31 +231,31 @@ class EntityMapper extends React.Component<
   };
 }
 
-interface ObjectMapper {
+export interface ObjectMapper {
   [uuid: string]: ReactType;
 }
-interface ObjectMapperAsync {
+export interface ObjectMapperAsync {
   [uuid: string]: () => Promise<ReactType>;
 }
 
-type functionMapper = (entity: object) => ReactType;
-type functionMapperAsync = (entity: object) => Promise<ReactType>;
+export type functionMapper = (entity: object) => ReactType;
+export type functionMapperAsync = (entity: object) => Promise<ReactType>;
 
-interface EntityMapperPropsBase {
+export interface EntityMapperPropsBase {
   entityProps?: object;
   uuid: string;
 }
 
-interface EntityMapperPropsMapperAsync {
+export interface EntityMapperPropsMapperAsync {
   asyncMapper: ObjectMapperAsync | functionMapperAsync;
 }
 
-interface EntityMapperPropsMapperAsyncClassic {
+export interface EntityMapperPropsMapperAsyncClassic {
   mapper: ObjectMapperAsync | functionMapperAsync;
   asyncMapper: true;
 }
 
-interface EntityMapperPropsMapperSync {
+export interface EntityMapperPropsMapperSync {
   mapper: ObjectMapper | functionMapper;
   asyncMapper?: false;
 }
@@ -267,7 +267,7 @@ export type EntityMapperPropsMapper =
 
 export type EntityMapperProps = EntityMapperPropsBase & EntityMapperPropsMapper;
 
-interface EntityMapperState {
+export interface EntityMapperState {
   entityProps: object;
   mapper: any;
   ready: boolean;

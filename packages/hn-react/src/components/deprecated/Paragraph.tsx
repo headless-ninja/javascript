@@ -17,7 +17,7 @@ const Paragraph: React.StatelessComponent<ParagraphProps> = ({
   />
 );
 
-interface ParagraphProps {
+export interface ParagraphProps {
   mapper: any;
   uuid: any;
   page?: object;
