@@ -1,4 +1,3 @@
-import React from 'react';
 import MapperComponent from './components/MapperComponent';
 import MapperComponentWithHOC from './components/MapperComponentWithHOC';
 import MapperComponentWithHOC2 from './components/MapperComponentWithHOC2';

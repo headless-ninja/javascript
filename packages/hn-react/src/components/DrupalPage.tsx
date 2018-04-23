@@ -1,7 +1,6 @@
 import getNested from 'get-nested';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { parse } from 'url';
 import site from '../utils/site';
 import EntityMapper from './EntityMapper';
 
@@ -72,12 +71,8 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
 
   /**
    * This makes sure the data for this url is ready to be rendered.
-   * @param url
-   * @param mapper
-   * @param asyncMapper
-   * @returns {Promise.<{pageUuid: string}>}
    */
-  static async assureData({ url, mapper, asyncMapper }) {
+  static async assureData({ url }) {
     // Get the page. If the page was already fetched before, this should be instant.
     const pageUuid = await site.getPage(url);
     if (!pageUuid) {
@@ -93,7 +88,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
 
   lastRequest: symbol | null = null;
 
-  async loadData({ url, mapper, asyncMapper }: DrupalPageProps) {
+  async loadData({ url }: DrupalPageProps) {
     const lastRequest = Symbol(url);
 
     this.lastRequest = lastRequest;
@@ -102,8 +97,6 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
 
     // Load the data.
     const { pageUuid } = await DrupalPage.assureData({
-      asyncMapper,
-      mapper,
       url,
     });
 

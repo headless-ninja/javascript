@@ -16,8 +16,8 @@
     "typeRoots": ["./packages/hn-react/types", "./node_modules/@types"],
     "strict": true,
     "noImplicitAny": false,
-    //"noUnusedParameters": true,
-    //"noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
     "noFallthroughCasesInSwitch": true,
     "pretty": true
   },

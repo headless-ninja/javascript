@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import deprecate from 'util-deprecate';
-import EntityMapper, { EntityMapperProps } from '../EntityMapper';
+import EntityMapper from '../EntityMapper';
 
 const Paragraph: React.StatelessComponent<ParagraphProps> = ({
   mapper,

@@ -156,7 +156,7 @@ class Site {
   }
 
   private addData(data: HnServerResponse) {
-    this.data = deepmerge(this.data, data, { arrayMerge: (a, b) => b });
+    this.data = deepmerge(this.data, data, { arrayMerge: ({}, b) => b });
   }
 
   public getData(key) {
