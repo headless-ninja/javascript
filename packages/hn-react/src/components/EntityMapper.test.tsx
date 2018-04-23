@@ -1,9 +1,9 @@
-import EntityMapper from './EntityMapper';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import site from '../utils/site';
+import { asyncMapper, mapper, uuid } from '../utils/tests';
 import waitForHnData from '../utils/waitForHnData';
-import { uuid, mapper, asyncMapper } from '../utils/tests';
+import EntityMapper from './EntityMapper';
 
 jest.mock('../utils/site', () => {
   return require('../utils/tests').mockSite();
@@ -85,7 +85,11 @@ describe('EntityMapper', async () => {
 
   test('asyncMapper as boolean (deprecated)', async () => {
     const component = (
-      <EntityMapper uuid={uuid} mapper={asyncMapper} asyncMapper />
+      <EntityMapper
+        uuid={uuid}
+        mapper={asyncMapper}
+        asyncMapper={asyncMapper}
+      />
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();

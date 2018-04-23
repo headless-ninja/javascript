@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import getNested from 'get-nested';
+import PropTypes from 'prop-types';
+import React, { Component, ReactType } from 'react';
 import site from '../utils/site';
 
-class EntityMapper extends Component {
+class EntityMapper extends React.Component<
+  EntityMapperProps,
+  EntityMapperState
+> {
   static entityComponents = [];
 
   static contextTypes = {
@@ -12,10 +15,6 @@ class EntityMapper extends Component {
 
   /**
    * This makes sure the data for this url is ready to be rendered.
-   * @param uuid
-   * @param mapper
-   * @param asyncMapper
-   * @returns void
    */
   static async assureComponent({ uuid, mapper, asyncMapper }) {
     // This gets the entity from the site, based on the uuid.
@@ -50,9 +49,9 @@ class EntityMapper extends Component {
 
     // Store the entityComponent globally, so it can be rendered sync.
     EntityMapper.entityComponents.push({
-      component: entityComponent,
       mapper,
       uuid,
+      component: entityComponent,
     });
   }
 
@@ -65,9 +64,6 @@ class EntityMapper extends Component {
   /**
    * Use this method to get a final mapper, based on both the asyncMapper & mapper prop.
    * This ensures backwards compatibility.
-   * @param asyncMapper
-   * @param mapper
-   * @returns {*} mapper
    */
   static getMapperFromProps = ({ asyncMapper, mapper }) =>
     typeof asyncMapper === 'boolean' ? mapper : asyncMapper;
@@ -106,14 +102,14 @@ class EntityMapper extends Component {
     }
 
     this.context.hnContext.state.entities.push({
+      mapper,
+      uuid,
       componentState: await this.loadComponent({
         asyncMapper,
         entityProps,
         mapper,
         uuid,
       }),
-      mapper,
-      uuid,
     });
     return true;
   }
@@ -122,7 +118,7 @@ class EntityMapper extends Component {
    * The first time this element is rendered, we always make sure the component and the Drupal page is loaded.
    */
   componentWillMount() {
-    const { uuid } = this.props;
+    const { uuid, asyncMapper, entityProps } = this.props;
     const { mapper } = this.state;
     const state = getNested(
       () =>
@@ -135,23 +131,19 @@ class EntityMapper extends Component {
       this.setState(state);
     } else {
       this.loadComponent({
-        ...this.props,
-        mapper: EntityMapper.getMapperFromProps(this.props),
+        uuid,
+        asyncMapper,
+        entityProps,
+        mapper: EntityMapper.getMapperFromProps({ asyncMapper, mapper }),
       });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      this.props.uuid !== nextProps.uuid ||
-      this.props.mapper !== nextProps.mapper ||
-      this.props.asyncMapper !== nextProps.asyncMapper
-    ) {
-      this.loadComponent({
-        ...nextProps,
-        mapper: EntityMapper.getMapperFromProps(nextProps),
-      });
-    }
+    this.loadComponent({
+      ...nextProps,
+      mapper: EntityMapper.getMapperFromProps(nextProps),
+    });
   }
 
   async loadComponent({ uuid, mapper, asyncMapper, entityProps }) {
@@ -175,8 +167,8 @@ class EntityMapper extends Component {
       ...this.state,
       entityProps,
       mapper,
-      ready: true,
       uuid,
+      ready: true,
     };
 
     this.setState(newState);
@@ -217,26 +209,69 @@ class EntityMapper extends Component {
       />
     );
   }
+
+  static propTypes = {
+    asyncMapper: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.oneOfType([PropTypes.shape({}), PropTypes.func]),
+    ]),
+    entityProps: PropTypes.shape({}),
+    mapper: PropTypes.oneOfType([
+      PropTypes.shape({}),
+      PropTypes.func,
+      PropTypes.bool,
+    ]),
+    uuid: PropTypes.string.isRequired,
+  };
+
+  static defaultProps = {
+    asyncMapper: false,
+    entityProps: {},
+    mapper: false,
+  };
 }
 
-EntityMapper.propTypes = {
-  asyncMapper: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]),
-  ]),
-  entityProps: PropTypes.shape(),
-  mapper: PropTypes.oneOfType([
-    PropTypes.shape(),
-    PropTypes.func,
-    PropTypes.bool,
-  ]),
-  uuid: PropTypes.string.isRequired,
-};
+export interface ObjectMapper {
+  [uuid: string]: ReactType;
+}
+export interface ObjectMapperAsync {
+  [uuid: string]: () => Promise<ReactType>;
+}
 
-EntityMapper.defaultProps = {
-  asyncMapper: false,
-  entityProps: {},
-  mapper: false,
-};
+export type functionMapper = (entity: object) => ReactType;
+export type functionMapperAsync = (entity: object) => Promise<ReactType>;
+
+export interface EntityMapperPropsBase {
+  entityProps?: object;
+  uuid: string;
+}
+
+export interface EntityMapperPropsMapperAsync {
+  asyncMapper: ObjectMapperAsync | functionMapperAsync;
+}
+
+export interface EntityMapperPropsMapperAsyncClassic {
+  mapper: ObjectMapperAsync | functionMapperAsync;
+  asyncMapper: true;
+}
+
+export interface EntityMapperPropsMapperSync {
+  mapper: ObjectMapper | functionMapper;
+  asyncMapper?: false;
+}
+
+export type EntityMapperPropsMapper =
+  | EntityMapperPropsMapperAsync
+  | EntityMapperPropsMapperAsyncClassic
+  | EntityMapperPropsMapperSync;
+
+export type EntityMapperProps = EntityMapperPropsBase & EntityMapperPropsMapper;
+
+export interface EntityMapperState {
+  entityProps: object;
+  mapper: any;
+  ready: boolean;
+  uuid: string;
+}
 
 export default EntityMapper;

@@ -1,11 +1,11 @@
+import getNested from 'get-nested';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { parse } from 'url';
-import PropTypes from 'prop-types';
-import getNested from 'get-nested';
 import site from '../utils/site';
 import EntityMapper from './EntityMapper';
 
-class DrupalPage extends Component {
+class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
   static contextTypes = {
     hnContext: PropTypes.object,
   };
@@ -15,6 +15,8 @@ class DrupalPage extends Component {
     loadingData: true,
     pageUuid: null,
   };
+
+  private entity: EntityMapper;
 
   /**
    * If this component exists in a tree that is invoked with the waitForHnData function, this function is invoked.
@@ -86,7 +88,7 @@ class DrupalPage extends Component {
 
   lastRequest = null;
 
-  async loadData({ url, mapper, asyncMapper }) {
+  async loadData({ url, mapper, asyncMapper }: DrupalPageProps) {
     const lastRequest = Symbol(url);
 
     this.lastRequest = lastRequest;
@@ -166,27 +168,43 @@ class DrupalPage extends Component {
       </Layout>
     );
   }
+
+  static propTypes = {
+    asyncMapper: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.oneOfType([PropTypes.shape({}), PropTypes.func]),
+    ]),
+    layout: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    layoutProps: PropTypes.shape({}),
+    mapper: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.func]),
+    pageProps: PropTypes.shape({}),
+    renderWhileLoadingData: PropTypes.bool,
+    url: PropTypes.string.isRequired,
+  };
+
+  static defaultProps = {
+    asyncMapper: undefined,
+    layout: undefined,
+    layoutProps: {},
+    pageProps: undefined,
+    renderWhileLoadingData: false,
+  };
 }
 
-DrupalPage.propTypes = {
-  asyncMapper: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]),
-  ]),
-  layout: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  layoutProps: PropTypes.shape(),
-  mapper: PropTypes.oneOfType([PropTypes.shape(), PropTypes.func]),
-  pageProps: PropTypes.shape(),
-  renderWhileLoadingData: PropTypes.bool,
-  url: PropTypes.string.isRequired,
-};
+export interface DrupalPageProps {
+  asyncMapper?: any;
+  layout?: React.ReactType;
+  layoutProps?: object;
+  mapper?: any;
+  pageProps?: object;
+  renderWhileLoadingData?: boolean;
+  url: string;
+}
 
-DrupalPage.defaultProps = {
-  asyncMapper: undefined,
-  layout: undefined,
-  layoutProps: {},
-  pageProps: undefined,
-  renderWhileLoadingData: false,
-};
+export interface DrupalPageState {
+  dataUrl: any;
+  loadingData: any;
+  pageUuid: any;
+}
 
 export default DrupalPage;

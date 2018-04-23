@@ -4,7 +4,7 @@
     "rootDir": "./packages",
     "sourceMap": true,
     "inlineSourceMap": false,
-    "allowJs": true,
+    "declaration": true,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",

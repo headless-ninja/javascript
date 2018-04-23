@@ -1,9 +1,9 @@
-import EntityListMapper from './EntityListMapper';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import site from '../utils/site';
+import { asyncMapper, mapper, uuid } from '../utils/tests';
 import waitForHnData from '../utils/waitForHnData';
-import { uuid, mapper, asyncMapper } from '../utils/tests';
+import EntityListMapper from './EntityListMapper';
 
 jest.mock('../utils/site', () => {
   return require('../utils/tests').mockSite();

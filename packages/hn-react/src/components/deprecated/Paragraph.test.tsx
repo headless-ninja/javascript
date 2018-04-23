@@ -1,27 +1,27 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Paragraphs from './Paragraphs';
 import site from '../../utils/site';
-import waitForHnData from '../../utils/waitForHnData';
 import { mapper, uuid } from '../../utils/tests';
+import waitForHnData from '../../utils/waitForHnData';
+import Paragraph from './Paragraph';
 
 jest.mock('../../utils/site', () => {
   return require('../../utils/tests').mockSite();
 });
 
 jest.mock('util-deprecate', () => jest.fn(func => func));
-console.log = console.warn = console.error = message => {
+console.log = console.warn = console.error = jest.fn(message => {
   throw new Error(message);
-};
+});
 
 beforeEach(() => {
   site.getData.mockRestore();
 });
 
-describe('Paragraphs', async () => {
+describe('Paragraph', async () => {
   test('with required props', async () => {
     const component = await waitForHnData(
-      <Paragraphs mapper={mapper} paragraphs={[{ target_uuid: uuid }]} />,
+      <Paragraph mapper={mapper} uuid={uuid} />,
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
@@ -29,14 +29,14 @@ describe('Paragraphs', async () => {
 
   test('with all props', async () => {
     const component = await waitForHnData(
-      <Paragraphs
+      <Paragraph
         mapper={mapper}
         paragraphProps={{
           testProp: 'testPropValue',
         }}
-        paragraphs={[{ target_uuid: uuid }]}
-        Wrapper={'section'}
+        uuid={uuid}
         page={{ pageTest: true }}
+        index={15}
       />,
     );
 

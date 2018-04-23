@@ -63,14 +63,15 @@ export const hnData = {
   'unique-uuid-4': entity3,
 };
 
+export class SiteMock {
+  getData = jest.fn(u => {
+    return hnData[u];
+  });
+  getPage = jest.fn(async () => {
+    return uuid;
+  });
+}
+
 export function mockSite() {
-  class SiteMock {
-    getData = jest.fn(u => {
-      return hnData[u];
-    });
-    getPage = jest.fn(async () => {
-      return uuid;
-    });
-  }
   return new SiteMock();
 }
