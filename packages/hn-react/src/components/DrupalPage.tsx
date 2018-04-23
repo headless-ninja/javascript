@@ -88,7 +88,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
 
   lastRequest = null;
 
-  async loadData({ url, mapper, asyncMapper }) {
+  async loadData({ url, mapper, asyncMapper }: DrupalPageProps) {
     const lastRequest = Symbol(url);
 
     this.lastRequest = lastRequest;
@@ -192,13 +192,13 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
 }
 
 interface DrupalPageProps {
-  asyncMapper: any;
-  layout: any;
-  layoutProps: any;
-  mapper: any;
-  pageProps: any;
-  renderWhileLoadingData: any;
-  url: any;
+  asyncMapper?: any;
+  layout?: React.ReactType;
+  layoutProps?: object;
+  mapper?: any;
+  pageProps?: object;
+  renderWhileLoadingData?: boolean;
+  url: string;
 }
 
 interface DrupalPageState {

@@ -1,9 +1,9 @@
-import DrupalPage from './DrupalPage';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import site from '../utils/site';
-import waitForHnData from '../utils/waitForHnData';
 import { asyncMapper, mapper } from '../utils/tests';
+import waitForHnData from '../utils/waitForHnData';
+import DrupalPage from './DrupalPage';
 
 jest.mock('../utils/site', () => {
   return require('../utils/tests').mockSite();
@@ -36,7 +36,7 @@ describe('DrupalPage', async () => {
         url={'/'}
         layout={'div'}
         layoutProps={{ testLayoutProp: true }}
-        renderWhileLoadingData={true}
+        renderWhileLoadingData
         pageProps={{ testPageProp: true }}
       />
     );
@@ -54,7 +54,7 @@ describe('DrupalPage', async () => {
         asyncMapper={asyncMapper}
         url={'/'}
         layoutProps={{ testLayoutProp: true }}
-        renderWhileLoadingData={true}
+        renderWhileLoadingData
         pageProps={{ testPageProp: true }}
       />
     );
@@ -73,7 +73,7 @@ describe('DrupalPage', async () => {
         mapper={asyncMapper}
         url={'/'}
         layoutProps={{ testLayoutProp: true }}
-        renderWhileLoadingData={true}
+        renderWhileLoadingData
         pageProps={{ testPageProp: true }}
       />
     );
