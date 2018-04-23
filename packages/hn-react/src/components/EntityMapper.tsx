@@ -250,7 +250,7 @@ interface EntityMapperPropsMapperAsync {
   asyncMapper: ObjectMapperAsync | functionMapperAsync;
 }
 
-interface EntityMapperPropsMapperAsyncClassic{
+interface EntityMapperPropsMapperAsyncClassic {
   mapper: ObjectMapperAsync | functionMapperAsync;
   asyncMapper: true;
 }
@@ -260,7 +260,10 @@ interface EntityMapperPropsMapperSync {
   asyncMapper?: false;
 }
 
-export type EntityMapperPropsMapper = EntityMapperPropsMapperAsync | EntityMapperPropsMapperAsyncClassic | EntityMapperPropsMapperSync;
+export type EntityMapperPropsMapper =
+  | EntityMapperPropsMapperAsync
+  | EntityMapperPropsMapperAsyncClassic
+  | EntityMapperPropsMapperSync;
 
 export type EntityMapperProps = EntityMapperPropsBase & EntityMapperPropsMapper;
 

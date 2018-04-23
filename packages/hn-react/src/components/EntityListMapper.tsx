@@ -43,7 +43,8 @@ interface EntityListMapperBaseProps {
   entityProps?: object;
 }
 
-type EntityListMapperProps = EntityListMapperBaseProps & EntityMapperPropsMapper;
+type EntityListMapperProps = EntityListMapperBaseProps &
+  EntityMapperPropsMapper;
 
 EntityListMapper.propTypes = {
   asyncMapper: PropTypes.oneOfType([
