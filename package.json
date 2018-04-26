@@ -21,7 +21,7 @@
     "gulp-sourcemaps": "2.6.4",
     "gulp-typescript": "4.0.2",
     "jest": "22.4.3",
-    "lerna": "2.10.2",
+    "lerna": "2.11.0",
     "merge2": "1.2.1",
     "prettier": "1.11.1",
     "react": "16.3.2",
