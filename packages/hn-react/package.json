@@ -14,7 +14,7 @@
     "babel-runtime": "^6.26.0",
     "get-nested": "^4.0.0",
     "prop-types": "^15.5.10",
-    "react-async-bootstrapper": "^1.1.2",
+    "react-async-bootstrapper": "^2.0.0",
     "util-deprecate": "^1.0.2"
   }
 }
