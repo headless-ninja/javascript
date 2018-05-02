@@ -137,9 +137,9 @@
   version "22.2.3"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.3.tgz#0157c0316dc3722c43a7b71de3fdf3acbccef10d"
 
-"@types/node@9.6.8":
-  version "9.6.8"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.8.tgz#32e3d3ef9ea285caeec70a05ab157847920a3fe4"
+"@types/node@9.6.9":
+  version "9.6.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.9.tgz#1fa47c22fdc357a808535edd522b3d34facfa419"
 
 "@types/prop-types@15.5.2":
   version "15.5.2"
