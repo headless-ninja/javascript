@@ -39,7 +39,7 @@
   },
   "scripts": {
     "build": "gulp build",
-    "test": "tsc --noEmit && jest --coverage",
+    "test": "tsc --noEmit && jest",
     "start": "gulp",
     "lint":
       "prettier '**/*.{js,ts,tsx,json,md}' -l && tslint '**/*.{js,ts,tsx}' -c tslint.json",
@@ -50,11 +50,13 @@
   },
   "dependencies": {},
   "jest": {
+    "collectCoverage": true,
     "collectCoverageFrom": ["packages/*/src/**/*.{ts,tsx}"],
     "coverageReporters": ["lcov", "text"],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
+    "testURL": "http://headless.ninja",
     "testRegex": "src/.*(__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
     "testPathIgnorePatterns": ["/node_modules/", "<rootDir>/.*/_*.ts"],
     "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"],
