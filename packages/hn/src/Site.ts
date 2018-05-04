@@ -173,7 +173,7 @@ class Site {
    * @return {*}
    */
   // tslint:disable-next-line function-name
-  public t(string, langCode) {
+  public t(string, langCode?) {
     const settings = this.getData('settings');
     const path = this.data.paths[window.location.pathname];
     const lang = langCode || getNested(() => this.getData(path).langcode, 'en');
