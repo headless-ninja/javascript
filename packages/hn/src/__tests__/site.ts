@@ -4,18 +4,20 @@ import { Site } from '..';
 
 (fetchMock as any).config.overwriteRoutes = false;
 
-fetchMock.get(
-  'http://headless.ninja/tests/hn?_format=hn&path=%2Ftest123',
-  async () => require('./response-1.json'),
-);
-
-fetchMock.get(
-  'http://headless.ninja/tests/hn?_format=hn&path=%2Ftranslations',
-  async () => require('./response-with-translations.json'),
-);
-
 beforeEach(() => {
-  fetchMock.reset();
+  fetchMock.get(
+    'http://headless.ninja/tests/hn?_format=hn&path=%2Ftest123',
+    async () => require('./response-1.json'),
+  );
+
+  fetchMock.get(
+    'http://headless.ninja/tests/hn?_format=hn&path=%2Ftranslations',
+    async () => require('./response-with-translations.json'),
+  );
+});
+
+afterEach(() => {
+  fetchMock.restore();
 });
 
 test('creating a site', () => {
@@ -203,4 +205,19 @@ test('session based caching', async () => {
     'unique-token-2',
     'unique-token-3',
   ]);
+});
+
+test('getting data with failing fetch', async () => {
+  const site = new Site({ url: 'http://headless.ninja/tests' });
+
+  // Return a 500 error on the next fetch.
+  fetchMock.once('*', async () => 500);
+
+  // Allow console.error to be called once.
+  const err = console.error as jest.Mock;
+  err.mockImplementationOnce(() => undefined);
+
+  expect(await site.getPage('/unrelated-path')).toBe('500');
+  expect(err).toHaveBeenCalledTimes(1);
+  expect(err.mock.calls[0][0].message).toContain('500 - Internal Server Error');
 });
