@@ -109,5 +109,11 @@
     "/user/1": "8f172f60-e186-43d2-bd9a-4c2bed7a6bba",
     "/node/2": "f9485633-abb7-419e-9a37-68eec08125a0",
     "/test123": "e3842f1c-e148-46ae-a3e8-c03badbcb05b"
+  },
+  "__hn": {
+    "request": {
+      "user": "unique-user-id",
+      "token": "unique-token-1"
+    }
   }
 }

@@ -1,5 +1,8 @@
 import fetchMock from 'fetch-mock';
+import { parse } from 'url';
 import { Site } from '..';
+
+(fetchMock as any).config.overwriteRoutes = false;
 
 fetchMock.get(
   'http://headless.ninja/tests/hn?_format=hn&path=%2Ftest123',
@@ -149,4 +152,55 @@ test('translate function', async () => {
   expect(site.t('Text without translation', 'nl')).toBe(
     'Text without translation',
   );
+});
+
+test('session based caching', async () => {
+  const site = new Site({ url: 'http://headless.ninja/tests' });
+
+  await site.getPage('/test123');
+
+  // The user id is now saved in the site, and next requests should have the user and tokens appended.
+
+  await site.getPage('/test123'); // should not do an extra call, even though the path to request changed.
+
+  // When we make 2 new requests at the same time, they return the same user id but other tokens.
+  fetchMock.once('*', async () => ({
+    __hn: { request: { user: 'unique-user-id', token: 'unique-token-2' } },
+  }));
+  fetchMock.once('*', async () => ({
+    __hn: { request: { user: 'unique-user-id', token: 'unique-token-3' } },
+  }));
+  const promise1 = site.getPage('/minimal-request-with-token-1');
+  const promise2 = site.getPage('/minimal-request-with-token-2');
+
+  await Promise.all([promise1, promise2]);
+
+  // The next request should have both tokens.
+  fetchMock.once('*', async () => ({}));
+
+  await site.getPage('/unrelated-path');
+
+  const calls = fetchMock
+    .calls((true as any) as string)
+    .map(rawCall => parse(rawCall[0], true).query);
+
+  // 4 calls should have been made.
+  expect(calls.length).toBe(4);
+
+  // First call should not have any user or token attached.
+  expect(calls[0]._hn_user).toBeUndefined();
+  expect(calls[0]._hn_verify).toBeUndefined();
+
+  // Second and third call should have the same info attached.
+  expect(calls[1]._hn_user).toBe('unique-user-id');
+  expect(calls[1]._hn_verify).toBe('unique-token-1');
+  expect(calls[2]._hn_user).toBe('unique-user-id');
+  expect(calls[2]._hn_verify).toBe('unique-token-1');
+
+  // Fourth call should have the same user id and two tokens attached.
+  expect(calls[3]._hn_user).toBe('unique-user-id');
+  expect((calls[3]._hn_verify as string[]).sort()).toEqual([
+    'unique-token-2',
+    'unique-token-3',
+  ]);
 });
