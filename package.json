@@ -50,15 +50,17 @@
   },
   "dependencies": {},
   "jest": {
-    "collectCoverageFrom": ["packages/*/src/**/*.{js,ts,tsx}"],
+    "collectCoverageFrom": ["packages/*/src/**/*.{ts,tsx}"],
     "coverageReporters": ["lcov", "text"],
     "transform": {
-      "^.+\\.(j|t)sx?$": "ts-jest"
+      "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "src/.*(__tests__/.*|(\\.|/)(test|spec))\\.(j|t)sx?$",
+    "testRegex": "src/.*(__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "testPathIgnorePatterns": ["/node_modules/", "<rootDir>/.*/_*.ts"],
     "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"],
     "projects": ["<rootDir>/projects/*"],
-    "restoreMocks": true
+    "restoreMocks": true,
+    "setupFiles": ["<rootDir>/packages/hn/src/__tests__/setup.js"]
   },
   "prettier": {
     "printWidth": 80,

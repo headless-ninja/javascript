@@ -10,9 +10,6 @@ jest.mock('../utils/site', () => {
 });
 
 jest.mock('util-deprecate', () => jest.fn(func => func));
-console.log = console.warn = console.error = jest.fn(message => {
-  throw new Error(message);
-});
 
 describe('EntityListMapper', async () => {
   test('with required props, same bundle', async () => {
