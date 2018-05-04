@@ -14,10 +14,6 @@ console.log = console.warn = console.error = jest.fn(message => {
   throw new Error(message);
 });
 
-beforeEach(() => {
-  jest.restoreAllMocks();
-});
-
 describe('EntityMapper', async () => {
   test('with required props', async () => {
     const component = <EntityMapper uuid={uuid} mapper={mapper} />;

@@ -57,7 +57,8 @@
     },
     "testRegex": "src/.*(__tests__/.*|(\\.|/)(test|spec))\\.(j|t)sx?$",
     "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"],
-    "projects": ["<rootDir>/projects/*"]
+    "projects": ["<rootDir>/projects/*"],
+    "restoreMocks": true
   },
   "prettier": {
     "printWidth": 80,

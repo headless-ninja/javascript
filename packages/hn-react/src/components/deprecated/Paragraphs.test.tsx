@@ -14,10 +14,6 @@ console.log = console.warn = console.error = message => {
   throw new Error(message);
 };
 
-beforeEach(() => {
-  site.getData.mockRestore();
-});
-
 describe('Paragraphs', async () => {
   test('with required props', async () => {
     const component = await waitForHnData(
