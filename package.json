@@ -62,7 +62,9 @@
     "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"],
     "projects": ["<rootDir>/projects/*"],
     "restoreMocks": true,
-    "setupFiles": ["<rootDir>/packages/hn/src/__tests__/setup.js"]
+    "setupTestFrameworkScriptFile":
+      "<rootDir>/packages/hn/src/__tests__/setup.js",
+    "clearMocks": true
   },
   "prettier": {
     "printWidth": 80,
