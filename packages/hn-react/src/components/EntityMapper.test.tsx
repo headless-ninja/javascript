@@ -1,7 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import site from '../utils/site';
-import { asyncMapper, mapper, uuid } from '../utils/tests';
+import {
+  asyncMapper,
+  entity,
+  entity2,
+  mapper,
+  uuid,
+  uuid2,
+} from '../utils/tests';
 import waitForHnData from '../utils/waitForHnData';
 import EntityMapper from './EntityMapper';
 
@@ -78,11 +85,7 @@ describe('EntityMapper', async () => {
 
   test('asyncMapper as boolean (deprecated)', async () => {
     const component = (
-      <EntityMapper
-        uuid={uuid}
-        mapper={asyncMapper}
-        asyncMapper
-      />
+      <EntityMapper uuid={uuid} mapper={asyncMapper} asyncMapper />
     );
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
@@ -90,5 +93,107 @@ describe('EntityMapper', async () => {
     expect(
       renderer.create(await waitForHnData(component)).toJSON(),
     ).toMatchSnapshot();
+  });
+
+  test('changing props', async () => {
+    const ref = React.createRef<EntityMapper>();
+    // First, render uuid1.
+    const rendererEntry = renderer.create(
+      <EntityMapper uuid={uuid} mapper={mapper} ref={ref} />,
+    );
+    // Then, change uuid1 to uuid2.
+    rendererEntry.update(
+      <EntityMapper uuid={uuid2} mapper={mapper} ref={ref} />,
+    );
+    // Wait one tick to let React update.
+    await new Promise(resolve => process.nextTick(resolve));
+    // This should render the entity of uuid2.
+    const entity2Result = rendererEntry.toJSON();
+    expect(entity2Result).toMatchSnapshot();
+
+    expect(ref.current.isReady()).toBe(true);
+
+    let resolveEntity1Promise;
+    let resolveEntity2Promise;
+
+    const entity1Promise: Promise<string> = new Promise(
+      resolve => (resolveEntity1Promise = resolve),
+    );
+    const entity2Promise: Promise<string> = new Promise(
+      resolve => (resolveEntity2Promise = resolve),
+    );
+
+    const customAsyncMapper = {
+      unique_type_1__unique_bundle_1: () => entity1Promise,
+      unique_type_2__unique_bundle_2: () => entity2Promise,
+    };
+
+    // Now we're changing the mapper for a asyncMapper, but keeping the uuid.
+    rendererEntry.update(
+      <EntityMapper
+        uuid={uuid2}
+        mapper={customAsyncMapper}
+        asyncMapper
+        ref={ref}
+      />,
+    );
+
+    // Wait one tick to let React update.
+    await new Promise(resolve => process.nextTick(resolve));
+
+    // The EntityMapper shouldn't have changed, and marked as not-ready.
+    expect(ref.current.isReady()).toBe(false);
+    expect(rendererEntry.toJSON()).toEqual(entity2Result);
+
+    // Now we resolve the promise of the async entity.
+    resolveEntity2Promise('section');
+    await new Promise(resolve => process.nextTick(resolve));
+
+    // It should now be ready, and its contents should have changed.
+    expect(ref.current.isReady()).toBe(true);
+    const asyncEntity2Result = rendererEntry.toJSON();
+    expect(
+      (rendererEntry.root.children[0] as renderer.ReactTestInstance).type,
+    ).toBe('section');
+
+    // Now we change the uuid and add entityProps.
+    rendererEntry.update(
+      <EntityMapper
+        uuid={uuid}
+        mapper={customAsyncMapper}
+        asyncMapper
+        ref={ref}
+        entityProps={{ testEntityProp: 'test123' }}
+      />,
+    );
+    await new Promise(resolve =>
+      process.nextTick(() => process.nextTick(resolve)),
+    );
+
+    // The EntityMapper shouldn't have changed, and marked as not-ready.
+    expect(ref.current.isReady()).toBe(false);
+    expect(rendererEntry.toJSON()).toEqual(asyncEntity2Result);
+
+    // Now we resolve the promise of the async entity.
+    resolveEntity1Promise('p');
+    await new Promise(resolve => process.nextTick(resolve));
+    expect(ref.current.isReady()).toBe(true);
+    const result = rendererEntry.root.children[0] as renderer.ReactTestInstance;
+    expect(result.type).toBe('p');
+    expect(result.props.testEntityProp).toBe('test123');
+
+    // Now change the uuid prop to a non-existing uuid.
+    rendererEntry.update(
+      <EntityMapper
+        uuid={'doesntexist'}
+        mapper={customAsyncMapper}
+        asyncMapper
+        ref={ref}
+        entityProps={{ testEntityProp: 'test123' }}
+      />,
+    );
+    await new Promise(resolve => process.nextTick(resolve));
+
+    expect(rendererEntry.toJSON()).toBe(null);
   });
 });

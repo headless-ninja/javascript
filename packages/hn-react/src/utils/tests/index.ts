@@ -27,6 +27,7 @@ export const asyncMapper = {
 /* tslint:enable */
 
 export const uuid = 'unique-uuid-1';
+export const uuid2 = 'unique-uuid-3';
 
 export const entity = {
   __hn: {
@@ -37,7 +38,7 @@ export const entity = {
   },
 };
 
-const entity2 = {
+export const entity2 = {
   __hn: {
     entity: {
       bundle: 'unique_bundle_2',
@@ -58,7 +59,7 @@ const entity3 = {
 export const hnData = {
   [uuid]: entity,
   'unique-uuid-2': entity,
-  'unique-uuid-3': entity2,
+  [uuid2]: entity2,
   'unique-uuid-4': entity3,
 };
 
