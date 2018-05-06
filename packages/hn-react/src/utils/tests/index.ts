@@ -12,19 +12,14 @@ export const mapper = {
   unique_type_3__unique_bundle_3: mapperComponentWithHOC2,
 };
 
-/* tslint:disable */
 export const asyncMapper = {
   unique_type_1__unique_bundle_1: jest.fn(() =>
     Promise.resolve(MapperComponent),
   ),
   unique_type_2__unique_bundle_2: jest.fn(() =>
-    Promise.resolve(MapperComponentWithHOC),
-  ),
-  unique_type_3__unique_bundle_3: jest.fn(() =>
-    Promise.resolve(MapperComponentWithHOC2),
+    Promise.resolve({ default: MapperComponentWithHOC }),
   ),
 };
-/* tslint:enable */
 
 export const uuid = 'unique-uuid-1';
 export const uuid2 = 'unique-uuid-3';
