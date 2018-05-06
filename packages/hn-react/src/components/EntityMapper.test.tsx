@@ -81,7 +81,7 @@ describe('EntityMapper', async () => {
       <EntityMapper
         uuid={uuid}
         mapper={asyncMapper}
-        asyncMapper={asyncMapper}
+        asyncMapper
       />
     );
 
