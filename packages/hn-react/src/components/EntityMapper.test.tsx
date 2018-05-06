@@ -95,6 +95,20 @@ describe('EntityMapper', async () => {
     ).toMatchSnapshot();
   });
 
+  test('function mapper', async () => {
+    const customMapper = jest.fn((_, typeBundle) => mapper[typeBundle]);
+
+    const component = <EntityMapper uuid={uuid} mapper={customMapper} />;
+
+    expect(renderer.create(component).toJSON()).toMatchSnapshot();
+
+    expect(customMapper).toHaveBeenCalledTimes(1);
+    expect(customMapper).toHaveBeenCalledWith(
+      entity,
+      'unique_type_1__unique_bundle_1',
+    );
+  });
+
   test('changing props', async () => {
     const ref = React.createRef<EntityMapper>();
     // First, render uuid1.
