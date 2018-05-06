@@ -27,16 +27,14 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
    * multiple renders.
    */
   async asyncBootstrap() {
-    const drupalPage = await this.loadData(this.props);
-    if (drupalPage) {
-      this.context.hnContext.state = {
-        drupalPage: {
-          componentState: drupalPage,
-          dataUrl: drupalPage.dataUrl,
-        },
-        entities: [],
-      };
-    }
+    const drupalPage = await this.loadData(this.props) as DrupalPageState;
+    this.context.hnContext.state = {
+      drupalPage: {
+        componentState: drupalPage,
+        dataUrl: drupalPage.dataUrl,
+      },
+      entities: [],
+    };
     return true;
   }
 
