@@ -73,9 +73,6 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
   static async assureData({ url }) {
     // Get the page. If the page was already fetched before, this should be instant.
     const pageUuid = await site.getPage(url);
-    if (!pageUuid) {
-      throw Error('An error occurred getting a response from the server.');
-    }
 
     return { pageUuid };
   }

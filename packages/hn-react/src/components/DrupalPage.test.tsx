@@ -77,4 +77,21 @@ describe('DrupalPage', async () => {
       renderer.create(await waitForHnData(component)).toJSON(),
     ).toMatchSnapshot();
   });
+
+  test('when getPage fails', async () => {
+    const component = <DrupalPage mapper={{}} url={'/newUrl'} />;
+
+    const getPage = (site.getPage as any as jest.Mock<any>);
+    getPage.mockImplementationOnce(() => Promise.resolve('500'));
+
+    const rendererEntry = renderer.create(component);
+
+    await new Promise(r => process.nextTick(r));
+
+    expect(
+      rendererEntry.toJSON(),
+    ).toBe(null);
+
+    expect(getPage).toHaveBeenCalledTimes(1);
+  });
 });
