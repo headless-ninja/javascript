@@ -27,16 +27,14 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
    * multiple renders.
    */
   async asyncBootstrap() {
-    const drupalPage = await this.loadData(this.props);
-    if (drupalPage) {
-      this.context.hnContext.state = {
-        drupalPage: {
-          componentState: drupalPage,
-          dataUrl: drupalPage.dataUrl,
-        },
-        entities: [],
-      };
-    }
+    const drupalPage = (await this.loadData(this.props)) as DrupalPageState;
+    this.context.hnContext.state = {
+      drupalPage: {
+        componentState: drupalPage,
+        dataUrl: drupalPage.dataUrl,
+      },
+      entities: [],
+    };
     return true;
   }
 
@@ -75,9 +73,6 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
   static async assureData({ url }) {
     // Get the page. If the page was already fetched before, this should be instant.
     const pageUuid = await site.getPage(url);
-    if (!pageUuid) {
-      throw Error('An error occurred getting a response from the server.');
-    }
 
     return { pageUuid };
   }
