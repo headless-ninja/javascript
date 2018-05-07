@@ -1,5 +1,117 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`DrupalPage changing props 1`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  page={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+/>
+`;
+
+exports[`DrupalPage changing props 2`] = `
+<div
+  bundle="unique_type_2__unique_bundle_2"
+  className="MyCustomMapperComponentWithHOC"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_2",
+          "type": "unique_type_2",
+        },
+      },
+    }
+  }
+  hocProps={true}
+  page={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_2",
+          "type": "unique_type_2",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_2",
+          "type": "unique_type_2",
+        },
+      },
+    }
+  }
+/>
+`;
+
+exports[`DrupalPage changing props 3`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  page={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+/>
+`;
+
 exports[`DrupalPage with all props 1`] = `
 <div
   loadingData={true}

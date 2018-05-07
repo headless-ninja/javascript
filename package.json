@@ -4,15 +4,16 @@
   "devDependencies": {
     "@types/fetch-mock": "6.0.1",
     "@types/jest": "22.2.3",
-    "@types/node": "9.6.6",
+    "@types/node": "9.6.12",
     "@types/prop-types": "15.5.2",
-    "@types/react": "16.3.12",
+    "@types/react": "16.3.13",
+    "@types/react-test-renderer": "16.0.1",
     "@types/util-deprecate": "1.0.0",
-    "babel-core": "6.26.0",
+    "babel-core": "6.26.3",
     "babel-jest": "22.4.3",
     "babel-plugin-transform-runtime": "6.23.0",
     "babel-preset-env": "1.6.1",
-    "coveralls": "3.0.0",
+    "coveralls": "3.0.1",
     "del": "3.0.0",
     "fetch-mock": "6.3.0",
     "gulp": "3.9.1",
@@ -22,16 +23,16 @@
     "gulp-typescript": "4.0.2",
     "jest": "22.4.3",
     "lerna": "2.11.0",
-    "merge2": "1.2.1",
+    "merge2": "1.2.2",
     "prettier": "1.12.1",
     "react": "16.3.2",
     "react-test-renderer": "16.3.2",
     "rimraf": "2.6.2",
-    "semantic-release": "15.1.7",
+    "semantic-release": "15.3.1",
     "semantic-release-monorepo": "6.0.1",
-    "ts-jest": "22.4.4",
-    "ts-node": "6.0.1",
-    "tslint": "5.9.1",
+    "ts-jest": "22.4.5",
+    "ts-node": "6.0.3",
+    "tslint": "5.10.0",
     "tslint-config-airbnb": "5.8.0",
     "tslint-config-prettier": "1.12.0",
     "tslint-react": "3.5.1",
@@ -39,7 +40,7 @@
   },
   "scripts": {
     "build": "gulp build",
-    "test": "tsc --noEmit && jest --coverage",
+    "test": "tsc --noEmit && jest",
     "start": "gulp",
     "lint":
       "prettier '**/*.{js,ts,tsx,json,md}' -l && tslint '**/*.{js,ts,tsx}' -c tslint.json",
@@ -50,14 +51,21 @@
   },
   "dependencies": {},
   "jest": {
-    "collectCoverageFrom": ["packages/*/src/**/*.{js,ts,tsx}"],
+    "collectCoverage": true,
+    "collectCoverageFrom": ["packages/*/src/**/*.{ts,tsx}"],
     "coverageReporters": ["lcov", "text"],
     "transform": {
-      "^.+\\.(j|t)sx?$": "ts-jest"
+      "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "src/.*(__tests__/.*|(\\.|/)(test|spec))\\.(j|t)sx?$",
+    "testURL": "http://headless.ninja",
+    "testRegex": "src/.*(__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "testPathIgnorePatterns": ["/node_modules/", "<rootDir>/.*/_*.ts"],
     "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"],
-    "projects": ["<rootDir>/projects/*"]
+    "projects": ["<rootDir>/projects/*"],
+    "restoreMocks": true,
+    "setupTestFrameworkScriptFile":
+      "<rootDir>/packages/hn/src/__tests__/setup.js",
+    "clearMocks": true
   },
   "prettier": {
     "printWidth": 80,

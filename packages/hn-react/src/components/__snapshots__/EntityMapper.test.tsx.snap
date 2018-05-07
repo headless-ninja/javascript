@@ -54,6 +54,61 @@ exports[`EntityMapper asyncMapper as boolean (deprecated) 2`] = `
 />
 `;
 
+exports[`EntityMapper changing props 1`] = `
+<div
+  bundle="unique_type_2__unique_bundle_2"
+  className="MyCustomMapperComponentWithHOC"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_2",
+          "type": "unique_type_2",
+        },
+      },
+    }
+  }
+  hocProps={true}
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_2",
+          "type": "unique_type_2",
+        },
+      },
+    }
+  }
+/>
+`;
+
+exports[`EntityMapper function mapper 1`] = `
+<div
+  bundle="unique_type_1__unique_bundle_1"
+  className="MyCustomMapperComponent"
+  entity={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+  paragraph={
+    Object {
+      "__hn": Object {
+        "entity": Object {
+          "bundle": "unique_bundle_1",
+          "type": "unique_type_1",
+        },
+      },
+    }
+  }
+/>
+`;
+
 exports[`EntityMapper non-existing entity 1`] = `null`;
 
 exports[`EntityMapper non-existing entity 2`] = `null`;

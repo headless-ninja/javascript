@@ -1,0 +1,18 @@
+{
+  "data": {
+    "entity-with-nl-langcode-o8k61eiezo": {
+      "langcode": "nl"
+    },
+    "settings": {
+      "translations": {
+        "Text to translate": {
+          "en": "Translate result",
+          "nl": "Dutch translate result"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/entity-with-nl-langcode": "entity-with-nl-langcode-o8k61eiezo"
+  }
+}
