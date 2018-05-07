@@ -81,34 +81,33 @@ describe('DrupalPage', async () => {
   test('when getPage fails', async () => {
     const component = <DrupalPage mapper={{}} url={'/newUrl'} />;
 
-    const getPage = (site.getPage as any as jest.Mock<any>);
+    const getPage = (site.getPage as any) as jest.Mock<any>;
     getPage.mockImplementationOnce(() => Promise.resolve('500'));
 
     const rendererEntry = renderer.create(component);
 
     await new Promise(r => process.nextTick(r));
 
-    expect(
-      rendererEntry.toJSON(),
-    ).toBe(null);
+    expect(rendererEntry.toJSON()).toBe(null);
 
     expect(getPage).toHaveBeenCalledTimes(1);
   });
 
   test('changing props', async () => {
-
     // Render entity 1 as usual.
-    const rendererEntry = renderer.create(<DrupalPage mapper={mapper} url={'/'} />);
+    const rendererEntry = renderer.create(
+      <DrupalPage mapper={mapper} url={'/'} />,
+    );
     await new Promise(r => process.nextTick(r));
 
-    expect(
-      rendererEntry.toJSON()
-    ).toMatchSnapshot();
+    expect(rendererEntry.toJSON()).toMatchSnapshot();
 
     // Intercept the next site.getPage call.
     let resolveGetPage;
-    const getPage = (site.getPage as any as jest.Mock<any>);
-    getPage.mockImplementationOnce(() => new Promise(r => resolveGetPage = r));
+    const getPage = (site.getPage as any) as jest.Mock<any>;
+    getPage.mockImplementationOnce(
+      () => new Promise(r => (resolveGetPage = r)),
+    );
 
     // Change the url.
     rendererEntry.update(<DrupalPage mapper={mapper} url={'/new-url'} />);
@@ -123,23 +122,36 @@ describe('DrupalPage', async () => {
 
     // Now entity 2 should be rendered.
     const entity2Result = rendererEntry.toJSON();
-    expect(
-      entity2Result
-    ).toMatchSnapshot();
+    expect(entity2Result).toMatchSnapshot();
 
     // Intercept the next site.getPage call.
     let resolveGetPage2;
-    getPage.mockImplementationOnce(() => new Promise(r => resolveGetPage2 = r));
+    getPage.mockImplementationOnce(
+      () => new Promise(r => (resolveGetPage2 = r)),
+    );
 
     // Start the loading of a new url.
-    rendererEntry.update(<DrupalPage mapper={mapper} url={'/another-new-url'} renderWhileLoadingData />);
+    rendererEntry.update(
+      <DrupalPage
+        mapper={mapper}
+        url={'/another-new-url'}
+        renderWhileLoadingData
+      />,
+    );
     await new Promise(r => process.nextTick(r));
 
     // The component should't have changed.
     expect(rendererEntry.toJSON()).toEqual(entity2Result);
 
     // Add a layout component.
-    rendererEntry.update(<DrupalPage mapper={mapper} url={'/another-new-url'} renderWhileLoadingData layout="div" />);
+    rendererEntry.update(
+      <DrupalPage
+        mapper={mapper}
+        url={'/another-new-url'}
+        renderWhileLoadingData
+        layout="div"
+      />,
+    );
 
     // The new layout component should have the loadingData prop set to true.
     const child = rendererEntry.root.children[0] as renderer.ReactTestInstance;
@@ -147,10 +159,14 @@ describe('DrupalPage', async () => {
 
     // Intercept the next set.getPage call.
     let resolveGetPage3;
-    getPage.mockImplementationOnce(() => new Promise(r => resolveGetPage3 = r));
+    getPage.mockImplementationOnce(
+      () => new Promise(r => (resolveGetPage3 = r)),
+    );
 
     // Load a new page (while the other page hasn't finished loading yet). Remove the layout.
-    rendererEntry.update(<DrupalPage mapper={mapper} url={'/fresh-url'} renderWhileLoadingData />);
+    rendererEntry.update(
+      <DrupalPage mapper={mapper} url={'/fresh-url'} renderWhileLoadingData />,
+    );
     await new Promise(r => process.nextTick(r));
 
     // The component now should be the same as when before we started loading the new page.
@@ -165,5 +181,5 @@ describe('DrupalPage', async () => {
     resolveGetPage3(uuid);
     await new Promise(r => process.nextTick(r));
     expect(rendererEntry.toJSON()).toMatchSnapshot();
-  })
+  });
 });
