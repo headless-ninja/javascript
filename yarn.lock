@@ -5705,9 +5705,9 @@ semantic-release-plugin-decorators@^1.2.1:
     import-from "^2.1.0"
     lodash "^4.17.4"
 
-semantic-release@15.3.1:
-  version "15.3.1"
-  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.3.1.tgz#5acc4ae55aaed68c89d69056bfad3698e671083e"
+semantic-release@15.4.0:
+  version "15.4.0"
+  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.4.0.tgz#4254cb5e93ce1ae6e6327f14aee377318823b5b8"
   dependencies:
     "@semantic-release/commit-analyzer" "^5.0.0"
     "@semantic-release/error" "^2.2.0"
