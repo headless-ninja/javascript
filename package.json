@@ -30,7 +30,7 @@
     "rimraf": "2.6.2",
     "semantic-release": "15.4.0",
     "semantic-release-monorepo": "6.0.1",
-    "ts-jest": "22.4.5",
+    "ts-jest": "22.4.6",
     "ts-node": "6.0.3",
     "tslint": "5.10.0",
     "tslint-config-airbnb": "5.8.0",
