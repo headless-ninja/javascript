@@ -18,7 +18,7 @@
     "fetch-mock": "6.4.2",
     "gulp": "3.9.1",
     "gulp-babel": "7.0.1",
-    "gulp-rename": "1.2.2",
+    "gulp-rename": "1.2.3",
     "gulp-sourcemaps": "2.6.4",
     "gulp-typescript": "4.0.2",
     "jest": "22.4.3",
