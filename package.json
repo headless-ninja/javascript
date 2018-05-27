@@ -2,7 +2,7 @@
   "private": true,
   "workspaces": ["packages/*"],
   "devDependencies": {
-    "@types/fetch-mock": "6.0.1",
+    "@types/fetch-mock": "6.0.2",
     "@types/jest": "22.2.3",
     "@types/node": "9.6.18",
     "@types/prop-types": "15.5.3",
