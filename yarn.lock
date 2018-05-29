@@ -4936,7 +4936,7 @@ p-is-promise@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/p-is-promise/-/p-is-promise-1.1.0.tgz#9c9456989e9f6588017b0434d56097675c3da05e"
 
-p-limit@^1.1.0:
+p-limit@^1.1.0, p-limit@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-1.2.0.tgz#0e92b6bedcb59f022c13d0f1949dc82d15909f1c"
   dependencies:
@@ -5760,12 +5760,13 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-semantic-release-monorepo@6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/semantic-release-monorepo/-/semantic-release-monorepo-6.0.1.tgz#585fab6178bd2c59f0b907df0141de7fe63e27d1"
+semantic-release-monorepo@6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/semantic-release-monorepo/-/semantic-release-monorepo-6.0.3.tgz#4cf66490df4c32bd40ddaa6afa836cf0b2210bb5"
   dependencies:
     debug "^3.1.0"
     execa "^0.8.0"
+    p-limit "^1.2.0"
     pkg-up "^2.0.0"
     ramda "^0.25.0"
     read-pkg "^3.0.0"
