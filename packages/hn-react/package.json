@@ -5,8 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
-    "url":
-      "https://github.com/headless-ninja/javascript/tree/master/packages/hn-react"
+    "url": "https://github.com/headless-ninja/javascript/tree/master/packages/hn-react"
   },
   "author": "Headless Ninja",
   "license": "MIT",

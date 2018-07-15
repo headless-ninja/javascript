@@ -1,13 +1,11 @@
 {
   "name": "hn",
   "version": "0.0.0-development",
-  "description":
-    "Connects with an Drupal website that has the hn module installed.",
+  "description": "Connects with an Drupal website that has the hn module installed.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
-    "url":
-      "https://github.com/headless-ninja/javascript/tree/master/packages/hn"
+    "url": "https://github.com/headless-ninja/javascript/tree/master/packages/hn"
   },
   "author": "Bart Langelaan",
   "license": "MIT",

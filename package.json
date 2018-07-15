@@ -1,6 +1,8 @@
 {
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@types/fetch-mock": "6.0.3",
     "@types/jest": "23.1.6",
@@ -42,29 +44,41 @@
     "build": "gulp build",
     "test": "tsc --noEmit && jest",
     "start": "gulp",
-    "lint":
-      "prettier '**/*.{js,ts,tsx,json,md}' -l && tslint '**/*.{js,ts,tsx}' -c tslint.json",
-    "lint:fix":
-      "prettier '**/*.{js,ts,tsx,json,md}' --write -l && tslint '**/*.{js,ts,tsx}' -c tslint.json --fix",
-    "release":
-      "lerna exec -- ../../node_modules/.bin/semantic-release -e semantic-release-monorepo"
+    "lint": "prettier '**/*.{js,ts,tsx,json,md}' -l && tslint '**/*.{js,ts,tsx}' -c tslint.json",
+    "lint:fix": "prettier '**/*.{js,ts,tsx,json,md}' --write -l && tslint '**/*.{js,ts,tsx}' -c tslint.json --fix",
+    "release": "lerna exec -- ../../node_modules/.bin/semantic-release -e semantic-release-monorepo"
   },
   "dependencies": {},
   "jest": {
     "collectCoverage": true,
-    "collectCoverageFrom": ["packages/*/src/**/*.{ts,tsx}"],
-    "coverageReporters": ["lcov", "text"],
+    "collectCoverageFrom": [
+      "packages/*/src/**/*.{ts,tsx}"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
     "testURL": "http://headless.ninja",
     "testRegex": "src/.*(__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
-    "testPathIgnorePatterns": ["/node_modules/", "<rootDir>/.*/_*.ts"],
-    "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"],
-    "projects": ["<rootDir>/projects/*"],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/.*/_*.ts"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "node"
+    ],
+    "projects": [
+      "<rootDir>/projects/*"
+    ],
     "restoreMocks": true,
-    "setupTestFrameworkScriptFile":
-      "<rootDir>/packages/hn/src/__tests__/setup.js",
+    "setupTestFrameworkScriptFile": "<rootDir>/packages/hn/src/__tests__/setup.js",
     "clearMocks": true
   },
   "prettier": {
