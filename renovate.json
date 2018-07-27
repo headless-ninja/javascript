@@ -10,8 +10,10 @@
   "devDependencies": {
     "automerge": true
   },
-  "packageRules": [{
-    "packageNames": ["query-string"],
-    "allowedVersions": "< 6 || >= 7"
-  }]
+  "packageRules": [
+    {
+      "packageNames": ["query-string"],
+      "allowedVersions": "< 6 || >= 7"
+    }
+  ]
 }
