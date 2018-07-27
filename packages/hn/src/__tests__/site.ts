@@ -214,6 +214,7 @@ test('getting data with failing fetch', async () => {
   fetchMock.once('*', async () => 500);
 
   // Allow console.error to be called once.
+  // tslint:disable-next-line:no-console
   const err = console.error as jest.Mock;
   err.mockImplementationOnce(() => undefined);
 
