@@ -110,7 +110,7 @@ class Site {
       }
     }
 
-    if (loadFromServer === true || !this.pagesLoading[path]) {
+    if (loadFromServer || !this.pagesLoading[path]) {
       // Copy this.tokensToVerify for this single request.
       const tokensToVerify = [...this.tokensToVerify];
 
