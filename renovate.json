@@ -9,5 +9,9 @@
   "automergeType": "branch-push",
   "devDependencies": {
     "automerge": true
-  }
+  },
+  "packageRules": [{
+    "packageNames": ["query-string"],
+    "allowedVersions": "< 6 || >= 7"
+  }]
 }
