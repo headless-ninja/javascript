@@ -49,7 +49,6 @@ exports[`Paragraph with required props 1`] = `
     }
   }
   index={0}
-  page={undefined}
   paragraph={
     Object {
       "__hn": Object {
