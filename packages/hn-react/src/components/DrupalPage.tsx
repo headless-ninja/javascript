@@ -2,7 +2,9 @@ import getNested from 'get-nested';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import site from '../utils/site';
-import EntityMapper from './EntityMapper';
+import EntityMapper, {
+  EntityMapper as InnerEntityMapper,
+} from './EntityMapper';
 
 class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
   static contextTypes = {
@@ -18,7 +20,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
     };
   }
 
-  private entity: EntityMapper | null = null;
+  private entity: InnerEntityMapper | null = null;
 
   /**
    * If this component exists in a tree that is invoked with the waitForHnData function, this function is invoked.

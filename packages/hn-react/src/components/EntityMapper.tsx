@@ -1,10 +1,11 @@
 import getNested from 'get-nested';
+import { Site } from 'hn';
 import PropTypes from 'prop-types';
 import React, { ReactType } from 'react';
-import site from '../utils/site';
+import { SiteConsumer } from '../context/site';
 
-class EntityMapper extends React.Component<
-  EntityMapperProps,
+export class EntityMapper extends React.Component<
+  EntityMapperProps & { site: Site },
   EntityMapperState
 > {
   static entityComponents: EntityComponentsStorageItem[] = [];
@@ -16,7 +17,7 @@ class EntityMapper extends React.Component<
   /**
    * This makes sure the data for this url is ready to be rendered.
    */
-  static async assureComponent({ uuid, mapper, asyncMapper }) {
+  static async assureComponent({ uuid, mapper, asyncMapper, site }) {
     // This gets the entity from the site, based on the uuid.
     const entity = site.getData(uuid);
 
@@ -160,6 +161,7 @@ class EntityMapper extends React.Component<
         asyncMapper,
         mapper,
         uuid,
+        site: this.props.site,
       });
     }
 
@@ -183,7 +185,7 @@ class EntityMapper extends React.Component<
   render() {
     const { uuid, entityProps, mapper } = this.state;
 
-    const entity = site.getData(uuid);
+    const entity = this.props.site.getData(uuid);
 
     if (!entity) {
       return null;
@@ -285,4 +287,12 @@ export interface EntityComponentsStorageItem {
   component: React.ReactType;
 }
 
-export default EntityMapper;
+const EntityMapperWrapper = React.forwardRef<EntityMapper, EntityMapperProps>(
+  (props, ref) => (
+    <SiteConsumer>
+      {site => <EntityMapper {...props} site={site} ref={ref} />}
+    </SiteConsumer>
+  ),
+);
+
+export default EntityMapperWrapper;
