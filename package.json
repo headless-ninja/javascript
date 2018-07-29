@@ -26,7 +26,7 @@
     "jest": "23.4.2",
     "lerna": "2.11.0",
     "merge2": "1.2.2",
-    "prettier": "1.13.7",
+    "prettier": "1.14.0",
     "react": "16.4.1",
     "react-test-renderer": "16.4.1",
     "rimraf": "2.6.2",
