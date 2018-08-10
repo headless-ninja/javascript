@@ -128,9 +128,9 @@
     p-map-series "^1.0.0"
     p-waterfall "^1.0.0"
 
-"@lerna/cli@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@lerna/cli/-/cli-3.0.0.tgz#7c2d5168cac891a083ec741b71700ef122a7dd38"
+"@lerna/cli@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@lerna/cli/-/cli-3.0.1.tgz#4f10fb321ea758a2e5c563281a4a3d2d75febc18"
   dependencies:
     "@lerna/add" "^3.0.0"
     "@lerna/bootstrap" "^3.0.0"
@@ -144,7 +144,7 @@
     "@lerna/init" "^3.0.0"
     "@lerna/link" "^3.0.0"
     "@lerna/list" "^3.0.0"
-    "@lerna/publish" "^3.0.0"
+    "@lerna/publish" "^3.0.1"
     "@lerna/run" "^3.0.0"
     "@lerna/version" "^3.0.0"
     dedent "^0.7.0"
@@ -409,9 +409,9 @@
     inquirer "^5.1.0"
     npmlog "^4.1.2"
 
-"@lerna/publish@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@lerna/publish/-/publish-3.0.0.tgz#0770b6e9a7b521cac246f01f7dba2bd5928485eb"
+"@lerna/publish@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@lerna/publish/-/publish-3.0.1.tgz#dc75fb78f62950a1fd81fe73f4018415b53f61ae"
   dependencies:
     "@lerna/batch-packages" "^3.0.0"
     "@lerna/child-process" "^3.0.0"
@@ -5065,11 +5065,11 @@ left-pad@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/left-pad/-/left-pad-1.2.0.tgz#d30a73c6b8201d8f7d8e7956ba9616087a68e0ee"
 
-lerna@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/lerna/-/lerna-3.0.0.tgz#8352361a94abcaf53924a2d16fcf2661428acd83"
+lerna@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/lerna/-/lerna-3.0.1.tgz#c513285d9333b180c239dfc1380240078ff1bec7"
   dependencies:
-    "@lerna/cli" "^3.0.0"
+    "@lerna/cli" "^3.0.1"
     import-local "^1.0.0"
     npmlog "^4.1.2"
 
