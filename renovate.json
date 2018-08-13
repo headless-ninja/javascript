@@ -14,6 +14,10 @@
     {
       "packageNames": ["query-string"],
       "allowedVersions": "< 6 || >= 7"
+    },
+    {
+      "packageNames": ["semantic-release"],
+      "allowedVersions": "<= 15.6.3 || >= 16"
     }
   ]
 }
