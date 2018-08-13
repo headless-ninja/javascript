@@ -9,7 +9,7 @@ import {
 } from './index';
 
 test('exports', () => {
-  expect(typeof DrupalPage).toBe('function');
+  expect(typeof DrupalPage).toBe('object');
   expect(typeof site).toBe('object');
   expect(typeof EntityMapper).toBe('object');
   expect(typeof Paragraph).toBe('function');
