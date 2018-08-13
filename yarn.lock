@@ -6892,8 +6892,8 @@ react-test-renderer@16.4.2:
     react-is "^16.4.2"
 
 react-tree-walker@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-4.2.0.tgz#bb2ac9b1219e1d39e5d11c5ecfa6fe5ea63f81c0"
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-4.3.0.tgz#b7cae498cebb490281e9e99a01bdb9c6b4926cd3"
 
 react@16.4.2:
   version "16.4.2"
