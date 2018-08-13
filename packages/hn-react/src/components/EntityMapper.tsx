@@ -85,7 +85,7 @@ class EntityMapper extends React.Component<
    * state to the hnContext provided by the DrupalPageContextProvider. This way, the state will be preserved trough
    * multiple renders.
    */
-  async asyncBootstrap() {
+  async bootstrap() {
     const { asyncMapper } = this.props;
     const { uuid, entityProps, mapper } = this.state;
 
