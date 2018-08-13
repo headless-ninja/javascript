@@ -154,7 +154,9 @@ describe('DrupalPage', async () => {
     );
 
     // The new layout component should have the loadingData prop set to true.
-    const child = rendererEntry.root.children[0] as renderer.ReactTestInstance;
+    const childWrapper = rendererEntry.root
+      .children[0] as renderer.ReactTestInstance;
+    const child = childWrapper.children[0] as renderer.ReactTestInstance;
     expect(child.props.loadingData).toBe(true);
 
     // Intercept the next set.getPage call.

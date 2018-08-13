@@ -1,10 +1,16 @@
 import getNested from 'get-nested';
+import { Site } from 'hn';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import site from '../utils/site';
-import EntityMapper from './EntityMapper';
+import { SiteConsumer } from '../context/site';
+import EntityMapper, {
+  EntityMapper as InnerEntityMapper,
+} from './EntityMapper';
 
-class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
+class DrupalPage extends Component<
+  DrupalPageProps & { site: Site },
+  DrupalPageState
+> {
   static contextTypes = {
     hnContext: PropTypes.object,
   };
@@ -18,7 +24,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
     };
   }
 
-  private entity: EntityMapper | null = null;
+  private entity: InnerEntityMapper | null = null;
 
   /**
    * If this component exists in a tree that is invoked with the waitForHnData function, this function is invoked.
@@ -70,7 +76,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
   /**
    * This makes sure the data for this url is ready to be rendered.
    */
-  static async assureData({ url }) {
+  static async assureData({ url, site }) {
     // Get the page. If the page was already fetched before, this should be instant.
     const pageUuid = await site.getPage(url);
 
@@ -93,6 +99,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
     // Load the data.
     const { pageUuid } = await DrupalPage.assureData({
       url,
+      site: this.props.site,
     });
 
     // Check if this is still the last request.
@@ -131,7 +138,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
     // When this is the very first render, there isn't a pageUuid in state. Then only render the Layout.
     if (this.state.pageUuid !== null) {
       // Get the data and content types with the state properties.
-      data = site.getData(this.state.pageUuid);
+      data = this.props.site.getData(this.state.pageUuid);
 
       entityMapper = (
         <EntityMapper
@@ -200,4 +207,12 @@ export interface DrupalPageState {
   pageUuid: string | null;
 }
 
-export default DrupalPage;
+const DrupalPageWrapper = React.forwardRef<DrupalPage, DrupalPageProps>(
+  (props, ref) => (
+    <SiteConsumer>
+      {site => <DrupalPage {...props} site={site} ref={ref} />}
+    </SiteConsumer>
+  ),
+);
+
+export default DrupalPageWrapper;

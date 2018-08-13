@@ -10,7 +10,9 @@ import {
   uuid2,
 } from '../utils/tests';
 import waitForHnData from '../utils/waitForHnData';
-import EntityMapper from './EntityMapper';
+import EntityMapper, {
+  EntityMapper as InnerEntityMapper,
+} from './EntityMapper';
 
 jest.mock('../utils/site', () => {
   return require('../utils/tests').mockSite();
@@ -110,7 +112,7 @@ describe('EntityMapper', async () => {
   });
 
   test('changing props', async () => {
-    const ref = React.createRef<EntityMapper>();
+    const ref = React.createRef<InnerEntityMapper>();
     // First, render uuid1.
     const rendererEntry = renderer.create(
       <EntityMapper uuid={uuid} mapper={mapper} ref={ref} />,
@@ -167,7 +169,8 @@ describe('EntityMapper', async () => {
     expect(ref.current.isReady()).toBe(true);
     const asyncEntity2Result = rendererEntry.toJSON();
     expect(
-      (rendererEntry.root.children[0] as renderer.ReactTestInstance).type,
+      ((rendererEntry.root.children[0] as renderer.ReactTestInstance)
+        .children[0] as renderer.ReactTestInstance).type,
     ).toBe('section');
 
     // Now we change the uuid and add entityProps.
@@ -192,7 +195,9 @@ describe('EntityMapper', async () => {
     resolveEntity1Promise('p');
     await new Promise(resolve => process.nextTick(resolve));
     expect(ref.current.isReady()).toBe(true);
-    const result = rendererEntry.root.children[0] as renderer.ReactTestInstance;
+    const innerwrapper = rendererEntry.root
+      .children[0] as renderer.ReactTestInstance;
+    const result = innerwrapper.children[0] as renderer.ReactTestInstance;
     expect(result.type).toBe('p');
     expect(result.props.testEntityProp).toBe('test123');
 
