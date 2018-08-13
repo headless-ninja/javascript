@@ -26,7 +26,7 @@ class DrupalPage extends Component<DrupalPageProps, DrupalPageState> {
    * state to the hnContext provided by the DrupalPageContextProvider. This way, the state will be preserved trough
    * multiple renders.
    */
-  async asyncBootstrap() {
+  async bootstrap() {
     const drupalPage = (await this.loadData(this.props)) as DrupalPageState;
     this.context.hnContext.state = {
       drupalPage: {

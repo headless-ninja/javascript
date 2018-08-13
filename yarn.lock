@@ -6872,11 +6872,11 @@ rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-async-bootstrapper@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/react-async-bootstrapper/-/react-async-bootstrapper-1.1.2.tgz#3e255a9981b6fbac3553089846eb7a8632c47797"
+react-async-bootstrapper@^2.0.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-async-bootstrapper/-/react-async-bootstrapper-2.1.1.tgz#8bc4115108e2ce6ba5771850a6814980599e09f2"
   dependencies:
-    react-tree-walker "^2.1.3"
+    react-tree-walker "^4.2.0"
 
 react-is@^16.4.2:
   version "16.4.2"
@@ -6891,9 +6891,9 @@ react-test-renderer@16.4.2:
     prop-types "^15.6.0"
     react-is "^16.4.2"
 
-react-tree-walker@^2.1.3:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-2.2.0.tgz#d5f2c9e5673530f3af9c170330b4cd37aacb3dbd"
+react-tree-walker@^4.2.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-4.3.0.tgz#b7cae498cebb490281e9e99a01bdb9c6b4926cd3"
 
 react@16.4.2:
   version "16.4.2"
