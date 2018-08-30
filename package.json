@@ -46,7 +46,7 @@
     "start": "gulp",
     "lint": "prettier '**/*.{js,ts,tsx,json,md}' -l && tslint '**/*.{js,ts,tsx}' -c tslint.json -p tsconfig.json",
     "lint:fix": "prettier '**/*.{js,ts,tsx,json,md}' --write -l && tslint '**/*.{js,ts,tsx}' -c tslint.json -p tsconfig.json --fix",
-    "release": "lerna exec -- ../../node_modules/.bin/semantic-release -e semantic-release-monorepo"
+    "release": "lerna exec --concurrency 1 -- ../../node_modules/.bin/semantic-release -e semantic-release-monorepo"
   },
   "dependencies": {},
   "jest": {
