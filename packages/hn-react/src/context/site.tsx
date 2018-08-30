@@ -1,9 +1,9 @@
 import { Site } from 'hn';
-import React, { createContext, ReactNode } from 'react';
+import * as React from 'react';
 import globalSite from '../utils/site';
 
 // Create a new context.
-const { Provider, Consumer } = createContext(globalSite);
+const { Provider, Consumer } = React.createContext(globalSite);
 
 // The site provider is the same as the 'Provider', but changes 'site' to
 // 'value'.
@@ -12,7 +12,7 @@ export const SiteProvider = ({
   children,
 }: {
   site: Site;
-  children: ReactNode;
+  children: React.ReactNode;
 }) => <Provider value={site} children={children} />;
 
 // The consumer is exported as both Site and SiteConsumer. The SiteConsumer can

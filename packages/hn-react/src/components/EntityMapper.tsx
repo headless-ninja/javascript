@@ -1,8 +1,9 @@
-import getNested from 'get-nested';
 import { Site } from 'hn';
-import PropTypes from 'prop-types';
-import React, { ReactType } from 'react';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import { SiteConsumer } from '../context/site';
+
+const getNested = require('get-nested'); // tslint:disable-line:no-var-requires
 
 export class EntityMapper extends React.Component<
   EntityMapperProps & { site: Site },
@@ -233,14 +234,14 @@ export class EntityMapper extends React.Component<
 }
 
 export interface ObjectMapper {
-  [uuid: string]: ReactType;
+  [uuid: string]: React.ReactType;
 }
 export interface ObjectMapperAsync {
-  [uuid: string]: () => Promise<ReactType>;
+  [uuid: string]: () => Promise<React.ReactType>;
 }
 
-export type functionMapper = (entity: object) => ReactType;
-export type functionMapperAsync = (entity: object) => Promise<ReactType>;
+export type functionMapper = (entity: object) => React.ReactType;
+export type functionMapperAsync = (entity: object) => Promise<React.ReactType>;
 
 export type mapperType =
   | ObjectMapper

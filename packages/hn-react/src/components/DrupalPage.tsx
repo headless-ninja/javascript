@@ -1,13 +1,14 @@
-import getNested from 'get-nested';
 import { Site } from 'hn';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import { SiteConsumer } from '../context/site';
 import EntityMapper, {
   EntityMapper as InnerEntityMapper,
 } from './EntityMapper';
 
-class DrupalPage extends Component<
+const getNested = require('get-nested'); // tslint:disable-line:no-var-requires
+
+class DrupalPage extends React.Component<
   DrupalPageProps & { site: Site },
   DrupalPageState
 > {

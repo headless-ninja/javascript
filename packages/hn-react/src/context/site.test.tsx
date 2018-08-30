@@ -1,6 +1,6 @@
 import { Site } from 'hn';
-import React, { Component } from 'react';
-import renderer from 'react-test-renderer';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
 import site from '../utils/site';
 import { SiteConsumer, SiteProvider, withSite } from './site';
 
@@ -76,7 +76,7 @@ describe('withSite', async () => {
     // @ts-ignore
     @withSite
     // @ts-ignore
-    class Consumer extends Component<{ site: Site }> {
+    class Consumer extends React.Component<{ site: Site }> {
       render() {
         renderedSite = this.props.site;
         return null;

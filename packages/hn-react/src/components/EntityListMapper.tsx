@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import EntityMapper, { EntityMapperPropsMapper } from './EntityMapper';
 
 const EntityListMapper: React.StatelessComponent<EntityListMapperProps> = ({
@@ -10,7 +10,7 @@ const EntityListMapper: React.StatelessComponent<EntityListMapperProps> = ({
   asyncMapper,
 }: any): any =>
   entities.map((ref, index) => {
-    const EntityWrapper = entityWrapper || Fragment;
+    const EntityWrapper = entityWrapper || React.Fragment;
     const uuid = isEntityReferenceField(ref) ? ref.target_uuid : ref;
 
     return (

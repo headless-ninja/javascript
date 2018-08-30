@@ -3,8 +3,10 @@ declare module 'react-async-bootstrapper' {
     componentWillUnmount?: boolean;
   }
 
-  export default function asyncBootstrapper(
+  function asyncBootstrapper(
     reactElement: JSX.Element,
     options: AsyncBootstrapperOptions,
   ): Promise<JSX.Element>;
+
+  export = asyncBootstrapper;
 }

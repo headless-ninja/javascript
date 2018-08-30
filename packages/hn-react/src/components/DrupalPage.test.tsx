@@ -1,5 +1,5 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
 import site from '../utils/site';
 import { asyncMapper, mapper, uuid, uuid2 } from '../utils/tests';
 import waitForHnData from '../utils/waitForHnData';
