@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import HOC from './HOC';
 
 export default HOC(props => (

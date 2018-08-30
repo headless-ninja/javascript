@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import deprecate from 'util-deprecate';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import EntityListMapper from '../EntityListMapper';
+
+const deprecate = require('util-deprecate'); // tslint:disable-line:no-var-requires
 
 const Paragraphs: React.StatelessComponent<ParagraphsProps> = ({
   mapper,

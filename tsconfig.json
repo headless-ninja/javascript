@@ -6,7 +6,6 @@
     "inlineSourceMap": false,
     "declaration": true,
     "jsx": "react",
-    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "baseUrl": "./packages",
     "paths": {

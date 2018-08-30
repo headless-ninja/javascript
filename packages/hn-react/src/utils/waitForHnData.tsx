@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import asyncBootstrapper from 'react-async-bootstrapper';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+
+const asyncBootstrapper = require('react-async-bootstrapper'); // tslint:disable-line:no-var-requires
 
 export default async function(children) {
   const context = {
@@ -10,7 +11,7 @@ export default async function(children) {
     },
   };
 
-  class DrupalPageContextProvider extends Component {
+  class DrupalPageContextProvider extends React.Component {
     static childContextTypes = {
       hnContext: PropTypes.object,
     };

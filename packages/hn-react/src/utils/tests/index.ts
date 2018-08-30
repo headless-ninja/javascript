@@ -68,5 +68,5 @@ export class SiteMock {
 }
 
 export function mockSite() {
-  return new SiteMock();
+  return { default: new SiteMock() };
 }
