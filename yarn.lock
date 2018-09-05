@@ -6787,9 +6787,9 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-semantic-release-monorepo@6.0.3:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/semantic-release-monorepo/-/semantic-release-monorepo-6.0.3.tgz#4cf66490df4c32bd40ddaa6afa836cf0b2210bb5"
+semantic-release-monorepo@6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/semantic-release-monorepo/-/semantic-release-monorepo-6.1.1.tgz#c9d802cbd065963a7d01d258936dfaf2989a2a7f"
   dependencies:
     debug "^3.1.0"
     execa "^0.8.0"
