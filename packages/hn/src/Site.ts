@@ -1,9 +1,9 @@
-import * as deepmerge from 'deepmerge';
 import 'isomorphic-fetch';
 import { stringify } from 'query-string';
 import HnServerResponse, { HnData } from './HnServerResponse';
 import SiteInitializeParams from './SiteInitializeParams';
 const getNested = require('get-nested'); // tslint:disable-line:no-var-requires
+const deepmerge = require('deepmerge/dist/umd'); // tslint:disable-line:no-var-requires
 
 const propertiesToHydrate = ['tokensToVerify', 'user', 'data'];
 
