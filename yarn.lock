@@ -654,9 +654,9 @@
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
 
-"@types/fetch-mock@6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@types/fetch-mock/-/fetch-mock-6.0.3.tgz#54ba90776293e728089bf53ba53e3c69f1c80655"
+"@types/fetch-mock@6.0.4":
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/@types/fetch-mock/-/fetch-mock-6.0.4.tgz#fbe20ab0cc151fe67b2e1b71e7ef29a986a90f1f"
 
 "@types/jest@23.3.2":
   version "23.3.2"
