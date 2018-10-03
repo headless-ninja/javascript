@@ -670,9 +670,9 @@
   version "15.5.6"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.6.tgz#9c03d3fed70a8d517c191b7734da2879b50ca26c"
 
-"@types/react-test-renderer@16.0.2":
-  version "16.0.2"
-  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-16.0.2.tgz#2715eae40df08f80b3620c498598c8615693b6c6"
+"@types/react-test-renderer@16.0.3":
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-16.0.3.tgz#cce5c983d66cc5c3582e7c2f44b274ab635a8acc"
   dependencies:
     "@types/react" "*"
 
