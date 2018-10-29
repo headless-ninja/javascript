@@ -216,4 +216,6 @@ const DrupalPageWrapper = React.forwardRef<DrupalPage, DrupalPageProps>(
   ),
 );
 
+export const assureData = DrupalPage.assureData;
+
 export default DrupalPageWrapper;
