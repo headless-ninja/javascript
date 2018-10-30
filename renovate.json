@@ -17,7 +17,7 @@
     },
     {
       "packageNames": ["semantic-release"],
-      "allowedVersions": "<= 15.6.3 || >= 16"
+      "allowedVersions": "< 15.10"
     }
   ]
 }
