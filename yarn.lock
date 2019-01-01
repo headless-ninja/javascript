@@ -3017,9 +3017,9 @@ fetch-ie8@^1.4.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/fetch-ie8/-/fetch-ie8-1.5.0.tgz#f1141c3f96cbc8937aa31b0fbc1a770220fbc15b"
 
-fetch-mock@7.2.8:
-  version "7.2.8"
-  resolved "https://registry.yarnpkg.com/fetch-mock/-/fetch-mock-7.2.8.tgz#b83b84c144b37eb6bcecc8e6334b784951452ec6"
+fetch-mock@7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/fetch-mock/-/fetch-mock-7.3.0.tgz#4bf41190c19477c4c86ce1739972035bb02b3add"
   dependencies:
     babel-polyfill "^6.26.0"
     glob-to-regexp "^0.4.0"
