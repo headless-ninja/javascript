@@ -681,9 +681,9 @@
     into-stream "^4.0.0"
     lodash "^4.17.4"
 
-"@types/fetch-mock@7.2.1":
-  version "7.2.1"
-  resolved "https://registry.yarnpkg.com/@types/fetch-mock/-/fetch-mock-7.2.1.tgz#5630999aa75532e00af42a54cbe05e1651f4a080"
+"@types/fetch-mock@7.2.2":
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/@types/fetch-mock/-/fetch-mock-7.2.2.tgz#cc933778095275ec7154650aaaf1e998f1c68984"
 
 "@types/jest@23.3.13":
   version "23.3.13"

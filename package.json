@@ -4,7 +4,7 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@types/fetch-mock": "7.2.1",
+    "@types/fetch-mock": "7.2.2",
     "@types/jest": "23.3.13",
     "@types/node": "9.6.18",
     "@types/prop-types": "15.5.8",
