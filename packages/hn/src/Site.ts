@@ -122,37 +122,33 @@ class Site {
             _hn_user: this.user ? this.user : undefined,
             _hn_verify: tokensToVerify,
           }),
-      )
-        .then((page: HnServerResponse) => {
-          const hnRequestData =
-            (page.__hn && page.__hn.request && page.__hn.request) || {};
+      ).then((page: HnServerResponse) => {
+        const hnRequestData =
+          (page.__hn && page.__hn.request && page.__hn.request) || {};
 
-          // Get the user id, to pass to all new requests.
-          this.user = hnRequestData.user || this.user;
+        // Get the user id, to pass to all new requests.
+        this.user = hnRequestData.user || this.user;
 
-          // Remove all sent tokens from the tokensToVerify.
-          this.tokensToVerify = this.tokensToVerify.filter(
-            t => tokensToVerify.indexOf(t) === -1,
-          );
+        // Remove all sent tokens from the tokensToVerify.
+        this.tokensToVerify = this.tokensToVerify.filter(
+          t => tokensToVerify.indexOf(t) === -1,
+        );
 
-          // Add new token to tokensToVerify.
-          const newToken = hnRequestData.token;
-          if (newToken) this.tokensToVerify.push(newToken);
+        // Add new token to tokensToVerify.
+        const newToken = hnRequestData.token;
+        if (newToken) this.tokensToVerify.push(newToken);
 
-          // Add all data to the global data storage.
-          this.addData(page);
-        })
-        .catch(error => {
-          console.error(error); // tslint:disable-line:no-console
-          this.addData({
-            paths: {
-              [path]: '500',
-            },
-          });
-        })
-        .then(() => this.data.paths[path]);
+        // Add all data to the global data storage.
+        this.addData(page);
+
+        return this.data.paths[path];
+      });
     }
     return this.pagesLoading[path];
+  }
+
+  public getUuid(path: string) {
+    return this.data.paths[path];
   }
 
   private addData(data: HnServerResponse) {

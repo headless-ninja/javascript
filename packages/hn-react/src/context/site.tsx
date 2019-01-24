@@ -29,11 +29,12 @@ export interface InjectedSiteProps {
 export function withSite<P extends InjectedSiteProps>(
   Component: React.ComponentType<P>,
 ) {
+  const WrappedComponent: any = Component;
   return function ComponentWithSite(
     props: Pick<P, Exclude<keyof P, keyof InjectedSiteProps>>,
   ) {
     return (
-      <Consumer>{theme => <Component {...props} site={theme} />}</Consumer>
+      <Consumer>{site => <WrappedComponent {...props} site={site} />}</Consumer>
     );
   };
 }

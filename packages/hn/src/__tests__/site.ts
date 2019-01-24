@@ -85,17 +85,19 @@ test('dehydrating and hydrating', async () => {
   expect(dehydration1).toEqual(dehydration2);
 });
 
-test('getting a page', () => {
+test('getting a page', async () => {
   const site = new Site({ url: 'http://headless.ninja/tests' });
-  site
-    .getPage('/test123')
-    .then(entityUUID => {
-      expect(entityUUID).toBe('e3842f1c-e148-46ae-a3e8-c03badbcb05b');
-      expect(site.getData(entityUUID).body.value).toBe('This is a body');
-    })
-    .catch(err => {
-      throw new Error(err);
-    });
+
+  // Synchronous call to getUuid should return undefined now.
+  expect(site.getUuid('/test123')).toBeUndefined();
+
+  // Fetch the page, which returns the uuid.
+  const entityUUID = await site.getPage('/test123');
+  expect(entityUUID).toBe('e3842f1c-e148-46ae-a3e8-c03badbcb05b');
+  expect(site.getData(entityUUID).body.value).toBe('This is a body');
+
+  // The synchronous call should now return the uuid.
+  expect(site.getUuid('/test123')).toBe(entityUUID);
 });
 
 test('getting a page while its already loading', async () => {
@@ -213,12 +215,8 @@ test('getting data with failing fetch', async () => {
   // Return a 500 error on the next fetch.
   fetchMock.once('*', async () => 500);
 
-  // Allow console.error to be called once.
-  // tslint:disable-next-line:no-console
-  const err = console.error as jest.Mock;
-  err.mockImplementationOnce(() => undefined);
-
-  expect(await site.getPage('/unrelated-path')).toBe('500');
-  expect(err).toHaveBeenCalledTimes(1);
-  expect(err.mock.calls[0][0].message).toContain('500 - Internal Server Error');
+  await expect(site.getPage('/unrelated-path')).rejects.toHaveProperty(
+    'message',
+    'Error at path: http://headless.ninja/tests/hn?_format=hn&path=%2Funrelated-path: 500 - Internal Server Error',
+  );
 });

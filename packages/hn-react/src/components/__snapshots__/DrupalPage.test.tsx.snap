@@ -255,9 +255,7 @@ exports[`DrupalPage with asyncMapper as boolean (deprecated) 2`] = `
 />
 `;
 
-exports[`DrupalPage with required props 1`] = `null`;
-
-exports[`DrupalPage with required props 2`] = `
+exports[`DrupalPage with required props 1`] = `
 <div
   bundle="unique_type_1__unique_bundle_1"
   className="MyCustomMapperComponent"
