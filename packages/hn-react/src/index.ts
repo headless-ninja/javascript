@@ -2,7 +2,7 @@ import Paragraph from './components/deprecated/Paragraph';
 import Paragraphs from './components/deprecated/Paragraphs';
 import DrupalPage, { assureData } from './components/DrupalPage';
 import EntityListMapper from './components/EntityListMapper';
-import EntityMapper from './components/EntityMapper';
+import EntityMapper, { assureComponent } from './components/EntityMapper';
 import {
   InjectedSiteProps,
   Site,
@@ -27,4 +27,5 @@ export {
   InjectedSiteProps,
   withSite,
   assureData,
+  assureComponent,
 };

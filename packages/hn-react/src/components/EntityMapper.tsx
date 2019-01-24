@@ -309,4 +309,6 @@ const EntityMapperWrapper = React.forwardRef<EntityMapper, EntityMapperProps>(
   ),
 );
 
+export const assureComponent = EntityMapper.assureComponent;
+
 export default EntityMapperWrapper;
