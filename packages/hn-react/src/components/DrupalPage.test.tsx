@@ -17,9 +17,7 @@ describe('DrupalPage', async () => {
   test('without any mapper', async () => {
     const component = <DrupalPage url={'/'} />;
 
-    expect(
-      renderer.create(await waitForHnData(component)).toJSON(),
-    ).toBe(null)
+    expect(renderer.create(await waitForHnData(component)).toJSON()).toBe(null);
   });
 
   test('with required props', async () => {

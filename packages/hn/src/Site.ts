@@ -164,8 +164,7 @@ class Site {
       if (this.getData(uuid).__hn.view_modes.includes('default')) {
         return uuid;
       }
-    }
-    catch {
+    } catch {
       // The data probabily doesn't exist yet, so we do nothing.
     }
   }
