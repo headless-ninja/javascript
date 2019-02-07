@@ -21,7 +21,14 @@ class DrupalPage extends React.Component<
   async bootstrap() {
     const { uuid } = await DrupalPage.assureData(this.props);
 
-    return InnerEntityMapper.assureComponent({ ...this.props, uuid });
+    if (!this.props.mapper && !this.props.asyncMapper) return;
+
+    return InnerEntityMapper.assureComponent({
+      uuid,
+      mapper: this.props.mapper as any,
+      asyncMapper: this.props.asyncMapper as any,
+      site: this.props.site as any,
+    });
   }
 
   /**
@@ -34,7 +41,14 @@ class DrupalPage extends React.Component<
 
     if (!uuid) return false;
 
-    return !!InnerEntityMapper.getComponentFromMapper({ ...props, uuid });
+    if (!this.props.mapper && !this.props.asyncMapper) return true;
+
+    return !!InnerEntityMapper.getComponentFromMapper({
+      uuid,
+      mapper: this.props.mapper as any,
+      asyncMapper: this.props.asyncMapper as any,
+      site: this.props.site,
+    });
   }
 
   lastRequest: symbol | undefined;
@@ -54,21 +68,28 @@ class DrupalPage extends React.Component<
       return;
     }
 
+    // Cache the props, we're going to async mode.
+    const props = this.props;
+
     // If we can't render from props yet, we need to fetch our data and assure the mapper
     // is ready.
     (async () => {
       // First, make sure we load the url into the site cache.
-      const { uuid } = await DrupalPage.assureData(this.props);
+      const { uuid } = await DrupalPage.assureData(props);
 
       // If in the meantime the props updated, stop.
       if (lastRequest !== this.lastRequest) return;
 
       // Make sure the mapper is ready by loading the async component into the mapper
       // cache.
-      await InnerEntityMapper.assureComponent({
-        ...this.props,
-        uuid,
-      });
+      if (props.mapper || props.asyncMapper) {
+        await InnerEntityMapper.assureComponent({
+          uuid,
+          mapper: props.mapper as any,
+          asyncMapper: props.asyncMapper as any,
+          site: props.site,
+        });
+      }
 
       // If in the meantime the props updated, stop.
       if (lastRequest !== this.lastRequest) return;
@@ -207,7 +228,7 @@ export interface DrupalPageOwnProps {
 }
 
 type DrupalPageInnerProps = DrupalPageProps & { site: Site };
-type DrupalPageProps = DrupalPageOwnProps & EntityMapperPropsMapper;
+type DrupalPageProps = DrupalPageOwnProps & Partial<EntityMapperPropsMapper>;
 
 const DrupalPageWrapper = React.forwardRef<DrupalPage, DrupalPageProps>(
   (props, ref) => (

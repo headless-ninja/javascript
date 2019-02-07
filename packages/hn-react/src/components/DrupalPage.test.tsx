@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import site from '../utils/site';
-import { asyncMapper, mapper, uuid, uuid2, SiteMock } from '../utils/tests';
+import { asyncMapper, mapper, SiteMock, uuid, uuid2 } from '../utils/tests';
 import waitForHnData from '../utils/waitForHnData';
 import DrupalPage from './DrupalPage';
 
@@ -14,6 +14,14 @@ jest.mock('../utils/site', () => {
 jest.mock('util-deprecate', () => jest.fn(func => func));
 
 describe('DrupalPage', async () => {
+  test('without any mapper', async () => {
+    const component = <DrupalPage url={'/'} />;
+
+    expect(
+      renderer.create(await waitForHnData(component)).toJSON(),
+    ).toBe(null)
+  });
+
   test('with required props', async () => {
     const component = <DrupalPage mapper={mapper} url={'/'} />;
 
