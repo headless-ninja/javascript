@@ -167,7 +167,7 @@ class DrupalPage extends React.Component<
       return null;
     }
 
-    const uuid = this.props.site.getUuid(data.url);
+    const uuid = this.props.site.getUuid(data.url)!;
 
     const entityMapper = (
       <EntityMapper
