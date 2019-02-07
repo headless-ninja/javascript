@@ -25,6 +25,7 @@ class Site {
 
   // Not hydrated
   private pagesLoading: { [s: string]: Promise<string> } = {};
+  private pagesLoaded: { [s: string]: string } = {};
 
   constructor(initParams?: SiteInitializeParams) {
     this.reset();
@@ -49,6 +50,7 @@ class Site {
       __hn: {},
     };
     this.pagesLoading = {};
+    this.pagesLoaded = {};
   }
 
   /**
@@ -97,62 +99,74 @@ class Site {
   }
 
   public getPage(path, loadFromServer = false): Promise<string> {
-    if (!this.pagesLoading[path]) {
-      const dataMaybeAlreadyLoaded = getNested(
-        () => this.data.data[this.data.paths[path]],
+    if (!loadFromServer) {
+      const uuid = this.getUuid(path);
+
+      // If we already loaded the page (either directly or via another page),
+      // we can return it right now.
+      if (uuid) return Promise.resolve(uuid);
+
+      // If we're already loading this page, we should return the promise.
+      if (this.pagesLoading[path]) return this.pagesLoading[path];
+    }
+
+    // Copy this.tokensToVerify for this single request.
+    const tokensToVerify = [...this.tokensToVerify];
+
+    this.pagesLoading[path] = this.fetch(
+      '/hn?' +
+        stringify({
+          path,
+          _format: 'hn',
+          _hn_user: this.user ? this.user : undefined,
+          _hn_verify: tokensToVerify,
+        }),
+    ).then((page: HnServerResponse) => {
+      const hnRequestData =
+        (page.__hn && page.__hn.request && page.__hn.request) || {};
+
+      // Get the user id, to pass to all new requests.
+      this.user = hnRequestData.user || this.user;
+
+      // Remove all sent tokens from the tokensToVerify.
+      this.tokensToVerify = this.tokensToVerify.filter(
+        t => tokensToVerify.indexOf(t) === -1,
       );
-      if (
-        getNested(() =>
-          dataMaybeAlreadyLoaded.__hn.view_modes.includes('default'),
-        )
-      ) {
-        this.pagesLoading[path] = Promise.resolve(this.data.paths[path]);
-      }
-    }
 
-    if (loadFromServer || !this.pagesLoading[path]) {
-      // Copy this.tokensToVerify for this single request.
-      const tokensToVerify = [...this.tokensToVerify];
+      // Add new token to tokensToVerify.
+      const newToken = hnRequestData.token;
+      if (newToken) this.tokensToVerify.push(newToken);
 
-      this.pagesLoading[path] = this.fetch(
-        '/hn?' +
-          stringify({
-            path,
-            _format: 'hn',
-            _hn_user: this.user ? this.user : undefined,
-            _hn_verify: tokensToVerify,
-          }),
-      )
-        .then((page: HnServerResponse) => {
-          const hnRequestData =
-            (page.__hn && page.__hn.request && page.__hn.request) || {};
+      // Add all data to the global data storage.
+      this.addData(page);
 
-          // Get the user id, to pass to all new requests.
-          this.user = hnRequestData.user || this.user;
+      // Mark this promise as loaded
+      const uuid = this.data.paths[path];
+      this.pagesLoaded[path] = uuid;
 
-          // Remove all sent tokens from the tokensToVerify.
-          this.tokensToVerify = this.tokensToVerify.filter(
-            t => tokensToVerify.indexOf(t) === -1,
-          );
+      // Delete the reference to this promise, because we're not loading anymore.
+      delete this.pagesLoading[path];
 
-          // Add new token to tokensToVerify.
-          const newToken = hnRequestData.token;
-          if (newToken) this.tokensToVerify.push(newToken);
+      return uuid;
+    });
 
-          // Add all data to the global data storage.
-          this.addData(page);
-        })
-        .catch(error => {
-          console.error(error); // tslint:disable-line:no-console
-          this.addData({
-            paths: {
-              [path]: '500',
-            },
-          });
-        })
-        .then(() => this.data.paths[path]);
-    }
     return this.pagesLoading[path];
+  }
+
+  public getUuid(path: string) {
+    // If we already loaded the page, we can return it right now.
+    if (this.pagesLoaded[path]) return this.pagesLoaded[path];
+
+    // Maybe we already have the data from another fetch.
+    try {
+      // We try to get the data directly. If the data isn't available, that's fine.
+      const uuid = this.data.paths[path];
+      if (this.getData(uuid).__hn.view_modes.includes('default')) {
+        return uuid;
+      }
+    } catch {
+      // The data probabily doesn't exist yet, so we do nothing.
+    }
   }
 
   private addData(data: HnServerResponse) {

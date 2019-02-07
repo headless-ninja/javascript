@@ -65,6 +65,7 @@ export class SiteMock {
   getPage = jest.fn(async () => {
     return uuid;
   });
+  getUuid = jest.fn(() => uuid);
 }
 
 export function mockSite() {

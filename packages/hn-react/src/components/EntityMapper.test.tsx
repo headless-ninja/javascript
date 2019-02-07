@@ -12,6 +12,7 @@ import {
 import waitForHnData from '../utils/waitForHnData';
 import EntityMapper, {
   EntityMapper as InnerEntityMapper,
+  clearEntityCache,
 } from './EntityMapper';
 
 jest.mock('../utils/site', () => {
@@ -21,6 +22,10 @@ jest.mock('../utils/site', () => {
 jest.mock('util-deprecate', () => jest.fn(func => func));
 
 describe('EntityMapper', async () => {
+  afterEach(() => {
+    clearEntityCache();
+  });
+
   test('with required props', async () => {
     const component = <EntityMapper uuid={uuid} mapper={mapper} />;
 
@@ -78,7 +83,7 @@ describe('EntityMapper', async () => {
       />
     );
 
-    expect(renderer.create(component).toJSON()).toMatchSnapshot();
+    expect(renderer.create(component).toJSON()).toBe(null);
 
     expect(
       renderer.create(await waitForHnData(component)).toJSON(),
@@ -90,7 +95,7 @@ describe('EntityMapper', async () => {
       <EntityMapper uuid={uuid} mapper={asyncMapper} asyncMapper />
     );
 
-    expect(renderer.create(component).toJSON()).toMatchSnapshot();
+    expect(renderer.create(component).toJSON()).toBe(null);
 
     expect(
       renderer.create(await waitForHnData(component)).toJSON(),
@@ -104,11 +109,127 @@ describe('EntityMapper', async () => {
 
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
 
-    expect(customMapper).toHaveBeenCalledTimes(1);
     expect(customMapper).toHaveBeenCalledWith(
       entity,
       'unique_type_1__unique_bundle_1',
     );
+  });
+
+  test('async mapper that fails loading', async () => {
+    const importLike = jest.fn(async () => {
+      throw new Error('No connection.');
+    });
+    const customMapper = {
+      unique_type_1__unique_bundle_1: importLike,
+    };
+    const log = jest.fn();
+
+    class ErrorBoundary extends React.Component {
+      componentDidCatch() {
+        log();
+      }
+      render() {
+        return this.props.children;
+      }
+    }
+
+    // Render the EntityMapper that will fail.
+    const rendererEntry = renderer.create(
+      <ErrorBoundary>
+        <EntityMapper uuid={uuid} asyncMapper={customMapper} />
+      </ErrorBoundary>,
+    );
+
+    // When the component isn't loaded yet, should just render null.
+    expect(log).toBeCalledTimes(0);
+    expect(rendererEntry.toJSON()).toBe(null);
+
+    // Let the promise reject.
+    await new Promise(resolve => process.nextTick(resolve));
+
+    // The error boundry should be called, and still null should be rendered.
+    expect(log).toBeCalledTimes(1);
+    expect(rendererEntry.toJSON()).toBe(null);
+
+    // When something changes, it should retry.
+    rendererEntry.update(
+      <ErrorBoundary>
+        <EntityMapper uuid={uuid} asyncMapper={customMapper} />
+      </ErrorBoundary>,
+    );
+    expect(log).toBeCalledTimes(1);
+
+    await new Promise(resolve => process.nextTick(resolve));
+    expect(log).toBeCalledTimes(2);
+  });
+
+  test('assure component with mapper not supporting bundle', async () => {
+    expect(
+      InnerEntityMapper.assureComponent({ site, uuid, asyncMapper: {} }),
+    ).resolves.toBe(undefined);
+  });
+
+  async function setupPropsChange() {
+    let resolveEntity1Promise;
+    let resolveEntity2Promise;
+    const customAsyncMapper = {
+      unique_type_1__unique_bundle_1: jest.fn(
+        () => new Promise(r => (resolveEntity1Promise = r)),
+      ),
+      unique_type_2__unique_bundle_2: jest.fn(
+        () => new Promise(r => (resolveEntity2Promise = r)),
+      ),
+    };
+
+    const rendererEntry = renderer.create(
+      <EntityMapper uuid={uuid} asyncMapper={customAsyncMapper} />,
+    );
+
+    await new Promise(resolve => process.nextTick(resolve));
+    expect(customAsyncMapper.unique_type_1__unique_bundle_1).toBeCalledTimes(1);
+
+    rendererEntry.update(
+      <EntityMapper uuid={uuid2} asyncMapper={customAsyncMapper} />,
+    );
+
+    await new Promise(resolve => process.nextTick(resolve));
+    expect(customAsyncMapper.unique_type_2__unique_bundle_2).toBeCalledTimes(1);
+    return { resolveEntity1Promise, resolveEntity2Promise, rendererEntry };
+  }
+
+  test(`change props while already loading 1`, async () => {
+    const {
+      resolveEntity1Promise,
+      resolveEntity2Promise,
+      rendererEntry,
+    } = await setupPropsChange();
+
+    resolveEntity1Promise('section');
+    expect(rendererEntry.toJSON()).toBe(null);
+
+    resolveEntity2Promise('div');
+    await new Promise(resolve => process.nextTick(resolve));
+    expect(rendererEntry.root.findByType('div').props.bundle).toBe(
+      'unique_type_2__unique_bundle_2',
+    );
+  });
+
+  test(`change props while already loading 2`, async () => {
+    const {
+      resolveEntity1Promise,
+      resolveEntity2Promise,
+      rendererEntry,
+    } = await setupPropsChange();
+
+    resolveEntity2Promise('section');
+    await new Promise(resolve => process.nextTick(resolve));
+    const json = rendererEntry.toJSON();
+    expect(rendererEntry.root.findByType('section').props.bundle).toEqual(
+      'unique_type_2__unique_bundle_2',
+    );
+
+    resolveEntity1Promise('div');
+    expect(rendererEntry.toJSON()).toEqual(json);
   });
 
   test('changing props', async () => {

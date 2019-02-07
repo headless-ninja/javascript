@@ -1,9 +1,11 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import site from '../utils/site';
-import { asyncMapper, mapper, uuid, uuid2 } from '../utils/tests';
+import { asyncMapper, mapper, SiteMock, uuid, uuid2 } from '../utils/tests';
 import waitForHnData from '../utils/waitForHnData';
 import DrupalPage from './DrupalPage';
+
+const siteMock: SiteMock = site as any;
 
 jest.mock('../utils/site', () => {
   return require('../utils/tests').mockSite();
@@ -12,14 +14,22 @@ jest.mock('../utils/site', () => {
 jest.mock('util-deprecate', () => jest.fn(func => func));
 
 describe('DrupalPage', async () => {
+  test('without any mapper', async () => {
+    const component = <DrupalPage url={'/'} />;
+
+    expect(renderer.create(await waitForHnData(component)).toJSON()).toBe(null);
+  });
+
   test('with required props', async () => {
     const component = <DrupalPage mapper={mapper} url={'/'} />;
 
-    expect(renderer.create(component).toJSON()).toMatchSnapshot();
+    const withoutWaiting = renderer.create(component).toJSON();
+    const withWaiting = renderer
+      .create(await waitForHnData(component))
+      .toJSON();
 
-    expect(
-      renderer.create(await waitForHnData(component)).toJSON(),
-    ).toMatchSnapshot();
+    expect(withoutWaiting).toMatchSnapshot();
+    expect(withWaiting).toEqual(withoutWaiting);
   });
 
   test('with all props', async () => {
@@ -34,8 +44,10 @@ describe('DrupalPage', async () => {
       />
     );
 
+    siteMock.getUuid.mockReturnValue(undefined);
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
 
+    siteMock.getUuid.mockReturnValue(uuid);
     expect(
       renderer.create(await waitForHnData(component)).toJSON(),
     ).toMatchSnapshot();
@@ -71,26 +83,47 @@ describe('DrupalPage', async () => {
       />
     );
 
+    siteMock.getUuid.mockReturnValueOnce(undefined);
+
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
 
+    siteMock.getUuid.mockReturnValueOnce(undefined);
     expect(
       renderer.create(await waitForHnData(component)).toJSON(),
     ).toMatchSnapshot();
   });
 
   test('when getPage fails', async () => {
-    const component = <DrupalPage mapper={{}} url={'/newUrl'} />;
+    const log = jest.fn();
 
-    const getPage = (site.getPage as any) as jest.Mock<any>;
-    getPage.mockImplementationOnce(() => Promise.resolve('500'));
+    class ErrorBoundary extends React.Component {
+      componentDidCatch() {
+        log();
+      }
+      render() {
+        return this.props.children;
+      }
+    }
+    const component = (
+      <ErrorBoundary>
+        <DrupalPage mapper={{}} url={'/newUrl'} />
+      </ErrorBoundary>
+    );
+
+    siteMock.getUuid.mockReturnValue(undefined);
+    siteMock.getPage.mockImplementationOnce(async () => {
+      throw new Error('Error!');
+    });
 
     const rendererEntry = renderer.create(component);
 
     await new Promise(r => process.nextTick(r));
 
     expect(rendererEntry.toJSON()).toBe(null);
+    expect(log).toHaveBeenCalledTimes(1);
+    expect(siteMock.getPage).toHaveBeenCalledTimes(1);
 
-    expect(getPage).toHaveBeenCalledTimes(1);
+    siteMock.getUuid.mockReturnValue(uuid);
   });
 
   test('changing props', async () => {
@@ -104,10 +137,10 @@ describe('DrupalPage', async () => {
 
     // Intercept the next site.getPage call.
     let resolveGetPage;
-    const getPage = (site.getPage as any) as jest.Mock<any>;
-    getPage.mockImplementationOnce(
+    siteMock.getPage.mockImplementationOnce(
       () => new Promise(r => (resolveGetPage = r)),
     );
+    siteMock.getUuid.mockReturnValue(undefined);
 
     // Change the url.
     rendererEntry.update(<DrupalPage mapper={mapper} url={'/new-url'} />);
@@ -117,6 +150,9 @@ describe('DrupalPage', async () => {
     expect(rendererEntry.toJSON()).toEqual(null);
 
     // Make new data available.
+    siteMock.getUuid.mockImplementation(page =>
+      page === '/new-url' ? uuid2 : undefined,
+    );
     resolveGetPage(uuid2);
     await new Promise(r => process.nextTick(r));
 
@@ -126,7 +162,7 @@ describe('DrupalPage', async () => {
 
     // Intercept the next site.getPage call.
     let resolveGetPage2;
-    getPage.mockImplementationOnce(
+    siteMock.getPage.mockImplementationOnce(
       () => new Promise(r => (resolveGetPage2 = r)),
     );
 
@@ -161,7 +197,7 @@ describe('DrupalPage', async () => {
 
     // Intercept the next set.getPage call.
     let resolveGetPage3;
-    getPage.mockImplementationOnce(
+    siteMock.getPage.mockImplementationOnce(
       () => new Promise(r => (resolveGetPage3 = r)),
     );
 
@@ -175,11 +211,18 @@ describe('DrupalPage', async () => {
     expect(rendererEntry.toJSON()).toEqual(entity2Result);
 
     // We resolve the first page. This shouldn't do anything, because it's not the latest url.
-    resolveGetPage2(uuid);
+    siteMock.getUuid.mockImplementation(page =>
+      page === '/fresh-url' ? undefined : uuid2,
+    );
+    resolveGetPage2(uuid2);
+
     await new Promise(r => process.nextTick(r));
     expect(rendererEntry.toJSON()).toEqual(entity2Result);
 
     // Now we resolve the latest page. This should render entity 1.
+    siteMock.getUuid.mockImplementation(page =>
+      page === '/fresh-url' ? uuid : uuid2,
+    );
     resolveGetPage3(uuid);
     await new Promise(r => process.nextTick(r));
     expect(rendererEntry.toJSON()).toMatchSnapshot();
