@@ -899,9 +899,10 @@
   version "7.2.2"
   resolved "https://registry.yarnpkg.com/@types/fetch-mock/-/fetch-mock-7.2.2.tgz#cc933778095275ec7154650aaaf1e998f1c68984"
 
-"@types/jest@24.0.0":
-  version "24.0.0"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.0.tgz#848492026c327b3548d92be0352a545c36a21e8a"
+"@types/jest@24.0.1":
+  version "24.0.1"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.1.tgz#8945411140e7cdfd5ea76380e5f5fa7bf17646ea"
+  integrity sha512-4KNToPz5SAVa0GZrYAL3Q43p5MY/QBmYclYAmqPeqAmbgQ4lXkgKK0mYtr9S+N2Az0JvFaYJECztHZuFGhG3zw==
 
 "@types/node@9.6.18":
   version "9.6.18"
