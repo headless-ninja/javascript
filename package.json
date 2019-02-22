@@ -21,7 +21,7 @@
     "gulp": "3.9.1",
     "gulp-babel": "7.0.1",
     "gulp-rename": "1.4.0",
-    "gulp-sourcemaps": "2.6.4",
+    "gulp-sourcemaps": "2.6.5",
     "gulp-typescript": "5.0.0",
     "jest": "24.1.0",
     "lerna": "3.13.0",
