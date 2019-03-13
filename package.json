@@ -22,7 +22,7 @@
     "gulp-babel": "7.0.1",
     "gulp-rename": "1.4.0",
     "gulp-sourcemaps": "2.6.5",
-    "gulp-typescript": "5.0.0",
+    "gulp-typescript": "5.0.1",
     "jest": "24.5.0",
     "lerna": "3.13.1",
     "merge2": "1.2.3",
