@@ -16,7 +16,7 @@
     "babel-plugin-transform-runtime": "6.23.0",
     "babel-preset-env": "1.7.0",
     "coveralls": "3.0.3",
-    "del": "4.0.0",
+    "del": "4.1.0",
     "fetch-mock": "7.3.1",
     "gulp": "3.9.1",
     "gulp-babel": "7.0.1",
