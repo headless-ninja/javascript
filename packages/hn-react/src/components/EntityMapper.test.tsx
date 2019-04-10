@@ -13,6 +13,7 @@ import waitForHnData from '../utils/waitForHnData';
 import EntityMapper, {
   EntityMapper as InnerEntityMapper,
   clearEntityCache,
+  assureComponent,
 } from './EntityMapper';
 
 jest.mock('../utils/site', () => {
@@ -164,9 +165,9 @@ describe('EntityMapper', async () => {
   });
 
   test('assure component with mapper not supporting bundle', async () => {
-    expect(
-      InnerEntityMapper.assureComponent({ site, uuid, asyncMapper: {} }),
-    ).resolves.toBe(undefined);
+    expect(assureComponent({ site, uuid, asyncMapper: {} })).resolves.toBe(
+      undefined,
+    );
   });
 
   async function setupPropsChange() {

@@ -3,8 +3,9 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { SiteConsumer } from '../context/site';
 import EntityMapper, {
-  EntityMapper as InnerEntityMapper,
+  assureComponent,
   EntityMapperPropsMapper,
+  getComponentFromMapper,
 } from './EntityMapper';
 
 interface DrupalPageState {
@@ -19,11 +20,11 @@ class DrupalPage extends React.Component<
   lastAssuredProps: DrupalPageInnerProps | null = null;
 
   async bootstrap() {
-    const { uuid } = await DrupalPage.assureData(this.props);
+    const { uuid } = await assureData(this.props);
 
     if (!this.props.mapper && !this.props.asyncMapper) return;
 
-    return InnerEntityMapper.assureComponent({
+    return assureComponent({
       uuid,
       mapper: this.props.mapper as any,
       asyncMapper: this.props.asyncMapper as any,
@@ -43,7 +44,7 @@ class DrupalPage extends React.Component<
 
     if (!this.props.mapper && !this.props.asyncMapper) return true;
 
-    return !!InnerEntityMapper.getComponentFromMapper({
+    return getComponentFromMapper({
       uuid,
       mapper: this.props.mapper as any,
       asyncMapper: this.props.asyncMapper as any,
@@ -75,7 +76,7 @@ class DrupalPage extends React.Component<
     // is ready.
     (async () => {
       // First, make sure we load the url into the site cache.
-      const { uuid } = await DrupalPage.assureData(props);
+      const { uuid } = await assureData(props);
 
       // If in the meantime the props updated, stop.
       if (lastRequest !== this.lastRequest) return;
@@ -83,7 +84,7 @@ class DrupalPage extends React.Component<
       // Make sure the mapper is ready by loading the async component into the mapper
       // cache.
       if (props.mapper || props.asyncMapper) {
-        await InnerEntityMapper.assureComponent({
+        await assureComponent({
           uuid,
           mapper: props.mapper as any,
           asyncMapper: props.asyncMapper as any,
@@ -119,15 +120,6 @@ class DrupalPage extends React.Component<
 
   componentWillUnmount() {
     this.lastRequest = undefined;
-  }
-
-  /**
-   * This makes sure the data for this url is ready to be rendered.
-   */
-  static async assureData({ url, site }: { url: string; site: Site }) {
-    const uuid = await site.getPage(url);
-
-    return { uuid, pageUuid: uuid };
   }
 
   render() {
@@ -238,6 +230,10 @@ const DrupalPageWrapper = React.forwardRef<DrupalPage, DrupalPageProps>(
   ),
 );
 
-export const assureData = DrupalPage.assureData;
+export async function assureData({ url, site }: { url: string; site: Site }) {
+  const uuid = await site.getPage(url);
+
+  return { uuid, pageUuid: uuid };
+}
 
 export default DrupalPageWrapper;
