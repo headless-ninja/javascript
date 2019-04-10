@@ -21,113 +21,6 @@ export class EntityMapper extends React.Component<
   lastAssuredProps: EntityMapperInnerProps | null = null;
 
   /**
-   * This gets a component from some mapper data.
-   * This can also be a promise resolving to a component.
-   */
-  static getComponentOrPromiseFromMapper(
-    props: EntityMapperInnerProps,
-  ):
-    | { type: 'component'; value: undefined | React.ReactType }
-    | { type: 'promise'; value: undefined | (() => ImportReturn) } {
-    // This gets the entity from the site, based on the uuid.
-    const entity = props.site.getData(props.uuid);
-
-    // This should give back a bundle string, that is used in the mapper.
-    const bundle = EntityMapper.getBundle(entity);
-
-    // If it's not an async mapper, we can just use the 'mapper' prop.
-    if (!props.asyncMapper) {
-      return {
-        type: 'component',
-        value:
-          typeof props.mapper === 'function'
-            ? props.mapper(entity, bundle)
-            : props.mapper[bundle],
-      };
-    }
-
-    // We check which style of the mapper it is.
-    const entityComponentMapper =
-      props.asyncMapper === true ? props.mapper : props.asyncMapper;
-    const entityComponentResult =
-      typeof entityComponentMapper === 'function'
-        ? entityComponentMapper(entity, bundle)
-        : entityComponentMapper[bundle];
-
-    return {
-      type: 'promise',
-      value: entityComponentResult,
-    };
-  }
-
-  /**
-   * This makes sure the data for this url is ready to be rendered.
-   */
-  static async assureComponent(props: EntityMapperInnerProps) {
-    const component = this.getComponentOrPromiseFromMapper(props);
-
-    // If it's not a promise, return.
-    // Nothing to assure.
-    if (component.type === 'component') {
-      return;
-    }
-
-    // If no value was returned from the mapper, we can't assure the component.
-    if (!component.value) {
-      return;
-    }
-
-    // Check if we already cached this component.
-    if (entityCache.has(component.value)) {
-      return;
-    }
-
-    // If not, we get this entity now.
-    const entityComponentResult = await component.value();
-
-    // We save the entity in the cache.
-    if (
-      typeof entityComponentResult === 'object' &&
-      typeof entityComponentResult.default !== 'undefined'
-    ) {
-      entityCache.set(component.value, entityComponentResult.default);
-    } else {
-      entityCache.set(
-        component.value,
-        entityComponentResult as React.ReactType,
-      );
-    }
-  }
-
-  /**
-   * Returns the component if it is availible right now.
-   * Returns null if the component isn't available, and never will be.
-   * Returns undefined if the component isn't available, but maybe will be in the future.
-   */
-  static getComponentFromMapper(
-    props: EntityMapperInnerProps,
-  ): React.ReactType | null | undefined {
-    const entityComponent = EntityMapper.getComponentOrPromiseFromMapper(props);
-
-    if (
-      entityComponent.type === 'promise' &&
-      typeof entityComponent.value !== 'undefined'
-    ) {
-      return entityCache.get(entityComponent.value);
-    }
-    if (entityComponent.type === 'component') {
-      return entityComponent.value || null;
-    }
-    return null;
-  }
-
-  static getBundle = entity =>
-    getNested(
-      () => `${entity.__hn.entity.type}__${entity.__hn.entity.bundle}`,
-      '_fallback',
-    );
-
-  /**
    * If this component exists in a tree that is invoked with the waitForHnData function, this function is invoked.
    * Only after the promise is resolved, the component will be mounted. To keep the data fetched here, we assign the
    * state to the hnContext provided by the DrupalPageContextProvider. This way, the state will be preserved trough
@@ -135,7 +28,7 @@ export class EntityMapper extends React.Component<
    */
   async bootstrap() {
     // Make sure that if this is an async component, we have it saved in the entity cache.
-    return EntityMapper.assureComponent(this.props);
+    return assureComponent(this.props);
   }
 
   lastRequest: symbol | undefined;
@@ -157,7 +50,7 @@ export class EntityMapper extends React.Component<
     }
 
     (async () => {
-      await EntityMapper.assureComponent(this.props);
+      await assureComponent(this.props);
 
       if (lastRequest !== this.lastRequest) {
         return;
@@ -181,7 +74,7 @@ export class EntityMapper extends React.Component<
   }
 
   isReady(props = this.props) {
-    return typeof EntityMapper.getComponentFromMapper(props) !== 'undefined';
+    return typeof getComponentFromMapper(props) !== 'undefined';
   }
 
   render() {
@@ -201,7 +94,7 @@ export class EntityMapper extends React.Component<
       return null;
     }
 
-    const EntityComponent = EntityMapper.getComponentFromMapper(props);
+    const EntityComponent = getComponentFromMapper(props);
 
     if (EntityComponent === null) {
       return null;
@@ -218,7 +111,7 @@ export class EntityMapper extends React.Component<
 
     return (
       <EntityComponent
-        bundle={EntityMapper.getBundle(data)}
+        bundle={getBundle(data)}
         paragraph={data}
         entity={data}
         {...props.entityProps}
@@ -309,6 +202,109 @@ const EntityMapperWrapper = React.forwardRef<EntityMapper, EntityMapperProps>(
   ),
 );
 
-export const assureComponent = EntityMapper.assureComponent;
-
 export default EntityMapperWrapper;
+
+/**
+ * This gets a component from some mapper data.
+ * This can also be a promise resolving to a component.
+ */
+function getComponentOrPromiseFromMapper(
+  props: EntityMapperInnerProps,
+):
+  | { type: 'component'; value: undefined | React.ReactType }
+  | { type: 'promise'; value: undefined | (() => ImportReturn) } {
+  // This gets the entity from the site, based on the uuid.
+  const entity = props.site.getData(props.uuid);
+
+  // This should give back a bundle string, that is used in the mapper.
+  const bundle = getBundle(entity);
+
+  // If it's not an async mapper, we can just use the 'mapper' prop.
+  if (!props.asyncMapper) {
+    return {
+      type: 'component',
+      value:
+        typeof props.mapper === 'function'
+          ? props.mapper(entity, bundle)
+          : props.mapper[bundle],
+    };
+  }
+
+  // We check which style of the mapper it is.
+  const entityComponentMapper =
+    props.asyncMapper === true ? props.mapper : props.asyncMapper;
+  const entityComponentResult =
+    typeof entityComponentMapper === 'function'
+      ? entityComponentMapper(entity, bundle)
+      : entityComponentMapper[bundle];
+
+  return {
+    type: 'promise',
+    value: entityComponentResult,
+  };
+}
+
+/**
+ * This makes sure the data for this url is ready to be rendered.
+ */
+export async function assureComponent(props: EntityMapperInnerProps) {
+  const component = getComponentOrPromiseFromMapper(props);
+
+  // If it's not a promise, return.
+  // Nothing to assure.
+  if (component.type === 'component') {
+    return;
+  }
+
+  // If no value was returned from the mapper, we can't assure the component.
+  if (!component.value) {
+    return;
+  }
+
+  // Check if we already cached this component.
+  if (entityCache.has(component.value)) {
+    return;
+  }
+
+  // If not, we get this entity now.
+  const entityComponentResult = await component.value();
+
+  // We save the entity in the cache.
+  if (
+    typeof entityComponentResult === 'object' &&
+    typeof entityComponentResult.default !== 'undefined'
+  ) {
+    entityCache.set(component.value, entityComponentResult.default);
+  } else {
+    entityCache.set(component.value, entityComponentResult as React.ReactType);
+  }
+}
+
+/**
+ * Returns the component if it is availible right now.
+ * Returns null if the component isn't available, and never will be.
+ * Returns undefined if the component isn't available, but maybe will be in the future.
+ */
+export function getComponentFromMapper(
+  props: EntityMapperInnerProps,
+): React.ReactType | null | undefined {
+  const entityComponent = getComponentOrPromiseFromMapper(props);
+
+  if (
+    entityComponent.type === 'promise' &&
+    typeof entityComponent.value !== 'undefined'
+  ) {
+    return entityCache.get(entityComponent.value);
+  }
+  if (entityComponent.type === 'component') {
+    return entityComponent.value || null;
+  }
+  return null;
+}
+
+function getBundle(entity) {
+  return getNested(
+    () => `${entity.__hn.entity.type}__${entity.__hn.entity.bundle}`,
+    '_fallback',
+  );
+}
