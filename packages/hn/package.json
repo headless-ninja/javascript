@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "deepmerge": "^2.0.0",
+    "deepmerge": "^3.0.0",
     "fetch-ponyfill": "^6.0.0",
     "get-nested": "^4.0.0",
     "isomorphic-fetch": "^2.2.1",
