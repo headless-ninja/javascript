@@ -89,3 +89,21 @@ describe('withSite', async () => {
     expect(renderedSite).toBe(site);
   });
 });
+
+// Disabled until React can be updated (to expose React.useContext()).
+// describe('useHnSite', async () => {
+//   test('use hook', async () => {
+//     let renderedSite;
+
+//     // Another prop, testNumber, is added to make sure typechecking works
+//     // correctly.
+//     const Consumer = () => {
+//       renderedSite = useHnSite();
+//       return null;
+//     };
+
+//     renderer.create(<Consumer />);
+
+//     expect(renderedSite).toBe(site);
+//   });
+// });

@@ -3,7 +3,7 @@ import * as React from 'react';
 import globalSite from '../utils/site';
 
 // Create a new context.
-export const HnContext = React.createContext(globalSite);
+const HnContext = React.createContext(globalSite);
 
 // The site provider is the same as the 'Provider', but changes 'site' to
 // 'value'.
@@ -40,4 +40,9 @@ export function withSite<P extends InjectedSiteProps>(
       </HnContext.Consumer>
     );
   };
+}
+
+export function useHnSite(): Site {
+  // @ts-ignore
+  return React.useContext(HnContext);
 }
