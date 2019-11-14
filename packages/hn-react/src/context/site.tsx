@@ -40,7 +40,7 @@ export function withSite<P extends InjectedSiteProps>(
   };
 }
 
-export function useHnSite(): Site {
+export function useSite(): Site {
   // @ts-ignore
   return React.useContext(HnContext);
 }

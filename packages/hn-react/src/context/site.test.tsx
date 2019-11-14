@@ -91,14 +91,14 @@ describe('withSite', async () => {
 });
 
 // Disabled until React can be updated (to expose React.useContext()).
-// describe('useHnSite', async () => {
+// describe('useSite', async () => {
 //   test('use hook', async () => {
 //     let renderedSite;
 
 //     // Another prop, testNumber, is added to make sure typechecking works
 //     // correctly.
 //     const Consumer = () => {
-//       renderedSite = useHnSite();
+//       renderedSite = useSite();
 //       return null;
 //     };
 
