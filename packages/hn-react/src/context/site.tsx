@@ -4,6 +4,7 @@ import globalSite from '../utils/site';
 
 // Create a new context.
 const HnContext = React.createContext(globalSite);
+const { Consumer, Provider } = HnContext;
 
 // The site provider is the same as the 'Provider', but changes 'site' to
 // 'value'.
@@ -13,11 +14,10 @@ export const SiteProvider = ({
 }: {
   site: Site;
   children: React.ReactNode;
-}) => <HnContext.Provider value={site} children={children} />;
+}) => <Provider value={site} children={children} />;
 
 // The consumer is exported as both Site and SiteConsumer. The SiteConsumer can
 // be used if also the Site from 'hn' is imported, so the names don't overlap.
-const { Consumer } = HnContext;
 export { Consumer as Site, Consumer as SiteConsumer };
 
 // There is also a HOC withSite that adds the site to the props of the
@@ -35,9 +35,7 @@ export function withSite<P extends InjectedSiteProps>(
     props: Pick<P, Exclude<keyof P, keyof InjectedSiteProps>>,
   ) {
     return (
-      <HnContext.Consumer>
-        {site => <WrappedComponent {...props} site={site} />}
-      </HnContext.Consumer>
+      <Consumer>{site => <WrappedComponent {...props} site={site} />}</Consumer>
     );
   };
 }
