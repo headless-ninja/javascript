@@ -8,6 +8,7 @@ import {
   Site,
   SiteConsumer,
   SiteProvider,
+  useSite,
   withSite,
 } from './context/site';
 import site from './utils/site';
@@ -28,4 +29,5 @@ export {
   withSite,
   assureData,
   assureComponent,
+  useSite,
 };

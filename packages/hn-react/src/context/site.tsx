@@ -3,7 +3,8 @@ import * as React from 'react';
 import globalSite from '../utils/site';
 
 // Create a new context.
-const { Provider, Consumer } = React.createContext(globalSite);
+const HnContext = React.createContext(globalSite);
+const { Consumer, Provider } = HnContext;
 
 // The site provider is the same as the 'Provider', but changes 'site' to
 // 'value'.
@@ -37,4 +38,9 @@ export function withSite<P extends InjectedSiteProps>(
       <Consumer>{site => <WrappedComponent {...props} site={site} />}</Consumer>
     );
   };
+}
+
+export function useSite(): Site {
+  // @ts-ignore
+  return React.useContext(HnContext);
 }
