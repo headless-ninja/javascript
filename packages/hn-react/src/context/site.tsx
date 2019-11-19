@@ -2,7 +2,6 @@ import { Site } from 'hn';
 import * as React from 'react';
 import globalSite from '../utils/site';
 
-// Create a new context.
 const HnContext = React.createContext(globalSite);
 const { Consumer, Provider } = HnContext;
 
