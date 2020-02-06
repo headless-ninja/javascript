@@ -6427,6 +6427,11 @@ lodash@^4.17.10:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
+lodash@^4.17.15:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+
 lodash@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-1.0.2.tgz#8f57560c83b59fc270bd3d561b690043430e2551"
@@ -8788,9 +8793,10 @@ schedule@^0.5.0:
   dependencies:
     object-assign "^4.1.1"
 
-semantic-release-monorepo@6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/semantic-release-monorepo/-/semantic-release-monorepo-6.1.1.tgz#c9d802cbd065963a7d01d258936dfaf2989a2a7f"
+semantic-release-monorepo@7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/semantic-release-monorepo/-/semantic-release-monorepo-7.0.0.tgz#d1252aa8d4cf88bde09c69a0db765f7a2ec1b247"
+  integrity sha512-fTSPemRnMgeBW6ClAHOiFucxsKYsCkoRCTgFeNAJiOTvq88wySqf/tS73gZW3KiS8dChUXkVVi1rUKOtZcKpTw==
   dependencies:
     debug "^3.1.0"
     execa "^0.8.0"
@@ -8798,14 +8804,15 @@ semantic-release-monorepo@6.1.1:
     pkg-up "^2.0.0"
     ramda "^0.25.0"
     read-pkg "^3.0.0"
-    semantic-release-plugin-decorators "^1.2.1"
+    semantic-release-plugin-decorators "^2.1.0"
 
-semantic-release-plugin-decorators@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/semantic-release-plugin-decorators/-/semantic-release-plugin-decorators-1.2.1.tgz#7301ee6a0dc86923899e01680d00daaea1bd531c"
+semantic-release-plugin-decorators@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/semantic-release-plugin-decorators/-/semantic-release-plugin-decorators-2.1.0.tgz#549f4df27aed20683326c89bbb3cf16fd0a997d0"
+  integrity sha512-QnZ6qUUiVIiMSPh3a2c82Q+qJnSUkDghNOmABV8nfRYdYtJppO5yxXUAcfLVh0Ie/mKPo1YkY4Nl5CSWWTSBwA==
   dependencies:
     import-from "^2.1.0"
-    lodash "^4.17.4"
+    lodash "^4.17.15"
 
 semantic-release@15.9.17:
   version "15.9.17"
