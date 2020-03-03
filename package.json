@@ -17,7 +17,7 @@
     "babel-preset-env": "1.7.0",
     "coveralls": "3.0.9",
     "del": "5.1.0",
-    "fetch-mock": "9.0.0",
+    "fetch-mock": "9.1.0",
     "gulp": "3.9.1",
     "gulp-babel": "7.0.1",
     "gulp-rename": "2.0.0",
