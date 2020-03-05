@@ -8795,10 +8795,10 @@ schedule@^0.5.0:
   dependencies:
     object-assign "^4.1.1"
 
-semantic-release-monorepo@7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/semantic-release-monorepo/-/semantic-release-monorepo-7.0.0.tgz#d1252aa8d4cf88bde09c69a0db765f7a2ec1b247"
-  integrity sha512-fTSPemRnMgeBW6ClAHOiFucxsKYsCkoRCTgFeNAJiOTvq88wySqf/tS73gZW3KiS8dChUXkVVi1rUKOtZcKpTw==
+semantic-release-monorepo@7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/semantic-release-monorepo/-/semantic-release-monorepo-7.0.1.tgz#4294b46a67c57eddc8d344cf6eafc73679b10017"
+  integrity sha512-jvNzSKNfBdYJfqb7JljOqG6UIVQ7adeRNBtkQRCsfRMApe8HkB92DmMVbKwJA5pS1Htcb9547YzN9XSI4uQ1QQ==
   dependencies:
     debug "^3.1.0"
     execa "^0.8.0"
