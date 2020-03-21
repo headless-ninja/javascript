@@ -3985,10 +3985,10 @@ fetch-ie8@^1.4.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/fetch-ie8/-/fetch-ie8-1.5.0.tgz#f1141c3f96cbc8937aa31b0fbc1a770220fbc15b"
 
-fetch-mock@9.2.2:
-  version "9.2.2"
-  resolved "https://registry.yarnpkg.com/fetch-mock/-/fetch-mock-9.2.2.tgz#a653b65d0d66a79c1ccfb26d0d4d9b31fdee1aee"
-  integrity sha512-hithM+SJMOAufRRaBrEQOawBv4rGsQJcu3fCNJvljFzdeGwmc+gDULdbJR11J4YN37UIVXRTtwP5QWMzDEKRgQ==
+fetch-mock@9.3.0:
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/fetch-mock/-/fetch-mock-9.3.0.tgz#b57bcfa05848fc03cea59615df29b0eb76621e2d"
+  integrity sha512-VsFFH+WHrqY/BTF3dQVJlX+Dd0VOdprIEFsgcGJl/+Vx8cAF+9xVUSAABjVZG+lwV5Euj/D3Nm6bMyyGvcLBzA==
   dependencies:
     babel-runtime "^6.26.0"
     core-js "^3.0.0"
